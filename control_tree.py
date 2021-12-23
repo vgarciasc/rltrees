@@ -20,7 +20,7 @@ class CTNode:
         self.right = node
 
     def print_tree(self, level=1):
-        print(" " * 2 * level, "if", f"x[{self.attribute}]", "<", str(self.value) + ":")
+        print(" " * 2 * level, "if", f"x[{self.attribute}]", "<=", str(self.value) + ":")
         if self.left:
             self.left.print_tree(level + 1)
         print(" " * 2 * level, "else:")

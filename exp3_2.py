@@ -29,16 +29,16 @@ ctree = CTNode((2, 0),
 			CTLeaf(1))
 
 # Simple QTree 1
-qtree = CTNode((2, 0),
-			PHCTLeaf(),
-			PHCTLeaf())
+# qtree = CTNode((2, 0),
+# 			PHCTLeaf(),
+# 			PHCTLeaf())
 
 # Simple QTree 2
-# qtree = CTNode((2, -0.15),
-# 			PHCTLeaf(),
-# 			CTNode((2, 0.0),
-# 				PHCTLeaf(),
-# 				PHCTLeaf()))
+qtree = CTNode((2, 0),
+			CTNode((2, -0.15),
+				PHCTLeaf(),
+				PHCTLeaf()),
+			PHCTLeaf())
 
 total_rewards = []
 
@@ -86,31 +86,3 @@ for i_episode in range(5000):
 		
 env.close()
 print("Average reward per episode:", np.mean(total_rewards))
-
-# # Print Simple Tree
-fig, axs = plt.subplots(2, 2)
-axs[0, 0].plot(range(len(qtree.left.history)), [a_left for (a_left, a_right) in qtree.left.history], color="green")
-axs[0, 0].set_title("$Q(s_{PA \leq 0}; LEFT)$")
-axs[1, 0].plot(range(len(qtree.left.history)), [a_right for (a_left, a_right) in qtree.left.history], color="green")
-axs[1, 0].set_title("$Q(s_{PA \leq 0}; RIGHT)$")
-axs[0, 1].plot(range(len(qtree.right.history)), [a_left for (a_left, a_right) in qtree.right.history], color="red")
-axs[0, 1].set_title("$Q(s_{PA > 0}; LEFT)$")
-axs[1, 1].plot(range(len(qtree.right.history)), [a_right for (a_left, a_right) in qtree.right.history], color="red")
-axs[1, 1].set_title("$Q(s_{PA > 0}; RIGHT)$")
-plt.show()
-
-# # Print Simple Tree 2
-# fig, axs = plt.subplots(2, 3)
-# axs[0, 0].scatter(range(len(qtree.left.history)), [a_left for (a_left, a_right) in qtree.left.history], s=2, color="blue")
-# axs[0, 0].set_title("$Q(s_{PA \leq -0.15}; LEFT)$")
-# axs[1, 0].scatter(range(len(qtree.left.history)), [a_right for (a_left, a_right) in qtree.left.history], s=2, color="blue")
-# axs[1, 0].set_title("$Q(s_{PA \leq -0.15}; RIGHT)$")
-# axs[0, 1].scatter(range(len(qtree.right.left.history)), [a_left for (a_left, a_right) in qtree.right.left.history], s=2, color="green")
-# axs[0, 1].set_title("$Q(s_{PA \in [-0.15, 0]}; LEFT)$")
-# axs[1, 1].scatter(range(len(qtree.right.left.history)), [a_right for (a_left, a_right) in qtree.right.left.history], s=2, color="green")
-# axs[1, 1].set_title("$Q(s_{PA \in [-0.15, 0]}; RIGHT)$")
-# axs[0, 2].scatter(range(len(qtree.right.right.history)), [a_left for (a_left, a_right) in qtree.right.right.history], s=2, color="red")
-# axs[0, 2].set_title("$Q(s_{PA > 0}; LEFT)$")
-# axs[1, 2].scatter(range(len(qtree.right.right.history)), [a_right for (a_left, a_right) in qtree.right.right.history], s=2, color="red")
-# axs[1, 2].set_title("$Q(s_{PA > 0}; RIGHT)$")
-# plt.show()
