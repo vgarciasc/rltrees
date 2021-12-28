@@ -3,6 +3,7 @@ import pdb
 import numpy as np
 import mdp
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 from qtree import QNode, QLeaf, grow_tree
 
 LEARNING_RATE = 0.05
@@ -60,16 +61,21 @@ def run_algorithm1(qtree, MDP, n_episodes=1000, learning_enabled=True, growing_e
 	return qtree, episode_rewards
 
 def should_split_leaf(leaf, action, episode):
-	H = leaf.q_history[action]
+	H = leaf.dq_history[action]
 
 	if len(H) > 5000 and len(H) % 100 == 0 and leaf.q_values[action] != 0:
-		sigma = np.std(H)
-		normalized_sigma = (sigma / leaf.q_values[action])
+		# sigma = np.std(H)
+		# normalized_sigma = (sigma / leaf.q_values[action])
+		# if normalized_sigma > 0.002:
+		# 	print(f"In episode {episode} (len(H): {len(H)}), stdev for {('left' if leaf.is_left else 'right') if leaf.parent is not None else 'root'} leaf{(', child of ' + str((leaf.parent.attribute, leaf.parent.value))) if leaf.parent is not None else ''} (action {'left' if action == 0 else 'right'}) is {normalized_sigma}.")
+		# 	return True
 
-		if normalized_sigma > 0.002:
-		# if sigma > 0.2 * (has_grown * 1):
-			print(f"In episode {episode} (len(H): {len(H)}), stdev for {('left' if leaf.is_left else 'right') if leaf.parent is not None else 'root'} leaf{(', child of ' + str((leaf.parent.attribute, leaf.parent.value))) if leaf.parent is not None else ''} (action {'left' if action == 0 else 'right'}) is {normalized_sigma}.")
+		
+		value = 2 * np.std(H[-1000:], ddof=1)
+		if value > 0.05:
+			print(f"In episode {episode} (len(H): {len(H)}), stdev for {('left' if leaf.is_left else 'right') if leaf.parent is not None else 'root'} leaf{(', child of ' + str((leaf.parent.attribute, leaf.parent.value))) if leaf.parent is not None else ''} (action {'left' if action == 0 else 'right'}) is {value}.")
 			return True
+		
 	return False
 
 def determine_split_mean(leaf, verbose=False):
@@ -82,7 +88,7 @@ def determine_split_mean(leaf, verbose=False):
 		for cutoff in range(start_value, end_value):
 			best_left_mean = 0
 			for action in range(N_ACTIONS):
-				L_partition = [dq for (s, dq) in leaf.history[action] if s[attribute_idx] <= cutoff]
+				L_partition = [dq for (s, dq) in leaf.full_dq_history[action] if s[attribute_idx] <= cutoff]
 				if len(L_partition) > 0:
 					# left_mean = np.max([0, np.mean(L_partition)])
 					left_mean = np.abs(np.mean(L_partition))
@@ -93,7 +99,7 @@ def determine_split_mean(leaf, verbose=False):
 				
 			best_right_mean = 0
 			for action in range(N_ACTIONS):
-				R_partition = [dq for (s, dq) in leaf.history[action] if s[attribute_idx] > cutoff]
+				R_partition = [dq for (s, dq) in leaf.full_dq_history[action] if s[attribute_idx] > cutoff]
 				if len(R_partition) > 0:
 					# right_mean = np.max([0, np.mean(R_partition)])
 					right_mean = np.abs(np.mean(R_partition))
