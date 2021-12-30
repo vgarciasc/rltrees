@@ -1,6 +1,7 @@
 import gym
 import copy
 import pdb
+import pickle
 import numpy as np
 from numpy.lib.function_base import average
 import mdp
@@ -237,7 +238,7 @@ def get_average_reward(qtree, n_episodes):
 	return np.mean(episode_rewards)
 
 # Setting up environment
-MDP = mdp.mdp2_step
+MDP = mdp.mdp1_step
 
 # Initializing tree
 qtree = QLeaf(parent=None, actions=["left", "right"])
@@ -246,7 +247,7 @@ best_reward = 0
 for i in range(5):
 	print(f"\n==> Iteration {i}:")
 	# Data collecting phase
-	qtree = collect_data(qtree, 10000)
+	qtree = collect_data(qtree, 5000)
 
 	# Split phase
 	qtree = update_datapoints(qtree)
@@ -269,7 +270,11 @@ for i in range(5):
 		best_reward = average_reward
 		best_tree = copy.deepcopy(qtree)
 
-	qtree.reset_all()
+	qtree.reset_history()
 
 print(f"Final tree, with average reward {average_reward}:")
 best_tree.print_tree()
+
+with open('data/mdp1_tree0', 'wb') as file:
+	pickle.dump(qtree, file)
+	print("> Saved best tree to file 'data/mdp1_tree0'!")

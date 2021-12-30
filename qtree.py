@@ -1,13 +1,15 @@
 import scipy.stats as stats
 import numpy as np
+import pdb
 from scipy.stats.mstats_basic import kurtosis, skew
 
 class QNode():
-	def __init__(self, split, left = None, right = None):
+	def __init__(self, split, parent=None, left=None, right=None):
 		attribute, value = split
 		self.attribute = attribute
 		self.value = value
 
+		self.parent = parent
 		self.left = left
 		self.right = right
 	
@@ -42,18 +44,21 @@ class QNode():
 	def reset_all(self):
 		self.left.reset_all() if self.left is not None else None
 		self.right.reset_all() if self.right is not None else None
+	
+	def __str__(self):
+		return f"x[{self.attribute}] <= {str(self.value)}"
 
 class QLeaf():
-	def __init__(self,  parent=None, is_left=False, actions=[], q_values=[], value=0):
+	def __init__(self,  parent=None, is_left=False, actions=[], q_values=None, value=None):
 		self.actions = actions
 		self.n_actions = len(actions)
 		self.parent = parent
 		self.is_left = is_left
 
-		self.q_values = q_values
-		self.value = value
-
 		self.reset_all()
+
+		self.q_values = np.zeros(self.n_actions) if q_values is None else q_values
+		self.value = 0 if value is None else value
 
 	def print_tree(self, level=1):
 		# print(" " * 2 * level, f"Q(s, left)  = {self.q_values[0]}")
@@ -68,9 +73,12 @@ class QLeaf():
 			print(" " * 2 * level, f"Q(s, {self.actions[action_id]})  = {'{:.4f}'.format(self.q_values[action_id])}, mean ΔQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.mean([q for q in self.dq_history[action_id]]))}, var ΔQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.var([q for q in self.dq_history[action_id]]))}, {test}, {' [*]' if best_action_id == action_id else ''}")
 	
 	def predict(self, state):
+		if np.sum(self.q_values) == 0:
+			return self, np.random.randint(0, self.n_actions)
 		return self, np.argmax(self.q_values)
 	
 	def reset_history(self):
+		self.state_history = []
 		self.dq_history = [[] for _ in range(self.n_actions)]
 		self.full_dq_history = [[] for _ in range(self.n_actions)]
 		self.q_history = [[] for _ in range(self.n_actions)]
@@ -86,18 +94,20 @@ class QLeaf():
 	
 	def record(self, state, action, delta_q):
 		self.q_values[action] += delta_q
+
+		self.state_history.append(state)
 		self.dq_history[action].append(delta_q)
 		self.full_dq_history[action].append((state, delta_q))
 		self.q_history[action].append(self.q_values[action])
 		self.full_q_history[action].append((state, self.q_values[action]))
 
-def grow_tree(tree, leaf, splitting_criterion, split = None):
+def grow_tree(tree, leaf, splitting_criterion, split=None):
 	if split is None:
 		split = splitting_criterion(leaf)
 
-	new_node = QNode(split, None, None)
-	new_node.left = QLeaf(parent=new_node, is_left=True, actions=leaf.actions, q_values=leaf.q_values)
-	new_node.right = QLeaf(parent=new_node, is_left=False, actions=leaf.actions, q_values=leaf.q_values)
+	new_node = QNode(split, leaf.parent, None, None)
+	new_node.left = QLeaf(parent=new_node, is_left=True, actions=leaf.actions)
+	new_node.right = QLeaf(parent=new_node, is_left=False, actions=leaf.actions)
 
 	if leaf.parent is None:
 		return new_node
