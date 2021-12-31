@@ -243,7 +243,11 @@ qtree = QLeaf(parent=None, actions=["left", "right"])
 best_reward = 0
 performance_history = []
 
-for i in range(40):
+# with open('data/cartpole_tree_pruned', 'rb') as file:
+# 	qtree = pickle.load(file)
+# 	file.close()
+
+for i in range(1000):
 	print(f"\n==> Iteration {i}:")
 	# Data collecting phase
 	qtree = collect_data(qtree, 1000)
@@ -275,9 +279,9 @@ for i in range(40):
 print(f"Best tree, with average reward {best_reward}:")
 best_tree.print_tree()
 
-with open('data/saved_tree0', 'wb') as file:
+with open('data/saved_tree1', 'wb') as file:
   pickle.dump(best_tree, file)
-  print("> Saved best tree to file 'data/saved_tree0'!")
+  print("> Saved best tree to file 'data/saved_tree1'!")
 
 plt.plot(range(len(performance_history)), performance_history, color='blue')
 plt.title("Performance history")

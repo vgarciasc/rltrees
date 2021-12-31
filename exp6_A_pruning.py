@@ -19,20 +19,7 @@ ATTRIBUTES = [("Cart Position", "continuous", -1, -1),
 			  ("Pole Angle", "continuous", -1, -1),
 			  ("Pole Angular Velocity", "continuous", -1, -1)]
 
-def find_node_by_split(qtree, node, split):
-	if node.attribute == split[0] and node.value == split[1]:
-		return node
-
-	if node.left.__class__.__name__ == "QNode":
-		left_answer = find_node_by_split(qtree, node.left, split)
-		if left_answer is not None:
-			return left_answer
-	if node.right.__class__.__name__ == "QNode":
-		right_answer = find_node_by_split(qtree, node.right, split)
-		if right_answer is not None:
-			return right_answer
-
-	return None
+history = []
 
 def collect_data(qtree, n_episodes):
 	for T in range(1, n_episodes):
@@ -129,6 +116,8 @@ def merge_leaves_reward(qtree, node, n_trials=100):
 			print(f"Undid merge, got average reward {new_average_reward}.")
 			if node.parent is not None:
 				print(f"Now '{ATTRIBUTES[node.attribute][0]} <= {node.value}' has parent '{ATTRIBUTES[node.parent.attribute][0]} <= {node.parent.value}'")
+		else:
+			history.append((qtree.get_size(), new_average_reward))
 
 	if (node.left.__class__.__name__ == "QNode" and node.right.__class__.__name__ == "QLeaf") or \
 		(node.left.__class__.__name__ == "QLeaf" and node.right.__class__.__name__ == "QNode"):
@@ -157,13 +146,13 @@ def merge_leaves_reward(qtree, node, n_trials=100):
 		# 	print(f"Now '{ATTRIBUTES[node.attribute][0]} <= {node.value}' has parent '{ATTRIBUTES[node.parent.attribute][0]} <= {node.parent.value}'")
 		# 	print(f"Now '{ATTRIBUTES[(child_node).attribute][0]} <= {(child_node).value}' has parent '{ATTRIBUTES[(child_node).parent.attribute][0]} <= {(child_node).parent.value}'")
 
-		pdb.set_trace()
+		# pdb.set_trace()
 
 		new_average_reward = get_average_reward(qtree, n_trials)
 		print(f"Got average reward {new_average_reward} after merge.")
 
-		(node.left if node.left.__class__.__name__ == "QNode" else node.right).parent = node
 		if new_average_reward < 0.9 * average_reward:
+			(node.left if node.left.__class__.__name__ == "QNode" else node.right).parent = node
 			print("Average reward was reduced too much. Undoing merge...")
 
 			if node.parent is not None:
@@ -179,6 +168,8 @@ def merge_leaves_reward(qtree, node, n_trials=100):
 			if node.parent is not None:
 				print(f"Now '{ATTRIBUTES[node.attribute][0]} <= {node.value}' has parent '{ATTRIBUTES[node.parent.attribute][0]} <= {node.parent.value}'")
 				print(f"Now '{ATTRIBUTES[child_node.attribute][0]} <= {child_node.value}' has parent '{ATTRIBUTES[child_node.parent.attribute][0]} <= {child_node.parent.value}'")
+		else:
+			history.append((qtree.get_size(), new_average_reward))
 
 	return qtree
 
@@ -203,7 +194,7 @@ def get_average_reward(qtree, n_episodes):
 	return np.mean(episode_rewards)
 
 qtree = None
-with open('data/saved_tree0', 'rb') as file:
+with open('data/saved_tree1', 'rb') as file:
 # with open('data/cartpole_tree_pruned', 'rb') as file:
 	qtree = pickle.load(file)
 	file.close()
@@ -214,9 +205,8 @@ qtree.print_tree()
 average_reward = get_average_reward(qtree, 1000)
 print(f"Average reward per episode = {average_reward}")
 
-# qtree = merge_leaves_same_action(qtree, qtree)
-qtree = merge_leaves_reward(qtree, qtree, 5000)
-# qtree = collect_data(qtree, 10000)
+for _ in range(3):
+	qtree = merge_leaves_reward(qtree, qtree, 5000)
 
 average_reward = get_average_reward(qtree, 1000)
 print(f"Average reward per episode = {average_reward}")
@@ -227,3 +217,10 @@ qtree.print_tree()
 with open('data/cartpole_tree_pruned', 'wb') as file:
 	pickle.dump(qtree, file)
 	print("> Saved best tree to file 'data/cartpole_tree_pruned'!")
+
+plt.gca().invert_xaxis()
+plt.plot([a for (a, b) in history], [b for (a, b) in history], color="blue")
+plt.xlabel("Tree size")
+plt.ylabel("Reward")
+plt.title("Average reward during pruning")
+plt.show()

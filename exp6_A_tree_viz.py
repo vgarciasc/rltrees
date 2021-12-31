@@ -9,7 +9,7 @@ import scipy.stats as stats
 from qtree import QNode, QLeaf, grow_tree
 
 qtree = None
-with open('data/saved_tree0', 'rb') as file:
+with open('data/saved_tree1', 'rb') as file:
 	qtree = pickle.load(file)
 	file.close()
 

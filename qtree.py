@@ -47,6 +47,9 @@ class QNode():
 	
 	def __str__(self):
 		return f"x[{self.attribute}] <= {str(self.value)}"
+	
+	def get_size(self):
+		return 1 + self.left.get_size() + self.right.get_size()
 
 class QLeaf():
 	def __init__(self,  parent=None, is_left=False, actions=[], q_values=None, value=None):
@@ -100,6 +103,9 @@ class QLeaf():
 		self.full_dq_history[action].append((state, delta_q))
 		self.q_history[action].append(self.q_values[action])
 		self.full_q_history[action].append((state, self.q_values[action]))
+	
+	def get_size(self):
+		return 1
 
 def grow_tree(tree, leaf, splitting_criterion, split=None):
 	if split is None:
