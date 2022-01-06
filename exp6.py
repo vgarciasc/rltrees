@@ -247,7 +247,7 @@ best_reward = 0
 for i in range(5):
 	print(f"\n==> Iteration {i}:")
 	# Data collecting phase
-	qtree = collect_data(qtree, 5000)
+	qtree = collect_data(qtree, 10000)
 
 	# Split phase
 	qtree = update_datapoints(qtree)
@@ -259,7 +259,7 @@ for i in range(5):
 	# Upkeep phase 
 	# qtree.reset_history()
 	# qtree = run_monte_carlo_control(qtree, 50000)
-	qtree = run_qlearning(qtree, 5000)
+	qtree = run_qlearning(qtree, 10000)
 
 	qtree = update_value(qtree)
 

@@ -9,9 +9,11 @@ import scipy.stats as stats
 from qtree import QNode, QLeaf, grow_tree
 
 qtree = None
-with open('data/saved_tree1', 'rb') as file:
+with open('data/tree 2022-01-05 11-12_pruning', 'rb') as file:
 	qtree = pickle.load(file)
 	file.close()
+
+qtree.print_tree()
 
 total_rewards = []
 env = gym.make("CartPole-v1")

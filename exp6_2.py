@@ -167,7 +167,7 @@ def get_average_reward(qtree, n_episodes):
 	return np.mean(episode_rewards)
 
 # Setting up environment
-MDP = mdp.mdp4_step
+MDP = mdp.mdp3_step
 
 # Initializing tree
 qtree = QLeaf(parent=None, actions=["left", "right"])

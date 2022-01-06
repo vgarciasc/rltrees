@@ -194,7 +194,7 @@ def get_average_reward(qtree, n_episodes):
 	return np.mean(episode_rewards)
 
 qtree = None
-with open('data/saved_tree1', 'rb') as file:
+with open('data/saved_tree2', 'rb') as file:
 # with open('data/cartpole_tree_pruned', 'rb') as file:
 	qtree = pickle.load(file)
 	file.close()
@@ -214,9 +214,9 @@ print(f"Average reward per episode = {average_reward}")
 print("Final tree:")
 qtree.print_tree()
 
-with open('data/cartpole_tree_pruned', 'wb') as file:
+with open('data/saved_tree3', 'wb') as file:
 	pickle.dump(qtree, file)
-	print("> Saved best tree to file 'data/cartpole_tree_pruned'!")
+	print("> Saved best tree to file 'data/saved_tree2'!")
 
 plt.gca().invert_xaxis()
 plt.plot([a for (a, b) in history], [b for (a, b) in history], color="blue")

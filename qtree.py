@@ -2,6 +2,8 @@ import scipy.stats as stats
 import numpy as np
 import pdb
 from scipy.stats.mstats_basic import kurtosis, skew
+from datetime import datetime
+import pickle
 
 class QNode():
 	def __init__(self, split, parent=None, left=None, right=None):
@@ -124,3 +126,9 @@ def grow_tree(tree, leaf, splitting_criterion, split=None):
 		leaf.parent.right = new_node
 	
 	return tree
+
+def save_tree(tree, suffix="", reward=-1):
+	filename = datetime.now().strftime("tree %Y-%m-%d %H-%M")
+	with open('data/' + filename + suffix, 'wb') as file:
+		pickle.dump(tree, file)
+		print(f"> Saved tree of size {tree.get_size()} " + (f"and reward {reward} " if reward != -1 else "") + "to file 'data/" + filename + suffix + "'!")

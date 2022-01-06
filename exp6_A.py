@@ -243,11 +243,11 @@ qtree = QLeaf(parent=None, actions=["left", "right"])
 best_reward = 0
 performance_history = []
 
-# with open('data/cartpole_tree_pruned', 'rb') as file:
-# 	qtree = pickle.load(file)
-# 	file.close()
+with open('data/cartpole_tree_pruned', 'rb') as file:
+	qtree = pickle.load(file)
+	file.close()
 
-for i in range(1000):
+for i in range(100):
 	print(f"\n==> Iteration {i}:")
 	# Data collecting phase
 	qtree = collect_data(qtree, 1000)
