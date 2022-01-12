@@ -52,6 +52,9 @@ class QNode():
 	
 	def get_size(self):
 		return 1 + self.left.get_size() + self.right.get_size()
+	
+	def get_leaves(self):
+		return [] + self.left.get_leaves() + self.right.get_leaves()
 
 class QLeaf():
 	def __init__(self,  parent=None, is_left=False, actions=[], q_values=None, value=None):
@@ -108,6 +111,9 @@ class QLeaf():
 	
 	def get_size(self):
 		return 1
+	
+	def get_leaves(self):
+		return [self]
 
 def grow_tree(tree, leaf, splitting_criterion, split=None):
 	if split is None:

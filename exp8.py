@@ -19,8 +19,6 @@ ATTRIBUTES = [("Cart Position", "continuous", -1, -1),
 			  ("Pole Angle", "continuous", -1, -1),
 			  ("Pole Angular Velocity", "continuous", -1, -1)]
 
-episodes_run = 0
-
 def eps_greedy(qtree, state, eps):
 	leaf, action = qtree.predict(state)
 
@@ -34,8 +32,6 @@ def collect_data(qtree, n_episodes):
 	env = gym.make("CartPole-v1")
 
 	for T in range(1, n_episodes):
-		global episodes_run; episodes_run += 1
-
 		state = env.reset()
 		action = 0
 		reward = 0
@@ -140,8 +136,6 @@ def run_qlearning(qtree, n_episodes):
 	env = gym.make("CartPole-v1")
 
 	for T in range(1, n_episodes):
-		global episodes_run; episodes_run += 1
-
 		state = env.reset()
 		action = None
 		leaf = None
@@ -177,8 +171,6 @@ def run_monte_carlo_control(qtree, n_episodes=1000):
 	env = gym.make("CartPole-v1")
 
 	for T in range(1, n_episodes):
-		global episodes_run; episodes_run += 1
-
 		episode = []
 		state = env.reset()
 		done = False
@@ -232,8 +224,6 @@ def get_average_reward(qtree, n_episodes):
 	episode_rewards = np.zeros(n_episodes)
 
 	for T in range(1, n_episodes):
-		global episodes_run; episodes_run += 1
-
 		state = env.reset()
 		reward = 0
 		done = False
@@ -252,7 +242,6 @@ def get_average_reward(qtree, n_episodes):
 def run_CUT(qtree, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000, average_reward_iters=100, verbose=False):
 	best_reward = 0
 	reward_history = []
-	no_split = 0
 
 	for i in range(cut_iters):
 		print(f"\n==> Iteration {i}, tree size {qtree.get_size()}:")
@@ -265,10 +254,6 @@ def run_CUT(qtree, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000
 		if score[1] < 0.05:
 			print(f">> Split ({ATTRIBUTES[split[0]][0]}, {split[1]}) is good enough! Score: (D: {score[0]}, p: {score[1]})")
 			qtree = grow_tree(qtree, leaf, None, split)
-		else:
-			no_split += 1
-			if no_split == 3:
-				break
 
 		# Upkeep phase 
 		print("\n> Running Q-Learning...")
@@ -285,8 +270,6 @@ def run_CUT(qtree, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000
 		if average_reward > 1.05 * best_reward:
 			best_reward = average_reward
 			best_tree = copy.deepcopy(qtree)
-		if average_reward > 195:
-			break
 
 		qtree.reset_history()
 
@@ -302,10 +285,10 @@ def merge_leaves_reward(qtree, node, n_trials=100):
 		return qtree, []
 	
 	if node.left.__class__.__name__ == "QNode":
-		qtree, new_history = merge_leaves_reward(qtree, node.left, n_trials)
+		qtree, new_history = merge_leaves_reward(qtree, node.left)
 		history += new_history
 	if node.right.__class__.__name__ == "QNode":
-		qtree, new_history = merge_leaves_reward(qtree, node.right, n_trials)
+		qtree, new_history = merge_leaves_reward(qtree, node.right)
 		history += new_history
 	
 	if node.left.__class__.__name__ == "QLeaf" and node.right.__class__.__name__ == "QLeaf":
@@ -405,64 +388,45 @@ def merge_leaves_reward(qtree, node, n_trials=100):
 
 	return qtree, history
 
-def run_pruned_CUT(overall_iters=10, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000, average_reward_iters=100, pruning_reward_iters=100):
-	# Initializing tree
-	qtree = QLeaf(parent=None, actions=["left", "right"])
-	history = []
+# Initializing tree
+qtree = QLeaf(parent=None, actions=["left", "right"])
 
-	for i in range(overall_iters):
-		print(f"Phase {i}")
-		qtree, reward_history = run_CUT(qtree, cut_iters, collect_data_iters, q_learning_iters, average_reward_iters)
-		# save_tree(qtree, "_growing", get_average_reward(qtree, 10))
-		history.append(reward_history)
+history = []
 
-		reward_history = []
-		new_history = []
-		k = 0
-		while len(reward_history) == 0 or len(new_history) != 0:
-			qtree, new_history = merge_leaves_reward(qtree, qtree, pruning_reward_iters)
-			reward_history += new_history
-			# save_tree(qtree, "_pruning", get_average_reward(qtree, 10))
+for i in range(10):
+	print(f"Phase {i}")
+	qtree, reward_history = run_CUT(qtree, 10, 100, 100, 100)
+	save_tree(qtree, "_growing", get_average_reward(qtree, 10))
+	history.append(reward_history)
 
-			k += 1
-			if k > 5:
-				break
-		history.append(reward_history)
-	
-	return qtree, history
+	reward_history = []
+	new_history = []
+	k = 0
+	while len(reward_history) == 0 or len(new_history) != 0:
+		qtree, new_history = merge_leaves_reward(qtree, qtree)
+		reward_history += new_history
+		save_tree(qtree, "_pruning", get_average_reward(qtree, 10))
 
-summary_reward = []
-summary_episodes_run = []
+		k += 1
+		if k > 5:
+			break
+	history.append(reward_history)
 
-for _ in range(10):
-	episodes_run = 0
-	qtree, history = run_pruned_CUT(10, 10, 100, 100, 100, 100)
-	summary_episodes_run.append(episodes_run)
-	summary_reward.append(get_average_reward(qtree, 100))
-	save_tree(qtree)
+current_x = 0
+xticks = [[0], [1]]
+for (i, phase) in enumerate(history):
+	color = "blue"
+	if i % 2 == 0:
+		color = "red"
 
-print(f"Average of episode rewards: {np.mean(summary_reward)}")
-print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
-print(f"Summary reward: {summary_reward}")
-print(f"Summary episodes run: {summary_episodes_run}")
-
-# current_x = 0
-# xticks = [[0], [1]]
-# for (i, phase) in enumerate(history):
-# 	if len(phase) == 0:
-# 		continue
-# 	color = "blue"
-# 	if i % 2 == 0:
-# 		color = "red"
-
-# 	plt.plot(range(current_x, current_x + len(phase)), [b for (a, b) in phase], color=color)
-# 	xticks[0].append(current_x + len(phase) - 1)
-# 	xticks[1].append(phase[len(phase) - 1][0])
-# 	current_x += len(phase)
-# xticks[0].append(current_x)
-# plt.xticks(xticks[0], xticks[1])
-# plt.title("Performance history")
-# plt.xlabel("Tree size")
-# plt.ylabel("Average reward")
-# plt.show()
-# pdb.set_trace()
+	plt.plot(range(current_x, current_x + len(phase)), [b for (a, b) in phase], color=color)
+	xticks[0].append(current_x + len(phase) - 1)
+	xticks[1].append(phase[len(phase) - 1][0])
+	current_x += len(phase)
+xticks[0].append(current_x)
+plt.xticks(xticks[0], xticks[1])
+plt.title("Performance history")
+plt.xlabel("Tree size")
+plt.ylabel("Average reward")
+plt.show()
+pdb.set_trace()

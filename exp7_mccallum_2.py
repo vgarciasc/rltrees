@@ -9,6 +9,8 @@ import scipy.stats as stats
 from datetime import datetime
 from qtree import QNode, QLeaf, grow_tree, save_tree
 
+# BOTANDO O Q-LEARNING DENTRO DO DATA COLLECTION E TROCANDO O Q-LEARNING POR VALUE ITERATION
+
 LEARNING_RATE = 0.05
 DISCOUNT_FACTOR = 0.99
 
@@ -55,10 +57,10 @@ def collect_data(qtree, n_episodes):
 			next_state, reward, done, _ = env.step(action)
 			next_leaf, next_action = qtree.predict(next_state)
 
-			if done:
-				reward = 0
-
-			leaf.q_history[action].append((state, action, next_leaf.value, reward))
+			R = [r for (s, a, s2, r) in leaf.q_history[action]]
+			
+			leaf.q_values[action] += np.mean(R) + DISCOUNT_FACTOR * np.sum([len([s for (_, _, s, _) in leaf.q_history[action] if s == s2]) / len(leaf.q_history[action]) * s2.value for s2 in qtree.get_leaves()])
+			leaf.q_history[action].append((state, action, next_leaf, reward))
 			leaf.state_history.append(state)
 
 			leaf = next_leaf
@@ -72,8 +74,8 @@ def update_datapoints(node):
 		leaf = node
 		
 		for action_id in range(N_ACTIONS):
-			for (s, a, v, r) in leaf.q_history[action_id]:
-				q = r + DISCOUNT_FACTOR * v
+			for (s, a, s2, r) in leaf.q_history[action_id]:
+				q = r + DISCOUNT_FACTOR * s2.value
 				leaf.full_q_history[a].append((s, a, q))
 	else:
 		if node.left is not None:
@@ -258,6 +260,7 @@ def run_CUT(qtree, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000
 		print(f"\n==> Iteration {i}, tree size {qtree.get_size()}:")
 		# Data collecting phase
 		qtree = collect_data(qtree, collect_data_iters)
+		qtree = update_value(qtree)
 
 		# Split phase
 		qtree = update_datapoints(qtree)
@@ -274,8 +277,8 @@ def run_CUT(qtree, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000
 		print("\n> Running Q-Learning...")
 		# qtree.reset_history()
 		# qtree = run_monte_carlo_control(qtree, 20000)
-		qtree = run_qlearning(qtree, q_learning_iters)
-		qtree = update_value(qtree)
+		# qtree = run_qlearning(qtree, q_learning_iters)
+		# qtree = update_value(qtree)
 
 		if verbose:
 			qtree.print_tree()
@@ -285,8 +288,6 @@ def run_CUT(qtree, cut_iters=100, collect_data_iters=1000, q_learning_iters=5000
 		if average_reward > 1.05 * best_reward:
 			best_reward = average_reward
 			best_tree = copy.deepcopy(qtree)
-		if average_reward > 195:
-			break
 
 		qtree.reset_history()
 
@@ -428,6 +429,9 @@ def run_pruned_CUT(overall_iters=10, cut_iters=100, collect_data_iters=1000, q_l
 			if k > 5:
 				break
 		history.append(reward_history)
+
+		if get_average_reward(qtree, 100) > 195:
+			break
 	
 	return qtree, history
 
@@ -445,6 +449,9 @@ print(f"Average of episode rewards: {np.mean(summary_reward)}")
 print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
 print(f"Summary reward: {summary_reward}")
 print(f"Summary episodes run: {summary_episodes_run}")
+
+# qtree, history = run_pruned_CUT(50, 10, 10, 10, 10, 10)
+# save_tree(qtree)
 
 # current_x = 0
 # xticks = [[0], [1]]

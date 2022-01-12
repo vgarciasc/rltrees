@@ -265,26 +265,26 @@ for attr_id in [0, 1, 2, 3, 4]:
 	axs[1, attr_id].set_xlabel("$q(I, a)$")
 plt.show()
 
-# fig, axs = plt.subplots(2, 4, sharex='row')
-# for attr_id in [0, 1, 2, 3]:
-# 	l_partition = [q for (s, a, q) in qtree.full_q_history[0] if s[0] <= attr_id]
-# 	r_partition = [q for (s, a, q) in qtree.full_q_history[0] if s[0] > attr_id]
-# 	axs[0, attr_id].hist(l_partition, bins=5, alpha=0.7, color="green", label=f"$i \leq {attr_id}$")
-# 	axs[0, attr_id].hist(r_partition, bins=5, alpha=0.7, color="red", label=f"$i > {attr_id}$")
-# 	axs[0, attr_id].legend()
-# 	axs[0, attr_id].set_title(f"$attr = {attr_id}$")
-# 	axs[0, attr_id].set_xlabel("$q(I, a)$")
+fig, axs = plt.subplots(2, 4, sharex='row')
+for attr_id in [0, 1, 2, 3]:
+	l_partition = [q for (s, a, q) in qtree.full_q_history[0] if s[0] <= attr_id]
+	r_partition = [q for (s, a, q) in qtree.full_q_history[0] if s[0] > attr_id]
+	axs[0, attr_id].hist(l_partition, bins=5, alpha=0.7, color="green", label=f"$i \leq {attr_id}$")
+	axs[0, attr_id].hist(r_partition, bins=5, alpha=0.7, color="red", label=f"$i > {attr_id}$")
+	axs[0, attr_id].legend()
+	axs[0, attr_id].set_title(f"$attr = {attr_id}$")
+	axs[0, attr_id].set_xlabel("$q(I, a)$")
 
-# 	l_values, l_base = np.histogram(l_partition, bins=40)
-# 	r_values, r_base = np.histogram(r_partition, bins=40)
-# 	axs[1, attr_id].plot(l_base[:-1], np.cumsum(l_values) / np.cumsum(l_values)[-1], linestyle='dashed', color="green", label=f"$i \leq {attr_id}$")
-# 	axs[1, attr_id].plot(r_base[:-1], np.cumsum(r_values) / np.cumsum(r_values)[-1], linestyle='dashed', color="red", label=f"$i > {attr_id}$")
-# 	axs[1, attr_id].legend()
-# 	axs[1, attr_id].set_title(f"$D = {'{:.4f}'.format(ks_2samp(l_partition, r_partition)[0])}, p = {'{:.4f}'.format(ks_2samp(l_partition, r_partition)[1])}$")
-# 	axs[1, attr_id].set_ylim(bottom=0)
-# 	axs[1, attr_id].set_ylabel("CDF")
-# 	axs[1, attr_id].set_xlabel("$q(I, a)$")
-# plt.show()
+	l_values, l_base = np.histogram(l_partition, bins=40)
+	r_values, r_base = np.histogram(r_partition, bins=40)
+	axs[1, attr_id].plot(l_base[:-1], np.cumsum(l_values) / np.cumsum(l_values)[-1], linestyle='dashed', color="green", label=f"$i \leq {attr_id}$")
+	axs[1, attr_id].plot(r_base[:-1], np.cumsum(r_values) / np.cumsum(r_values)[-1], linestyle='dashed', color="red", label=f"$i > {attr_id}$")
+	axs[1, attr_id].legend()
+	axs[1, attr_id].set_title(f"$D = {'{:.4f}'.format(ks_2samp(l_partition, r_partition)[0])}, p = {'{:.4f}'.format(ks_2samp(l_partition, r_partition)[1])}$")
+	axs[1, attr_id].set_ylim(bottom=0)
+	axs[1, attr_id].set_ylabel("CDF")
+	axs[1, attr_id].set_xlabel("$q(I, a)$")
+plt.show()
 
 # plt.rcParams.update({'font.size': 8})
 # fig, axs = plt.subplots(2, 8, sharex='row')
