@@ -11,6 +11,27 @@ from tree_visualization import view_tree_in_action
 
 episodes_run = 0
 
+
+def grow_tree(tree, leaf, splitting_criterion, split=None):
+    if split is None:
+        split = splitting_criterion(leaf)
+
+    new_node = QNode(split, leaf.parent, None, None)
+    new_node.left = QLeaf(parent=new_node, is_left=True, actions=leaf.actions)
+    # new_node.left.full_q_history = copy.deepcopy(leaf.full_q_history)
+    new_node.right = QLeaf(parent=new_node, is_left=False, actions=leaf.actions)
+    # new_node.right.full_q_history = copy.deepcopy(leaf.full_q_history)
+
+    if leaf.parent is None:
+        return new_node
+
+    if leaf.is_left:
+        leaf.parent.left = new_node
+    else:
+        leaf.parent.right = new_node
+    
+    return tree
+
 def run_episodes(qtree, env, n_episodes, should_qlearn, should_store_history):
     global episodes_run
     gym_env = gym.make(env['name'])
@@ -128,7 +149,6 @@ def select_split(qtree, node, env, verbose=False):
 
         for i, attr in enumerate(env['attributes']):
             attr_name, attr_type, start_value, end_value = attr
-            
             for cutoff in get_cutoffs(leaf, env, i, attr):
                 score = [0, 1]
                 if env['splitting_criterion'] == 'variance':
@@ -154,16 +174,16 @@ def select_split(qtree, node, env, verbose=False):
                 if verbose:
                     print(f"> Split {(attr_name, cutoff)} has score {score}")
 
-                if score != [0, 1] and is_score_better(score, best_score, env):
+                if is_score_better(score, best_score, env):
                     best_split = (i, cutoff)
                     best_score = score
             
         return leaf, best_split, best_score
     else:
         if node.left:
-            left_leaf, left_best_split, left_best_score = select_split(qtree, node.left, env)
+            left_leaf, left_best_split, left_best_score = select_split(qtree, node.left, env, verbose)
         if node.right:
-            right_leaf, right_best_split, right_best_score = select_split(qtree, node.right, env)
+            right_leaf, right_best_split, right_best_score = select_split(qtree, node.right, env, verbose)
 
         if is_score_better(left_best_score, right_best_score, env):
             return left_leaf, left_best_split, left_best_score
@@ -229,11 +249,12 @@ def update_value(node):
 
     return node
 
-def get_average_reward(qtree, env):
+def get_average_reward(qtree, env, episodes=None):
     global episodes_run
 
     gym_env = gym.make(env['name'])
-    episode_rewards = np.zeros(env['reward_estimation_episodes'])
+    n_episodes = episodes or env['reward_estimation_episodes']
+    episode_rewards = np.zeros(n_episodes)
 
     for i, _ in enumerate(episode_rewards):
         episodes_run += 1
@@ -280,9 +301,10 @@ def run_CUT(qtree, env, verbose=False):
                 break
 
         # Upkeep phase 
-        if env['qlearning_episodes']:
+        if env['qlearning_episodes'] and not env['should_qlearn_inplace']:
             print("\n> Running Q-Learning...")
-            qtree.reset_history()
+            if not env['should_store_history']:
+                qtree.reset_history()
             qtree = run_qlearning(qtree, env)
             qtree = update_value(qtree)
 
@@ -402,87 +424,78 @@ def run_pruned_CUT(env):
     return qtree, history
 
 env = {
-    "name": "LunarLander-v2",
+    "name": "MountainCar-v0",
     "can_render": True,
-    "episode_max_score": 200,
-    "should_force_episode_termination_score": False,
+    "episode_max_score": 195,
+    "should_force_episode_termination_score": True,
     "episode_termination_score": 0,
-    "n_actions": 4,
-    "actions": ["nop", "left engine", "main engine", "right engine"],
-    "n_attributes": 8,              
-    "attributes": [
-        ("X Position", "continuous", -1, -1),
-        ("Y Position", "continuous", -1, -1),
-        ("X Velocity", "continuous", -1, -1),
-        ("Y Velocity", "continuous", -1, -1),
-        ("Angle", "continuous", -1, -1),
-        ("Angular Velocity", "continuous", -1, -1),
-        ("Leg 1 is Touching", "binary", [0, 1], -1),
-        ("Leg 2 is Touching", "binary", [0, 1], -1)],
- 
+    "n_actions": 2,
+    "actions": ["left", "right"],
+    "n_attributes": 2,              
+    "attributes": [("Car Position", "continuous", -1, -1),
+                    ("Car Velocity", "continuous", -1, -1)],
+
     "learning_rate": 0.05,
     "discount_factor": 0.95,
-    "continuous_quantiles": 5,
+    "continuous_quantiles": 10,
     "splitting_criterion": 'variance',
 
-    "cycle_length": 20,
-    "nodes_to_grow": 20, 
-    "collection_episodes": 100,
-    "reward_estimation_episodes": 100,
-    "qlearning_episodes": 100,
+    "cycle_length": 50,
+    "nodes_to_grow": 10, 
+    "collection_episodes": 10,
+    "reward_estimation_episodes": 10,
+    "qlearning_episodes": 10,
 
     "should_store_history": True,
     "history_storage_length": 1000,
     "should_qlearn_inplace": False,
 }
 
-qtree, history = run_pruned_CUT(env)
-qtree.print_tree()
-save_tree(qtree)
+summary_reward = []
+summary_episodes_run = []
+trees = []
 
-current_x = 0
-xticks = [[0], [1]]
-for (i, phase) in enumerate(history):
-    if len(phase) == 0:
-        continue
-    color = "blue"
-    if i % 2 == 0:
-        color = "red"
+for _ in range(5):
+    episodes_run = 0
+    qtree, history = run_pruned_CUT(env)
+    trees.append(copy.deepcopy(qtree))
+    summary_episodes_run.append(episodes_run)
+    summary_reward.append(get_average_reward(qtree, env, 100000))
 
-    plt.plot(range(current_x, current_x + len(phase)), [b for (a, b) in phase], color=color)
-    xticks[0].append(current_x + len(phase) - 1)
-    xticks[1].append(phase[len(phase) - 1][0])
-    current_x += len(phase)
-xticks[0].append(current_x)
-plt.xticks(xticks[0], xticks[1])
-plt.title("Performance history")
-plt.xlabel("Tree size")
-plt.ylabel("Average reward")
-plt.show()
-print(f"Episodes run: {episodes_run}")
+for tree, episodes, reward in zip(trees, summary_episodes_run, summary_reward):
+    print("\n")
+    tree.print_tree()
+    print(f"Reward: {reward}")
+    print(f"Episodes run: {episodes}")
 
-view_tree_in_action(qtree, env['name'], 5, env['can_render'], verbose=True)
+print(f"Average of episode rewards: {np.mean(summary_reward)}")
+print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
+print(f"Summary reward: {summary_reward}")
+print(f"Summary episodes run: {summary_episodes_run}")
 
-# qtree, history = run_pruned_CUT(1, 2, 20, 10, 10, 10)
-# fig, axs = plt.subplots(2, 4)
-# for i, attr_id in enumerate([-0.55, -0.52, -0.49, -0.46]):
-# 	l_partition = [q for (s, a, q) in qtree.full_q_history[0] if s[0] <= attr_id]
-# 	r_partition = [q for (s, a, q) in qtree.full_q_history[0] if s[0] > attr_id]
-# 	axs[0, i].hist(l_partition, bins=5, alpha=0.7, color="green", label=f"$i \leq {attr_id}$")
-# 	axs[0, i].hist(r_partition, bins=5, alpha=0.7, color="red", label=f"$i > {attr_id}$")
-# 	axs[0, i].legend()
-# 	axs[0, i].set_title(f"$attr = {attr_id}$")
-# 	axs[0, i].set_xlabel("$q(I, a)$")
+# qtree, history = run_pruned_CUT(env)
+# qtree.print_tree()
+# save_tree(qtree)
 
-# 	l_values, l_base = np.histogram(l_partition, bins=40)
-# 	r_values, r_base = np.histogram(r_partition, bins=40)
-# 	axs[1, i].plot(l_base[:-1], np.cumsum(l_values) / np.cumsum(l_values)[-1], linestyle='dashed', color="green", label=f"$i \leq {attr_id}$")
-# 	axs[1, i].plot(r_base[:-1], np.cumsum(r_values) / np.cumsum(r_values)[-1], linestyle='dashed', color="red", label=f"$i > {attr_id}$")
-# 	axs[1, i].legend()
-# 	if l_partition and r_partition:
-# 		axs[1, i].set_title(f"$D = {'{:.4f}'.format(stats.ks_2samp(l_partition, r_partition)[0])}, p = {'{:.4f}'.format(stats.ks_2samp(l_partition, r_partition)[1])}$")
-# 	axs[1, i].set_ylim(bottom=0)
-# 	axs[1, i].set_ylabel("CDF")
-# 	axs[1, i].set_xlabel("$q(I, a)$")
+# current_x = 0
+# xticks = [[0], [1]]
+# for (i, phase) in enumerate(history):
+#     if len(phase) == 0:
+#         continue
+#     color = "blue"
+#     if i % 2 == 0:
+#         color = "red"
+
+#     plt.plot(range(current_x, current_x + len(phase)), [b for (a, b) in phase], color=color)
+#     xticks[0].append(current_x + len(phase) - 1)
+#     xticks[1].append(phase[len(phase) - 1][0])
+#     current_x += len(phase)
+# xticks[0].append(current_x)
+# plt.xticks(xticks[0], xticks[1])
+# plt.title("Performance history")
+# plt.xlabel("Tree size")
+# plt.ylabel("Average reward")
 # plt.show()
+# print(f"Episodes run: {episodes_run}")
 
+# view_tree_in_action(qtree, env['name'], 5, env['can_render'], verbose=True)
