@@ -5,22 +5,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 from numpy import random
 import scipy.stats as stats
-from qtree import QNode, QLeaf, save_tree, grow_tree
+from qtree import QNode, QLeaf, save_tree
 from rich import print
 from tree_visualization import view_tree_in_action
 
 episodes_run = 0
 
-
-def grow_tree(tree, leaf, splitting_criterion, split=None):
+def grow_tree(tree, leaf, env, splitting_criterion, split=None):
     if split is None:
         split = splitting_criterion(leaf)
 
     new_node = QNode(split, leaf.parent, None, None)
     new_node.left = QLeaf(parent=new_node, is_left=True, actions=leaf.actions)
-    # new_node.left.full_q_history = copy.deepcopy(leaf.full_q_history)
     new_node.right = QLeaf(parent=new_node, is_left=False, actions=leaf.actions)
-    # new_node.right.full_q_history = copy.deepcopy(leaf.full_q_history)
+    
+    if env["inherit_q_values_upon_split"]:
+        new_node.left.q_values = copy.deepcopy(leaf.q_values)
+        new_node.right.q_values = copy.deepcopy(leaf.q_values)
+
+    if env["inherit_history_upon_split"]:
+        new_node.left.full_q_history = copy.deepcopy(leaf.full_q_history)
+        new_node.right.full_q_history = copy.deepcopy(leaf.full_q_history)
 
     if leaf.parent is None:
         return new_node
@@ -47,7 +52,7 @@ def run_episodes(qtree, env, n_episodes, should_qlearn, should_store_history):
         done = False
         
         while not done:
-            if np.random.random() < 0.5:
+            if np.random.random() < env['epsilon']:
                 action = np.random.randint(0, env['n_actions'])
 
             next_state, reward, done, _ = gym_env.step(action)
@@ -117,7 +122,7 @@ def get_cutoffs(leaf, env, attr_idx, attr):
     _, attr_type, start_value, end_value = attr
 
     if attr_type == "continuous":
-        if len(leaf.state_history) < 100:
+        if len(leaf.state_history) < 10:
             return []
         return np.quantile([s[attr_idx] for s in leaf.state_history],
             np.linspace(0.1, 0.9, env['continuous_quantiles']))
@@ -170,7 +175,7 @@ def select_split(qtree, node, env, verbose=False):
                             kstest = stats.ks_2samp(L_partition, R_partition)
                             score[0] += kstest[0]
                             score[1] *= kstest[1]
-                        
+                                        
                 if verbose:
                     print(f"> Split {(attr_name, cutoff)} has score {score}")
 
@@ -212,8 +217,8 @@ def run_monte_carlo_control(qtree, env):
                 action = np.random.randint(0, env['n_actions'])
             
             next_state, reward, done, _ = gym_env.step(action)
-            # if done:
-            # 	reward = 0
+            if done and env['should_force_episode_termination_score']:
+                reward = env['episode_termination_score']
             episode.append((leaf, action, reward))
             state = next_state
 
@@ -281,7 +286,8 @@ def run_CUT(qtree, env, verbose=False):
 
         # Data collecting phase
         qtree = collect_data(qtree, env)
-        qtree = update_value(qtree)
+        if env['should_qlearn_inplace']:
+            qtree = update_value(qtree)
 
         if verbose:
             qtree.print_tree()
@@ -293,19 +299,23 @@ def run_CUT(qtree, env, verbose=False):
             (env['splitting_criterion'] == 'variance') or \
             (env['splitting_criterion'] == 'random'):
             print(f">> Split ({env['attributes'][split[0]][0]}, {split[1]}) is good enough! Score: {score}")
-            qtree = grow_tree(qtree, leaf, None, split)
+            qtree = grow_tree(qtree, leaf, env, None, split)
         else:
             no_split += 1
-            if no_split == 3:
+            if env['should_stop_if_no_splits'] and \
+                no_split == env['max_iters_without_split']:
                 print("> Three iterations without splits.")
                 break
 
         # Upkeep phase 
-        if env['qlearning_episodes'] and not env['should_qlearn_inplace']:
+        if env['learning_method'] == "q_learning" and not env['should_qlearn_inplace']:
             print("\n> Running Q-Learning...")
+            qtree = run_qlearning(qtree, env)
+            qtree = update_value(qtree)
             if not env['should_store_history']:
                 qtree.reset_history()
-            qtree = run_qlearning(qtree, env)
+        elif env['learning_method'] == "monte_carlo":
+            qtree = run_monte_carlo_control(qtree, env)
             qtree = update_value(qtree)
 
         average_reward = get_average_reward(qtree, env)
@@ -401,8 +411,8 @@ def run_pruned_CUT(env):
     qtree = QLeaf(parent=None, actions=env['actions'])
     history = []
 
-    for i in range(env['cycle_length']):
-        qtree, reward_history = run_CUT(qtree, env)
+    for _ in range(env['cycle_length']):
+        qtree, reward_history = run_CUT(qtree, env, verbose=False)
         history.append(reward_history)
 
         reward_history = []
@@ -424,23 +434,28 @@ def run_pruned_CUT(env):
     return qtree, history
 
 env = {
-    "name": "MountainCar-v0",
+    "name": "CartPole-v1",
     "can_render": True,
     "episode_max_score": 195,
     "should_force_episode_termination_score": True,
     "episode_termination_score": 0,
+    "should_stop_if_no_splits": False,
+    "max_iters_without_split": 3,
     "n_actions": 2,
     "actions": ["left", "right"],
-    "n_attributes": 2,              
-    "attributes": [("Car Position", "continuous", -1, -1),
-                    ("Car Velocity", "continuous", -1, -1)],
+    "n_attributes": 4,              
+    "attributes": [("Cart Position", "continuous", -1, -1),
+        ("Cart Velocity", "continuous", -1, -1),
+        ("Pole Angle", "continuous", -1, -1),
+        ("Pole Angular Velocity", "continuous", -1, -1)],
 
     "learning_rate": 0.05,
     "discount_factor": 0.95,
-    "continuous_quantiles": 10,
+    "epsilon": 0.1,
+    "continuous_quantiles": 5,
     "splitting_criterion": 'variance',
 
-    "cycle_length": 50,
+    "cycle_length": 10,
     "nodes_to_grow": 10, 
     "collection_episodes": 10,
     "reward_estimation_episodes": 10,
@@ -448,23 +463,27 @@ env = {
 
     "should_store_history": True,
     "history_storage_length": 1000,
-    "should_qlearn_inplace": False,
+    "should_qlearn_inplace": True,
+    "inherit_q_values_upon_split": True,
+    "inherit_history_upon_split": False,
+    "learning_method": "q_learning",
 }
 
 summary_reward = []
 summary_episodes_run = []
 trees = []
 
-for _ in range(5):
+for _ in range(10):
     episodes_run = 0
     qtree, history = run_pruned_CUT(env)
     trees.append(copy.deepcopy(qtree))
     summary_episodes_run.append(episodes_run)
-    summary_reward.append(get_average_reward(qtree, env, 100000))
+    summary_reward.append(get_average_reward(qtree, env, 100))
 
 for tree, episodes, reward in zip(trees, summary_episodes_run, summary_reward):
     print("\n")
     tree.print_tree()
+    save_tree(tree)
     print(f"Reward: {reward}")
     print(f"Episodes run: {episodes}")
 

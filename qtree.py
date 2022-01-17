@@ -138,3 +138,4 @@ def save_tree(tree, suffix="", reward=-1):
 	with open('data/' + filename + suffix, 'wb') as file:
 		pickle.dump(tree, file)
 		print(f"> Saved tree of size {tree.get_size()} " + (f"and reward {reward} " if reward != -1 else "") + "to file 'data/" + filename + suffix + "'!")
+
