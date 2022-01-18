@@ -40,9 +40,67 @@ def view_tree_in_action(qtree, envname, episodes=5, render=True, verbose=True):
 
     print("Average reward per episode:", np.mean(total_rewards))
 
+def run_blackjack_optimal(episodes=100000):
+    gym_env = gym.make("Blackjack-v0")
+    n_episodes = episodes
+    episode_rewards = np.zeros(n_episodes)
+
+    for i, _ in enumerate(episode_rewards):
+        state = gym_env.reset()
+        reward = 0
+        done = False
+        
+        while not done:
+            player_sum = state[0]
+            dealer_sum = state[1]
+            usable_ace = state[2]
+
+            if player_sum <= 13:
+                action = 1
+            else:
+                action = 0
+
+            if usable_ace:
+                if dealer_sum <= 8:
+                    if player_sum <= 17:
+                        action = 1
+                    else:
+                        action = 0
+                else:
+                    if player_sum <= 18:
+                        action = 1
+                    else:
+                        action = 0
+            else:
+                if player_sum <= 16:
+                    if dealer_sum <= 6:
+                        if dealer_sum <= 3:
+                            if player_sum <= 12:
+                                action = 1
+                            else:
+                                action = 0
+                        else:
+                            if player_sum <= 11:
+                                action = 1
+                            else:
+                                action =0
+                    else:
+                        action = 1
+                else:
+                    action = 0
+            
+            # print(f"Player: {state[0]} \t Dealer: {state[1]} \t Ace: {state[2]} \t '{['STICK', 'HIT'][action]}'")
+            next_state, reward, done, _ = gym_env.step(action)
+            # if done:
+            #     print(f"\t \t \t \t  \t \t R: {reward}")
+            episode_rewards[i] += reward
+            state = next_state
+    
+    print(f"score: {np.mean(episode_rewards)}")
+
 if __name__ == "__main__":
-    filename = "data/tree 2022-01-11 16-27"
-    envname = "LunarLander-v2"
+    filename = "data/tree 2022-01-17 14-55_blackjack_optimal"
+    envname = "Blackjack-v0"
 
     qtree = None
     with open(filename, 'rb') as file:
@@ -50,3 +108,5 @@ if __name__ == "__main__":
         file.close()
     
     view_tree_in_action(qtree, envname, episodes=50)
+
+    # run_blackjack_optimal()

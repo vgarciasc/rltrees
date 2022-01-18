@@ -139,3 +139,61 @@ def save_tree(tree, suffix="", reward=-1):
 		pickle.dump(tree, file)
 		print(f"> Saved tree of size {tree.get_size()} " + (f"and reward {reward} " if reward != -1 else "") + "to file 'data/" + filename + suffix + "'!")
 
+def save_tree_from_print(printed_structure, actions, suffix):
+	qtree = QNode(printed_structure[0][4], None, None, None)
+	
+	tree_list = [qtree]
+	for id, kind, parent_id, is_left, essence in printed_structure[1:]:
+		parent = tree_list[parent_id]
+
+		if kind == "node":
+			new_node = QNode(essence, parent, None, None)
+		elif kind == "leaf":
+			new_node = QLeaf(parent, is_left, actions, essence)
+
+		if is_left:
+			parent.left = new_node
+		else:
+			parent.right = new_node
+		
+		tree_list.append(new_node)
+
+	save_tree(qtree, suffix)
+
+if __name__ == "__main__":
+	save_tree_from_print([
+			(0, "node", None,  None,  (3, -0.696424812078476)),
+			(1, "node", 0,     True,  (3, -0.700973224639892)),
+			(2, "leaf", 1,     True,  [-23.0902, -25.0717, -17.6198, -22.7378]),
+			(3, "leaf", 1,    False,  [-11.6993, -11.6450, -11.9116, -15.8909]),
+			(4, "node", 0,    False,  (5, -0.003746651695109)),
+			(5, "leaf", 4,     True,  [-23.4585, -21.2319, -21.7727, -24.2635]),
+			(6, "node", 4,    False,  (5,  0.014616578817367)),
+			(7, "leaf", 6,     True,  [-14.6318, -14.5968,  -9.3211, -15.0491]),
+			(8, "leaf", 6,    False,  [-15.3591, -15.6862, -15.5153, -14.8529])],
+		["nop", "left engine", "main engine", "right engine"],
+		"_lunar_lander_v2_print")
+
+	save_tree_from_print([
+			(0, "node", None,  None,  (2, 0)),
+			(1, "node", 0,     True,  (1, 8)),
+			(2, "node", 1,     True,  (0, 17)),
+			(3, "node", 1,    False,  (0, 18)),
+			(4, "node", 0,    False,  (0, 16)),
+			(5, "node", 4,     True,  (1, 6)),
+			(6, "node", 5,     True,  (1, 3)),
+			(7, "node", 6,     True,  (0, 12)),
+			(8, "node", 6,    False,  (0, 11)),
+			(9, "leaf", 2,     True,  [0, 0]),
+			(10, "leaf", 2,   False,  [0, 0]),
+			(11, "leaf", 3,    True,  [0, 0]),
+			(12, "leaf", 3,   False,  [0, 0]),
+			(13, "leaf", 4,   False,  [0, 0]),
+			(14, "leaf", 5,   False,  [0, 0]),
+			(15, "leaf", 7,    True,  [0, 0]),
+			(16, "leaf", 7,   False,  [0, 0]),
+			(17, "leaf", 8,    True,  [0, 0]),
+			(18, "leaf", 8,   False,  [0, 0])],
+		["stick", "hit"],
+		"_blackjack_optimal")
+	

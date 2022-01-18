@@ -201,10 +201,12 @@ def run_qlearning(qtree, env):
         True, False)
 
 def run_monte_carlo_control(qtree, env):
+    global episodes_run
     gym_env = gym.make(env['name'])
+    qtree.reset_history()
 
     for T in range(1, env['qlearning_episodes']):
-        global episodes_run; episodes_run += 1
+        episodes_run += 1
 
         episode = []
         state = gym_env.reset()
@@ -213,7 +215,7 @@ def run_monte_carlo_control(qtree, env):
         while not done:
             leaf, action = qtree.predict(state)
 
-            if np.random.random() < 0.5 * env['qlearning_episodes'] / T:
+            if np.random.random() < env['epsilon']:
                 action = np.random.randint(0, env['n_actions'])
             
             next_state, reward, done, _ = gym_env.step(action)
@@ -223,7 +225,7 @@ def run_monte_carlo_control(qtree, env):
             state = next_state
 
         G = 0
-        for t in range(len(episode) - 1, -1, -1):
+        for t in range(len(episode)-1, -1, -1):
             leaf, action, reward = episode[t]
             
             G = env['discount_factor'] * G + reward
@@ -415,6 +417,12 @@ def run_pruned_CUT(env):
         qtree, reward_history = run_CUT(qtree, env, verbose=False)
         history.append(reward_history)
 
+        for _ in range(5):
+            qtree = run_episodes(qtree, env, 
+                env['qlearning_episodes'],
+                should_qlearn=True,
+                should_store_history=False)
+
         reward_history = []
         new_history = []
         k = 0
@@ -434,63 +442,78 @@ def run_pruned_CUT(env):
     return qtree, history
 
 env = {
-    "name": "CartPole-v1",
-    "can_render": True,
-    "episode_max_score": 195,
-    "should_force_episode_termination_score": True,
-    "episode_termination_score": 0,
+    "name": "Blackjack-v0",
+    "can_render": False,
+    "episode_max_score": 1,
+    "should_force_episode_termination_score": False,
+    "episode_termination_score": None,
     "should_stop_if_no_splits": False,
     "max_iters_without_split": 3,
     "n_actions": 2,
-    "actions": ["left", "right"],
-    "n_attributes": 4,              
-    "attributes": [("Cart Position", "continuous", -1, -1),
-        ("Cart Velocity", "continuous", -1, -1),
-        ("Pole Angle", "continuous", -1, -1),
-        ("Pole Angular Velocity", "continuous", -1, -1)],
+    "actions": ["stick", "hit"],
+    "n_attributes": 3,              
+    "attributes": [
+        ("Player's Sum", "discrete", 0, 22),
+        ("Dealer's Card", "discrete", 1, 11),
+        ("Usable Ace", "binary", -1, -1)],
 
     "learning_rate": 0.05,
     "discount_factor": 0.95,
     "epsilon": 0.1,
-    "continuous_quantiles": 5,
-    "splitting_criterion": 'variance',
+    "continuous_quantiles": 10,
+    "splitting_criterion": 'ks',
 
-    "cycle_length": 10,
-    "nodes_to_grow": 10, 
-    "collection_episodes": 10,
-    "reward_estimation_episodes": 10,
-    "qlearning_episodes": 10,
+    "cycle_length": 5,
+    "nodes_to_grow": 50, 
+    "collection_episodes": 1000,
+    "reward_estimation_episodes": 1000,
+    "qlearning_episodes": 1000,
 
-    "should_store_history": True,
+    "should_store_history": False,
     "history_storage_length": 1000,
-    "should_qlearn_inplace": True,
+    "should_qlearn_inplace": False,
     "inherit_q_values_upon_split": True,
     "inherit_history_upon_split": False,
     "learning_method": "q_learning",
 }
 
-summary_reward = []
-summary_episodes_run = []
-trees = []
+# summary_reward = []
+# summary_episodes_run = []
+# trees = []
 
-for _ in range(10):
-    episodes_run = 0
-    qtree, history = run_pruned_CUT(env)
-    trees.append(copy.deepcopy(qtree))
-    summary_episodes_run.append(episodes_run)
-    summary_reward.append(get_average_reward(qtree, env, 100))
+# for _ in range(1):
+#     episodes_run = 0
+#     qtree, history = run_pruned_CUT(env)
+#     trees.append(copy.deepcopy(qtree))
+#     summary_episodes_run.append(episodes_run)
+#     summary_reward.append(get_average_reward(qtree, env, 10000))
 
-for tree, episodes, reward in zip(trees, summary_episodes_run, summary_reward):
-    print("\n")
-    tree.print_tree()
-    save_tree(tree)
-    print(f"Reward: {reward}")
-    print(f"Episodes run: {episodes}")
+# for tree, episodes, reward in zip(trees, summary_episodes_run, summary_reward):
+#     print("\n")
+#     tree.print_tree()
+#     save_tree(tree)
+#     print(f"Reward: {reward}")
+#     print(f"Episodes run: {episodes}")
 
-print(f"Average of episode rewards: {np.mean(summary_reward)}")
-print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
-print(f"Summary reward: {summary_reward}")
-print(f"Summary episodes run: {summary_episodes_run}")
+# print(f"Average of episode rewards: {np.mean(summary_reward)}")
+# print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
+# print(f"Summary reward: {summary_reward}")
+# print(f"Summary episodes run: {summary_episodes_run}")
+
+import pickle
+
+filename = "data/tree 2022-01-17 15-16_blackjack_optimal"
+envname = "Blackjack-v0"
+
+qtree = None
+with open(filename, 'rb') as file:
+    qtree = pickle.load(file)
+    file.close()
+
+qtree.print_tree()
+for _ in range(100):
+    qtree = run_monte_carlo_control(qtree, env)
+qtree.print_tree()
 
 # qtree, history = run_pruned_CUT(env)
 # qtree.print_tree()
