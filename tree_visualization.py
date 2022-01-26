@@ -99,8 +99,8 @@ def run_blackjack_optimal(episodes=100000):
     print(f"score: {np.mean(episode_rewards)}")
 
 if __name__ == "__main__":
-    filename = "data/tree 2022-01-17 14-55_blackjack_optimal"
-    envname = "Blackjack-v0"
+    filename = "data/tree 2022-01-18 15-38"
+    envname = "MountainCar-v0"
 
     qtree = None
     with open(filename, 'rb') as file:
