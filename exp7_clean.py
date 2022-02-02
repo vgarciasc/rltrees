@@ -285,6 +285,7 @@ def get_average_reward(qtree, env, episodes=None):
 
 def run_CUT(qtree, env, verbose=False):
     best_reward = -99999
+    best_tree = qtree
     reward_history = []
     no_split = 0
 
@@ -334,9 +335,12 @@ def run_CUT(qtree, env, verbose=False):
 
         # qtree.reset_history()
 
-    print(f"Best tree, with average reward {best_reward} and size {best_tree.get_size()}:")
+    if best_tree:
+        print(f"Best tree, with average reward {best_reward} and size {best_tree.get_size()}:")
+    
     if verbose:
         best_tree.print_tree()
+    
     return best_tree, reward_history
 
 def prune_tree(qtree, node, env):
@@ -445,92 +449,93 @@ def run_pruned_CUT(env, qtree=None):
     
     return qtree, history
 
-env = {
-    "name": "CartPole-v1",
-    "can_render": True,
-    "episode_max_score": 195,
-    "should_force_episode_termination_score": True,
-    "episode_termination_score": 0,
-    "should_stop_if_no_splits": False,
-    "max_iters_without_split": 3,
-    "n_actions": 2,
-    "actions": ["left", "right"],
-    "n_attributes": 4,              
-    "attributes": [
-        ("Cart Position", "continuous", -1, -1),
-        ("Cart Velocity", "continuous", -1, -1),
-        ("Pole Angle", "continuous", -1, -1),
-        ("Pole Angular Velocity", "continuous", -1, -1)],
+if __name__ == "__main__":
+    env = {
+        "name": "CartPole-v1",
+        "can_render": True,
+        "episode_max_score": 195,
+        "should_force_episode_termination_score": True,
+        "episode_termination_score": 0,
+        "should_stop_if_no_splits": False,
+        "max_iters_without_split": 3,
+        "n_actions": 2,
+        "actions": ["left", "right"],
+        "n_attributes": 4,              
+        "attributes": [
+            ("Cart Position", "continuous", -1, -1),
+            ("Cart Velocity", "continuous", -1, -1),
+            ("Pole Angle", "continuous", -1, -1),
+            ("Pole Angular Velocity", "continuous", -1, -1)],
 
-    "learning_rate": 0.05,
-    "discount_factor": 0.95,
-    "epsilon": 0.1,
-    "continuous_quantiles": 5,
-    "splitting_criterion": 'random',
+        "learning_rate": 0.05,
+        "discount_factor": 0.95,
+        "epsilon": 0.1,
+        "continuous_quantiles": 5,
+        "splitting_criterion": 'random',
 
-    "cycle_length": 10,
-    "nodes_to_grow": 10, 
-    "collection_episodes": 10,
-    "reward_estimation_episodes": 10,
-    "qlearning_episodes": 10,
-    "qlearning_episodes_after_growing": 0,
+        "cycle_length": 10,
+        "nodes_to_grow": 10, 
+        "collection_episodes": 10,
+        "reward_estimation_episodes": 10,
+        "qlearning_episodes": 10,
+        "qlearning_episodes_after_growing": 0,
 
-    "should_store_history": True,
-    "history_storage_length": 1000,
-    "should_qlearn_inplace": True,
-    "inherit_q_values_upon_split": True,
-    "inherit_history_upon_split": False,
-    "learning_method": "q_learning",
-}
+        "should_store_history": True,
+        "history_storage_length": 1000,
+        "should_qlearn_inplace": True,
+        "inherit_q_values_upon_split": True,
+        "inherit_history_upon_split": False,
+        "learning_method": "q_learning",
+    }
 
-summary_reward = []
-summary_episodes_run = []
-trees = []
+    summary_reward = []
+    summary_episodes_run = []
+    trees = []
 
-for _ in range(100):
-    episodes_run = 0
-    qtree, history = run_pruned_CUT(env)
-    trees.append(copy.deepcopy(qtree))
-    summary_episodes_run.append(episodes_run)
-    summary_reward.append(get_average_reward(qtree, env, 1000))
+    for _ in range(100):
+        episodes_run = 0
+        qtree, history = run_pruned_CUT(env)
+        trees.append(copy.deepcopy(qtree))
+        summary_episodes_run.append(episodes_run)
+        summary_reward.append(get_average_reward(qtree, env, 1000))
 
-for tree, episodes, reward in zip(trees, summary_episodes_run, summary_reward):
-    print("\n")
-    tree.print_tree()
-    save_tree(tree)
-    print(f"Reward: {reward}")
-    print(f"Episodes run: {episodes}")
+    for tree, episodes, reward in zip(trees, summary_episodes_run, summary_reward):
+        print("\n")
+        tree.print_tree()
+        save_tree(tree)
+        print(f"Reward: {reward}")
+        print(f"Episodes run: {episodes}")
 
-print(f"Average of episode rewards: {np.mean(summary_reward)}")
-print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
-print(f"Summary reward: {summary_reward}")
-print(f"Summary episodes run: {summary_episodes_run}")
+    print(f"Average of episode rewards: {np.mean(summary_reward)}")
+    print(f"Average of episodes run: {np.mean(summary_episodes_run)}")
+    print(f"Summary reward: {summary_reward}")
+    print(f"Summary episodes run: {summary_episodes_run}")
 
-# qtree, history = run_pruned_CUT(env)
-# qtree.print_tree()
-# save_tree(qtree)
+    # qtree, history = run_pruned_CUT(env)
+    # qtree.print_tree()
+    # save_tree(qtree)
 
-# print(f"Episodes run: {episodes_run}")
-# print(f"Average reward: {get_average_reward(qtree, env, 100000)}")
+    # print(f"Episodes run: {episodes_run}")
+    # print(f"Average reward: {get_average_reward(qtree, env, 100000)}")
 
-# current_x = 0
-# xticks = [[0], [1]]
-# for (i, phase) in enumerate(history):
-#     if len(phase) == 0:
-#         continue
-#     color = "blue"
-#     if i % 2 == 0:
-#         color = "red"
+    # current_x = 0
+    # xticks = [[0], [1]]
+    # for (i, phase) in enumerate(history):
+    #     if len(phase) == 0:
+    #         continue
+    #     color = "blue"
+    #     if i % 2 == 0:
+    #         color = "red"
 
-#     plt.plot(range(current_x, current_x + len(phase)), [b for (a, b) in phase], color=color)
-#     xticks[0].append(current_x + len(phase) - 1)
-#     xticks[1].append(phase[len(phase) - 1][0])
-#     current_x += len(phase)
-# xticks[0].append(current_x)
-# plt.xticks(xticks[0], xticks[1])
-# plt.title("Performance history")
-# plt.xlabel("Tree size")
-# plt.ylabel("Average reward")
-# plt.show()
+    #     plt.plot(range(current_x, current_x + len(phase)), [b for (a, b) in phase], color=color)
+    #     xticks[0].append(current_x + len(phase) - 1)
+    #     xticks[1].append(phase[len(phase) - 1][0])
+    #     current_x += len(phase)
+    # xticks[0].append(current_x)
+    # plt.xticks(xticks[0], xticks[1])
+    # plt.title("Performance history")
+    # plt.xlabel("Tree size")
+    # plt.ylabel("Average reward")
+    # plt.show()
 
-# view_tree_in_action(qtree, env['name'], 5, env['can_render'], verbose=True)
+    # view_tree_in_action(qtree, env['name'], 5, env['can_render'], verbose=True)
