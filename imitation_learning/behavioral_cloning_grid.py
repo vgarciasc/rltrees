@@ -12,6 +12,7 @@ from il import *
 from qtree import save_tree_from_print
 from imitation_learning.utils import printv, load_dataset, save_dataset
 from imitation_learning.distilled_tree import DistilledTree
+from imitation_learning.ann_mountain_car import MountainCarANN
 
 if __name__ == "__main__":
     # config = {
@@ -32,38 +33,55 @@ if __name__ == "__main__":
 
     # filename = "data/cartpole_nn_19"
 
+    # config = {
+    #     "name": "LunarLander-v2",
+    #     "can_render": True,
+    #     "n_actions": 4,
+    #     "actions": ["nop", "left engine", "main engine", "right engine"],
+    #     "n_attributes": 8,              
+    #     "attributes": [
+    #         ("X Position", "continuous", -1, -1),
+    #         ("Y Position", "continuous", -1, -1),
+    #         ("X Velocity", "continuous", -1, -1),
+    #         ("Y Velocity", "continuous", -1, -1),
+    #         ("Angle", "continuous", -1, -1),
+    #         ("Angular Velocity", "continuous", -1, -1),
+    #         ("Leg 1 is Touching", "binary", [0, 1], -1),
+    #         ("Leg 2 is Touching", "binary", [0, 1], -1)],
+    # }
+
+    # filename = "data/lunarlander_nn_9"
+
     config = {
-        "name": "LunarLander-v2",
+		"name": "MountainCar-v0",
         "can_render": True,
-        "n_actions": 4,
-        "actions": ["nop", "left engine", "main engine", "right engine"],
-        "n_attributes": 8,              
-        "attributes": [
-            ("X Position", "continuous", -1, -1),
-            ("Y Position", "continuous", -1, -1),
-            ("X Velocity", "continuous", -1, -1),
-            ("Y Velocity", "continuous", -1, -1),
-            ("Angle", "continuous", -1, -1),
-            ("Angular Velocity", "continuous", -1, -1),
-            ("Leg 1 is Touching", "binary", [0, 1], -1),
-            ("Leg 2 is Touching", "binary", [0, 1], -1)],
+        "episode_max_score": 195,
+        "should_force_episode_termination_score": False,
+        "episode_termination_score": 0,
+        "n_actions": 3,
+        "actions": ["left", "nop", "right"],
+        "n_attributes": 2,              
+        "attributes": [("Car Position", "continuous", -1, -1),
+                       ("Car Velocity", "continuous", -1, -1)],
     }
 
-    filename = "data/lunarlander_nn_9"
+    filename = "data/mountain_car_ann"
 
-    model = ann.MLPAgent(config, exploration_rate=0)
-    model.load_model(filename)
+    # model = ann.MLPAgent(config, exploration_rate=0)
+    # model.load_model(filename)
+    model = MountainCarANN(config)
+    model.load(filename)
 
     print("== Neural Network")
     get_average_reward(config, model, episodes=100, verbose=True)
 
-    # X, y = get_dataset_from_model(config, model, 300)
-    # save_dataset(filename + "_dataset", X, y)
-    # print(f"Dataset size: {len(X)}")
+    X, y = get_dataset_from_model(config, model, 1000)
+    save_dataset(filename + "_dataset", X, y)
+    print(f"Dataset size: {len(X)}")
 
     data = []
 
-    for pruning in np.linspace(0.0, 0.001, 100):
+    for pruning in np.linspace(0.0, 0.05, 100):
         X, y = load_dataset(filename + "_dataset")
         dt = DistilledTree(config)
         dt.fit(X, y, pruning=pruning)
@@ -97,4 +115,5 @@ if __name__ == "__main__":
     ax2.plot(pruning_params, leaves, color="blue")
     ax2.set_ylabel("Number of leaves")
     ax2.set_xlabel("Pruning $\\alpha$")
+    plt.suptitle(f"Behavior cloning for {config['name']}")
     plt.show()

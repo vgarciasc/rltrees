@@ -12,28 +12,29 @@ from il import *
 from qtree import save_tree_from_print
 from imitation_learning.utils import load_dataset, printv, save_dataset
 from imitation_learning.distilled_tree import DistilledTree
+from imitation_learning.ann_mountain_car import MountainCarANN
 
-PRUNING_PARAM = 0.01
+PRUNING_PARAM = 0.02
 DATASET_SIZE = 50000
 
 if __name__ == "__main__":
-    config = {
-        "name": "CartPole-v1",
-        "can_render": True,
-        "episode_max_score": 195,
-        "should_force_episode_termination_score": True,
-        "episode_termination_score": 0,
-        "n_actions": 2,
-        "actions": ["left", "right"],
-        "n_attributes": 4,              
-        "attributes": [
-            ("Cart Position", "continuous", -1, -1),
-            ("Cart Velocity", "continuous", -1, -1),
-            ("Pole Angle", "continuous", -1, -1),
-            ("Pole Angular Velocity", "continuous", -1, -1)],
-    }
+    # config = {
+    #     "name": "CartPole-v1",
+    #     "can_render": True,
+    #     "episode_max_score": 195,
+    #     "should_force_episode_termination_score": True,
+    #     "episode_termination_score": 0,
+    #     "n_actions": 2,
+    #     "actions": ["left", "right"],
+    #     "n_attributes": 4,              
+    #     "attributes": [
+    #         ("Cart Position", "continuous", -1, -1),
+    #         ("Cart Velocity", "continuous", -1, -1),
+    #         ("Pole Angle", "continuous", -1, -1),
+    #         ("Pole Angular Velocity", "continuous", -1, -1)],
+    # }
 
-    filename = "data/cartpole_nn_19"
+    # filename = "data/cartpole_nn_19"
 
     # config = {
     #     "name": "LunarLander-v2",
@@ -53,13 +54,31 @@ if __name__ == "__main__":
     # }
 
     # filename = "data/lunarlander_nn_9"
+    
+    
+    config = {
+		"name": "MountainCar-v0",
+        "can_render": True,
+        "episode_max_score": 195,
+        "should_force_episode_termination_score": False,
+        "episode_termination_score": 0,
+        "n_actions": 3,
+        "actions": ["left", "nop", "right"],
+        "n_attributes": 2,              
+        "attributes": [("Car Position", "continuous", -1, -1),
+                       ("Car Velocity", "continuous", -1, -1)],
+    }
+
+    filename = "data/mountain_car_ann"
 
     # avg_reward, rewards = get_average_reward(config, expert)
     # print(f"Average reward for the expert: {avg_reward} ± {np.std(rewards)}.")
 
     # Initialization
-    expert = ann.MLPAgent(config, exploration_rate=0)
-    expert.load_model(filename)
+    # expert = ann.MLPAgent(config, exploration_rate=0)
+    # expert.load_model(filename)
+    expert = MountainCarANN(config)
+    expert.load(filename)
 
     best_reward = -9999
     best_model = None
@@ -120,7 +139,7 @@ if __name__ == "__main__":
     ax2.plot(iterations, leaves, color="blue")
     ax2.set_ylabel("Number of leaves")
     ax2.set_xlabel("Pruning $\\alpha$")
-    plt.suptitle(f"DAgger for {config['name']} w/ pruning $\\alpha = {PRUNING_PARAM}$")
+    plt.suptitle(f"DAgger for {config['name']} w/ pruning $\\alpha = {PRUNING_PARAM}$, {episodes} per iteration")
     plt.show()
 
     dt = best_model

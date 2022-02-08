@@ -15,7 +15,7 @@ MAIN_ENGINE = 2
 RIGHT_ENGINE = 3
 
 def view_tree_in_action(qtree, envname, episodes=5, render=True, verbose=True):
-    qtree.print_tree()
+    # qtree.print_tree()
     total_rewards = []
     gym_env = gym.make(envname)
 
@@ -165,17 +165,17 @@ def run_blackjack_optimal(episodes=100000):
     print(f"score: {np.mean(episode_rewards)}")
 
 if __name__ == "__main__":
-    filename = "data/tree 2022-01-31 14-24_lunarlander_optimal"
-    envname = "CartPole-v1"
+    filename = "data/tree 2022-02-03 16-47"
+    envname = "MountainCar-v0"
 
     qtree = None
     with open(filename, 'rb') as file:
         qtree = pickle.load(file)
         file.close()
     
-    view_tree_in_action(qtree, envname, episodes=50)
+    # view_tree_in_action(qtree, envname, episodes=50)
 
-    # mean, std = view_tree_in_action(qtree, envname, episodes=100, render=False, verbose=True)
-    # print(f"Average reward: {'{:.3f}'.format(mean)} +- {'{:.3f}'.format(std)}")
+    mean, std = view_tree_in_action(qtree, envname, episodes=100, render=False, verbose=True)
+    print(f"Average reward: {'{:.3f}'.format(mean)} ± {'{:.3f}'.format(std)}")
 
     # run_blackjack_optimal()

@@ -489,7 +489,7 @@ if __name__ == "__main__":
         "qlearning_episodes": 100,
         "qlearning_episodes_after_growing": 0,
 
-        "should_store_history": True,
+        "should_store_history": False,
         "history_storage_length": 0,
         "should_qlearn_inplace": True,
         "inherit_q_values_upon_split": True,
@@ -501,7 +501,7 @@ if __name__ == "__main__":
     summary_episodes_run = []
     trees = []
 
-    with open("data/tree 2022-01-31 13-09_dagger_LunarLander-v2", "rb") as f:
+    with open("data/tree 2022-02-02 14-11_dagger_best_tree_LunarLander-v2", "rb") as f:
         qtree = pickle.load(f)
 
     print(f"Average reward: {get_average_reward(qtree, config, episodes=100)}")

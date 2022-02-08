@@ -12,8 +12,9 @@ from il import *
 from qtree import save_tree_from_print
 from imitation_learning.utils import load_dataset, printv, save_dataset
 from imitation_learning.distilled_tree import DistilledTree
+from imitation_learning.ann_mountain_car import MountainCarANN
 
-PRUNING_PARAM = 0.001
+PRUNING_PARAM = 0.01
 
 if __name__ == "__main__":
     # config = {
@@ -34,27 +35,44 @@ if __name__ == "__main__":
 
     # filename = "data/cartpole_nn_19"
 
+    # config = {
+    #     "name": "LunarLander-v2",
+    #     "can_render": True,
+    #     "n_actions": 4,
+    #     "actions": ["nop", "left engine", "main engine", "right engine"],
+    #     "n_attributes": 8,              
+    #     "attributes": [
+    #         ("X Position", "continuous", -1, -1),
+    #         ("Y Position", "continuous", -1, -1),
+    #         ("X Velocity", "continuous", -1, -1),
+    #         ("Y Velocity", "continuous", -1, -1),
+    #         ("Angle", "continuous", -1, -1),
+    #         ("Angular Velocity", "continuous", -1, -1),
+    #         ("Leg 1 is Touching", "binary", [0, 1], -1),
+    #         ("Leg 2 is Touching", "binary", [0, 1], -1)],
+    # }
+
+    # filename = "data/lunarlander_nn_9"
+
     config = {
-        "name": "LunarLander-v2",
+		"name": "MountainCar-v0",
         "can_render": True,
-        "n_actions": 4,
-        "actions": ["nop", "left engine", "main engine", "right engine"],
-        "n_attributes": 8,              
-        "attributes": [
-            ("X Position", "continuous", -1, -1),
-            ("Y Position", "continuous", -1, -1),
-            ("X Velocity", "continuous", -1, -1),
-            ("Y Velocity", "continuous", -1, -1),
-            ("Angle", "continuous", -1, -1),
-            ("Angular Velocity", "continuous", -1, -1),
-            ("Leg 1 is Touching", "binary", [0, 1], -1),
-            ("Leg 2 is Touching", "binary", [0, 1], -1)],
+        "episode_max_score": 195,
+        "should_force_episode_termination_score": False,
+        "episode_termination_score": 0,
+        "n_actions": 3,
+        "actions": ["left", "nop", "right"],
+        "n_attributes": 2,              
+        "attributes": [("Car Position", "continuous", -1, -1),
+                       ("Car Velocity", "continuous", -1, -1)],
     }
 
-    filename = "data/lunarlander_nn_9"
+    filename = "data/mountain_car_ann"
 
-    expert = ann.MLPAgent(config, exploration_rate=0)
-    expert.load_model(filename)
+    # expert = ann.MLPAgent(config, exploration_rate=0)
+    # expert.load_model(filename)
+    expert = MountainCarANN(config)
+    expert.load(filename)
     
     avg_reward, rewards = get_average_reward(config, expert)
     print(f"Average reward for the expert: {avg_reward} ± {np.std(rewards)}.")
@@ -117,7 +135,6 @@ if __name__ == "__main__":
     visualize_model(config, dt, 10)
 
     # qtree = dt.get_as_qtree()
-    # qtree.sort(key = lambda x : x[0])
     # save_tree_from_print(
     #     qtree,
     #     ["left", "right"],

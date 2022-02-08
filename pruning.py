@@ -14,21 +14,18 @@ from exp7_clean import *
 
 if __name__ == "__main__":
     config = {
-        "name": "CartPole-v1",
+		"name": "MountainCar-v0",
         "can_render": True,
         "episode_max_score": 195,
-        "should_force_episode_termination_score": True,
+        "should_force_episode_termination_score": False,
         "episode_termination_score": 0,
+        "n_actions": 3,
         "should_stop_if_no_splits": False,
         "max_iters_without_split": 3,
-        "n_actions": 2,
-        "actions": ["left", "right"],
-        "n_attributes": 4,              
-        "attributes": [
-            ("Cart Position", "continuous", -1, -1),
-            ("Cart Velocity", "continuous", -1, -1),
-            ("Pole Angle", "continuous", -1, -1),
-            ("Pole Angular Velocity", "continuous", -1, -1)],
+        "actions": ["left", "nop", "right"],
+        "n_attributes": 2,              
+        "attributes": [("Car Position", "continuous", -1, -1),
+                       ("Car Velocity", "continuous", -1, -1)],
 
         "learning_rate": 0.05,
         "discount_factor": 0.95,
@@ -55,7 +52,7 @@ if __name__ == "__main__":
     summary_episodes_run = []
     trees = []
 
-    with open("data/tree 2022-01-27 11-22_cartpole_ann_2", "rb") as f:
+    with open("data/tree 2022-02-03 16-46_dagger_best_tree_MountainCar-v0", "rb") as f:
         qtree = pickle.load(f)
 
     for _ in range(1):

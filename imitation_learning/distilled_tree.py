@@ -18,7 +18,7 @@ class DistilledTree:
         return action
     
     def save_fig(self):
-        plt.figure(figsize=(15, 15))
+        plt.figure(figsize=(25, 25))
         feature_names = [name for (name, _, _, _) in self.config["attributes"]]
         tree.plot_tree(self.model, feature_names=feature_names)
         plt.savefig('last_tree.png')
@@ -57,4 +57,5 @@ class DistilledTree:
                 stack.append((children_left[node_id], node_id, True))
                 stack.append((children_right[node_id], node_id, False))
 
+        output.sort(key = lambda x : x[0])
         return output

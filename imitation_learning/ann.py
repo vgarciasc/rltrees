@@ -127,8 +127,9 @@ def collect_data(config):
 
             state = next_state
 
-        avg_reward, _ = get_average_reward(config, model, episodes=20)
-        print(f"Model at episode #{episode} has average reward {avg_reward}")
+        avg_reward, rewards = get_average_reward(config, model, episodes=20)
+        deviation = np.std(rewards)
+        print(f"Model at episode #{episode} has average reward {avg_reward} ± {deviation}")
         total_rewards.append(avg_reward)
 
         if avg_reward > best_reward:
@@ -140,7 +141,7 @@ def collect_data(config):
     env.close()
     end = time.time()
 
-    print("Average reward per episode:", np.mean(total_rewards))
+    print(f"Average reward per episode: {np.mean(total_rewards)} ± {np.std(total_rewards)}")
     print(f"Time elapsed: {'{:.3f}'.format(end - start)} seconds")
 
 if __name__ == "__main__":
@@ -160,37 +161,37 @@ if __name__ == "__main__":
     #         ("Pole Angular Velocity", "continuous", -1, -1)],
     # }
 
-    # config = {
-    #     "name": "LunarLander-v2",
-    #     "can_render": True,
-    #     "n_actions": 4,
-    #     "actions": ["nop", "left engine", "main engine", "right engine"],
-    #     "n_attributes": 8,              
-    #     "attributes": [
-    #         ("X Position", "continuous", -1, -1),
-    #         ("Y Position", "continuous", -1, -1),
-    #         ("X Velocity", "continuous", -1, -1),
-    #         ("Y Velocity", "continuous", -1, -1),
-    #         ("Angle", "continuous", -1, -1),
-    #         ("Angular Velocity", "continuous", -1, -1),
-    #         ("Leg 1 is Touching", "binary", [0, 1], -1),
-    #         ("Leg 2 is Touching", "binary", [0, 1], -1)],
-    # }
-
     config = {
-        "name": "MountainCar-v0",
+        "name": "LunarLander-v2",
         "can_render": True,
-        "episode_max_score": 195,
-        "should_force_episode_termination_score": False,
-        "episode_termination_score": 0,
-        "should_stop_if_no_splits": False,
-        "max_iters_without_split": 3,
-        "n_actions": 2,
-        "actions": ["left", "right"],
-        "n_attributes": 2,              
-        "attributes": [("Car Position", "continuous", -1, -1),
-                        ("Car Velocity", "continuous", -1, -1)],
+        "n_actions": 4,
+        "actions": ["nop", "left engine", "main engine", "right engine"],
+        "n_attributes": 8,              
+        "attributes": [
+            ("X Position", "continuous", -1, -1),
+            ("Y Position", "continuous", -1, -1),
+            ("X Velocity", "continuous", -1, -1),
+            ("Y Velocity", "continuous", -1, -1),
+            ("Angle", "continuous", -1, -1),
+            ("Angular Velocity", "continuous", -1, -1),
+            ("Leg 1 is Touching", "binary", [0, 1], -1),
+            ("Leg 2 is Touching", "binary", [0, 1], -1)],
     }
+
+    # config = {
+    #     "name": "MountainCar-v0",
+    #     "can_render": True,
+    #     "episode_max_score": 195,
+    #     "should_force_episode_termination_score": False,
+    #     "episode_termination_score": 0,
+    #     "should_stop_if_no_splits": False,
+    #     "max_iters_without_split": 3,
+    #     "n_actions": 2,
+    #     "actions": ["left", "right"],
+    #     "n_attributes": 2,              
+    #     "attributes": [("Car Position", "continuous", -1, -1),
+    #                     ("Car Velocity", "continuous", -1, -1)],
+    # }
 
     collect_data(config)
 
