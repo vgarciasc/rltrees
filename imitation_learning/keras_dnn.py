@@ -12,7 +12,7 @@ import keras
 import gym
 import pdb
 
-class MountainCarANN:
+class KerasDNN:
     def __init__(self, config):
         self.n_attributes = config['n_attributes']
         self.n_actions = config['n_actions']
@@ -61,12 +61,26 @@ class MountainCarANN:
         self.dqn.model = keras.models.load_model(filename)
 
 if __name__ == '__main__':
-    env = gym.make('MountainCar-v0')
-    ann = MountainCarANN({'n_actions': 3, 'n_attributes': 2})
+    mc_config = {
+        "name": "MountainCar-v0",
+        "n_actions": 3,
+        "n_attributes": 2
+    }
 
-    # ann.dqn.fit(env, nb_steps=150000, visualize=False, verbose=2)
-    # ann.dqn.test(env, nb_episodes=25, visualize=True)
-    # ann.save("data/mountain_car_ann")
+    ll_config = {
+        "name": "LunarLander-v2",
+        "n_actions": 4,
+        "n_attributes": 8
+    }
 
-    ann.load("data/mountain_car_ann")
+    config = ll_config
+
+    env = gym.make(config['name'])
+    ann = KerasDNN(config)
+
+    ann.dqn.fit(env, nb_steps=150000, visualize=False, verbose=2)
     ann.dqn.test(env, nb_episodes=25, visualize=True)
+    ann.save(f"data/{config['name']}_keras-nn")
+
+    # ann.load(f"data/{config['name']}_keras-nn")
+    # ann.dqn.test(env, nb_episodes=25, visualize=True)

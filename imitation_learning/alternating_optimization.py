@@ -1,118 +1,55 @@
-import gym
-import pickle
 import pdb
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
 from rich import print
-from sklearn import tree
 
 import ann
+import imitation_learning.env_configs
+import imitation_learning.parser
 from il import *
 from qtree import save_tree_from_print
 from imitation_learning.utils import load_dataset, printv, save_dataset
 from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.ann_mountain_car import MountainCarANN
+from imitation_learning.keras_dnn import KerasDNN
 
-PRUNING_PARAM = 0.01
-
-if __name__ == "__main__":
-    # config = {
-    #     "name": "CartPole-v1",
-    #     "can_render": True,
-    #     "episode_max_score": 195,
-    #     "should_force_episode_termination_score": True,
-    #     "episode_termination_score": 0,
-    #     "n_actions": 2,
-    #     "actions": ["left", "right"],
-    #     "n_attributes": 4,              
-    #     "attributes": [
-    #         ("Cart Position", "continuous", -1, -1),
-    #         ("Cart Velocity", "continuous", -1, -1),
-    #         ("Pole Angle", "continuous", -1, -1),
-    #         ("Pole Angular Velocity", "continuous", -1, -1)],
-    # }
-
-    # filename = "data/cartpole_nn_19"
-
-    # config = {
-    #     "name": "LunarLander-v2",
-    #     "can_render": True,
-    #     "n_actions": 4,
-    #     "actions": ["nop", "left engine", "main engine", "right engine"],
-    #     "n_attributes": 8,              
-    #     "attributes": [
-    #         ("X Position", "continuous", -1, -1),
-    #         ("Y Position", "continuous", -1, -1),
-    #         ("X Velocity", "continuous", -1, -1),
-    #         ("Y Velocity", "continuous", -1, -1),
-    #         ("Angle", "continuous", -1, -1),
-    #         ("Angular Velocity", "continuous", -1, -1),
-    #         ("Leg 1 is Touching", "binary", [0, 1], -1),
-    #         ("Leg 2 is Touching", "binary", [0, 1], -1)],
-    # }
-
-    # filename = "data/lunarlander_nn_9"
-
-    config = {
-		"name": "MountainCar-v0",
-        "can_render": True,
-        "episode_max_score": 195,
-        "should_force_episode_termination_score": False,
-        "episode_termination_score": 0,
-        "n_actions": 3,
-        "actions": ["left", "nop", "right"],
-        "n_attributes": 2,              
-        "attributes": [("Car Position", "continuous", -1, -1),
-                       ("Car Velocity", "continuous", -1, -1)],
-    }
-
-    filename = "data/mountain_car_ann"
-
-    # expert = ann.MLPAgent(config, exploration_rate=0)
-    # expert.load_model(filename)
-    expert = MountainCarANN(config)
-    expert.load(filename)
-    
-    avg_reward, rewards = get_average_reward(config, expert)
-    print(f"Average reward for the expert: {avg_reward} ± {np.std(rewards)}.")
+def run_altopt(config, X, y, expert, pruning_alpha, 
+    iterations, episodes, verbose=False):
 
     best_reward = -9999
     best_model = None
 
-    episodes = 100
-
-    # Initialization
-    # X, y = get_dataset_from_model(config, expert, episodes)
-    X, y = load_dataset(filename + "_dataset")
     dt = DistilledTree(config)
-    dt.fit(X, y, pruning=PRUNING_PARAM)
+    dt.fit(X, y, pruning=args['pruning'])
 
-    data = []
-
-    for i in range(50):
+    history = []
+    for i in range(iterations):
         X, _ = get_dataset_from_model(config, dt, episodes)
         y = label_dataset_with_model(config, expert, X)
 
         dt = DistilledTree(config)
-        dt.fit(X, y, pruning=PRUNING_PARAM)
+        dt.fit(X, y, pruning=pruning_alpha)
 
-        printv(f"Step #{i}.")
+        printv(f"Step #{i}.", verbose)
         avg_reward, rewards = get_average_reward(config, dt)
         deviation = np.std(rewards)
         leaves = dt.model.get_n_leaves()
         depth = dt.model.get_depth()
 
-        printv(f"- Obtained tree with {leaves} leaves and depth {depth}.")
-        printv(f"- Average reward for the student: {avg_reward} ± {deviation}.")
+        printv(f"- Obtained tree with {leaves} leaves and depth {depth}.", verbose)
+        printv(f"- Average reward for the student: {avg_reward} ± {deviation}.", verbose)
 
-        data.append((i, avg_reward, deviation, leaves, depth))
+        history.append((i, avg_reward, deviation, leaves, depth))
 
         if avg_reward > best_reward:
             best_reward = avg_reward
             best_model = dt
     
-    iterations, avg_rewards, deviations, leaves, depths = zip(*data)
+    return best_model, best_reward, zip(*history)
+
+def plot_altopt(config, pruning, history):
+    iterations, avg_rewards, deviations, leaves, depths = history
 
     avg_rewards = np.array(avg_rewards)
     deviations = np.array(deviations)
@@ -125,18 +62,45 @@ if __name__ == "__main__":
     ax2.plot(iterations, leaves, color="blue")
     ax2.set_ylabel("Number of leaves")
     ax2.set_xlabel("Pruning $\\alpha$")
-    plt.suptitle(f"Alternating Optimization for {config['name']} w/ pruning $\\alpha = {PRUNING_PARAM}$")
+    plt.suptitle(f"Alternating Optimization for {config['name']} w/ pruning $\\alpha = {args['pruning']}$")
     plt.show()
 
-    dt = best_model
-    printv(f"Visualizing final tree:")
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Behavior Cloning')
+    parser.add_argument('-t','--task',help="Which task to run?", required=True)
+    parser.add_argument('-f','--expert_filepath', help='Filepath for expert', required=True)
+    parser.add_argument('-c','--expert_class', help='Expert class is MLP or KerasDNN?', required=True)
+    parser.add_argument('-p','--pruning', help='Pruning alpha to use', required=True, type=float)
+    parser.add_argument('-i','--iterations', help='Number of iterations to run', required=True, type=int)
+    parser.add_argument('-e','--episodes', help='Number of episodes to collect every iteration', required=True, type=int)
+    parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    args = vars(parser.parse_args())
+    
+    config = imitation_learning.env_configs.get_config(args['task'])
+    expert, X, y = imitation_learning.parser.handle_args(args, config)
+    
+    # Running alternating optimization
+    dt, reward, history = run_altopt(
+        config, X, y, expert,
+        pruning_alpha=args['pruning'],
+        episodes=args['episodes'],
+        iterations=args['iterations'],
+        verbose=True)
+
+    plot_altopt(config, args['pruning'], history)
+    
+    # Visualizing tree
     dt.save_fig()
     dt.save_model(f"data/AltOpt_best_tree_{config['name']}")
-    visualize_model(config, dt, 10)
+    if args['should_visualize']:
+        printv(f"Visualizing final tree:")
+        visualize_model(config, dt, 25)
 
-    # qtree = dt.get_as_qtree()
-    # save_tree_from_print(
-    #     qtree,
-    #     ["left", "right"],
-    #     "_altopt_cartpole")
-    
+    # Saving tree
+    qtree = dt.get_as_qtree()
+    save_tree_from_print(
+        qtree,
+        config['actions'],
+        f"_AltOpt_{config['name']}")

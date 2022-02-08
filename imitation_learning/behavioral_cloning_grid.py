@@ -1,6 +1,7 @@
 import gym
 import pickle
 import pdb
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -8,102 +9,51 @@ from rich import print
 from sklearn import tree
 
 import ann
+import imitation_learning.env_configs
 from il import *
 from qtree import save_tree_from_print
 from imitation_learning.utils import printv, load_dataset, save_dataset
 from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.ann_mountain_car import MountainCarANN
+from imitation_learning.keras_dnn import KerasDNN
+from imitation_learning.behavioral_cloning import run_behavior_cloning
 
-if __name__ == "__main__":
-    # config = {
-    #     "name": "CartPole-v1",
-    #     "can_render": True,
-    #     "episode_max_score": 195,
-    #     "should_force_episode_termination_score": True,
-    #     "episode_termination_score": 0,
-    #     "n_actions": 2,
-    #     "actions": ["left", "right"],
-    #     "n_attributes": 4,              
-    #     "attributes": [
-    #         ("Cart Position", "continuous", -1, -1),
-    #         ("Cart Velocity", "continuous", -1, -1),
-    #         ("Pole Angle", "continuous", -1, -1),
-    #         ("Pole Angular Velocity", "continuous", -1, -1)],
-    # }
+def run_grid_behavior_cloning(config, X, y, start, end, steps, verbose=False):
+    history = []
 
-    # filename = "data/cartpole_nn_19"
+    for i, pruning_alpha in enumerate(np.linspace(start, end, steps)):
+        # Run behavior cloning for this value of pruning
+        dt = run_behavior_cloning(
+            config, X, y,
+            pruning_alpha=pruning_alpha)
 
-    # config = {
-    #     "name": "LunarLander-v2",
-    #     "can_render": True,
-    #     "n_actions": 4,
-    #     "actions": ["nop", "left engine", "main engine", "right engine"],
-    #     "n_attributes": 8,              
-    #     "attributes": [
-    #         ("X Position", "continuous", -1, -1),
-    #         ("Y Position", "continuous", -1, -1),
-    #         ("X Velocity", "continuous", -1, -1),
-    #         ("Y Velocity", "continuous", -1, -1),
-    #         ("Angle", "continuous", -1, -1),
-    #         ("Angular Velocity", "continuous", -1, -1),
-    #         ("Leg 1 is Touching", "binary", [0, 1], -1),
-    #         ("Leg 2 is Touching", "binary", [0, 1], -1)],
-    # }
-
-    # filename = "data/lunarlander_nn_9"
-
-    config = {
-		"name": "MountainCar-v0",
-        "can_render": True,
-        "episode_max_score": 195,
-        "should_force_episode_termination_score": False,
-        "episode_termination_score": 0,
-        "n_actions": 3,
-        "actions": ["left", "nop", "right"],
-        "n_attributes": 2,              
-        "attributes": [("Car Position", "continuous", -1, -1),
-                       ("Car Velocity", "continuous", -1, -1)],
-    }
-
-    filename = "data/mountain_car_ann"
-
-    # model = ann.MLPAgent(config, exploration_rate=0)
-    # model.load_model(filename)
-    model = MountainCarANN(config)
-    model.load(filename)
-
-    print("== Neural Network")
-    get_average_reward(config, model, episodes=100, verbose=True)
-
-    X, y = get_dataset_from_model(config, model, 1000)
-    save_dataset(filename + "_dataset", X, y)
-    print(f"Dataset size: {len(X)}")
-
-    data = []
-
-    for pruning in np.linspace(0.0, 0.05, 100):
-        X, y = load_dataset(filename + "_dataset")
-        dt = DistilledTree(config)
-        dt.fit(X, y, pruning=pruning)
-
-        leaves = dt.model.get_n_leaves()
-        depth = dt.model.get_depth()
-
+        # Evaluating tree
         avg_reward, rewards = get_average_reward(config, dt, episodes=50)
         deviation = np.std(rewards)
-        print(f"alpha = {pruning}: \tREWARD = {'{:.3f}'.format(avg_reward)} +- {'{:.3f}'.format(deviation)} \t{leaves} leaves and depth {depth}.")
 
-        data.append((pruning, avg_reward, deviation, leaves, depth))
+        # Keeping history of trees
+        leaves = dt.model.get_n_leaves()
+        depth = dt.model.get_depth()
+        history.append((pruning_alpha, avg_reward, deviation, leaves, depth))
 
+        # Logging info if necessary
+        printv(f"#({i} / {steps}) PRUNING = {pruning_alpha}: \t"
+            + f"REWARD = {'{:.3f}'.format(avg_reward)} ± {'{:.3f}'.format(deviation)}"
+            + f"\tLEAVES: {leaves}, DEPTH: {depth}.",
+            verbose)
+
+        # Saving tree
         qtree = dt.get_as_qtree()
         qtree.sort(key = lambda x : x[0])
         save_tree_from_print(
-            qtree,
-            ["nop", "left engine", "main engine", "right engine"],
-            f"_cartpole_bc_pruning_{pruning}")
+            qtree, config['actions'],
+            f"_{config['name']}_bc_pruning_{pruning_alpha}")
     
-    pruning_params, avg_rewards, deviations, leaves, depths = zip(*data)
+    # pruning_params, avg_rewards, deviations, leaves, depths = zip(*history)
+    return zip(*history)
 
+def plot_behavior_cloning(history):
+    pruning_params, avg_rewards, deviations, leaves, depths = history
+    
     avg_rewards = np.array(avg_rewards)
     deviations = np.array(deviations)
 
@@ -117,3 +67,32 @@ if __name__ == "__main__":
     ax2.set_xlabel("Pruning $\\alpha$")
     plt.suptitle(f"Behavior cloning for {config['name']}")
     plt.show()
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Behavior Cloning')
+    parser.add_argument('-t','--task',help="Which task to run?", required=True)
+    parser.add_argument('-f','--expert_filepath', help='Filepath for expert', required=True)
+    parser.add_argument('-c','--expert_class', help='Expert class is MLP or KerasDNN?', required=True)
+    parser.add_argument('-s','--start', help='Starting point for pruning alpha', required=True, type=float)
+    parser.add_argument('-e','--end', help='Ending point for pruning alpha', required=True, type=float)
+    parser.add_argument('-i','--steps', help='Number of overall steps', required=True, type=int)
+    parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--verbose', help='Is verbos?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    args = vars(parser.parse_args())
+    
+    config = imitation_learning.env_configs.get_config(args['task'])
+    expert, X, y = imitation_learning.parser.handle_args(args, config)
+
+    # Grid-running behavior cloning
+    history = run_grid_behavior_cloning(
+        config, X, y,
+        start=args['start'],
+        end=args['end'],
+        steps=args['steps'],
+        verbose=args['verbose'])
+
+    # Plotting behavior cloning
+    plot_behavior_cloning(history)
+    
