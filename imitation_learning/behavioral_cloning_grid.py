@@ -77,9 +77,10 @@ if __name__ == "__main__":
     parser.add_argument('-e','--end', help='Ending point for pruning alpha', required=True, type=float)
     parser.add_argument('-i','--steps', help='Number of overall steps', required=True, type=int)
     parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--dataset_size', help='Size of new dataset to create', required=False, default=0, type=int)
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
-    parser.add_argument('--verbose', help='Is verbos?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
     config = imitation_learning.env_configs.get_config(args['task'])

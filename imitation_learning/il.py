@@ -38,7 +38,7 @@ def get_average_reward(config, model, episodes=10, verbose=False):
     env.close()
     
     average_reward = np.mean(total_rewards)
-    printv(f"Average reward for this model is {average_reward} +- {np.std(total_rewards)}.", verbose)
+    printv(f"Average reward for this model is {average_reward} ± {np.std(total_rewards)}.", verbose)
 
     return average_reward, total_rewards
 

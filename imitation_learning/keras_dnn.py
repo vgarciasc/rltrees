@@ -6,11 +6,14 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
 from keras.optimizers import Adam
 
-import numpy as np
+from imitation_learning.env_configs import get_config
+from imitation_learning.il import get_average_reward
 
 import keras
 import gym
+import argparse
 import pdb
+import numpy as np
 
 class KerasDNN:
     def __init__(self, config):
@@ -61,26 +64,27 @@ class KerasDNN:
         self.dqn.model = keras.models.load_model(filename)
 
 if __name__ == '__main__':
-    mc_config = {
-        "name": "MountainCar-v0",
-        "n_actions": 3,
-        "n_attributes": 2
-    }
+    parser = argparse.ArgumentParser(description='Behavior Cloning')
+    parser.add_argument('-t','--task',help="Which task to run?", required=True)
+    parser.add_argument('-o','--output_filepath', help='Filepath to save expert', required=True)
+    parser.add_argument('-i','--iterations', help='Number of iterations to run', required=True, type=int)
+    parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    args = vars(parser.parse_args())
 
-    ll_config = {
-        "name": "LunarLander-v2",
-        "n_actions": 4,
-        "n_attributes": 8
-    }
-
-    config = ll_config
-
+    # Initialization    
+    config = get_config(args['task'])
     env = gym.make(config['name'])
     ann = KerasDNN(config)
 
-    ann.dqn.fit(env, nb_steps=150000, visualize=False, verbose=2)
-    ann.dqn.test(env, nb_episodes=25, visualize=True)
-    ann.save(f"data/{config['name']}_keras-nn")
+    # Fitting model
+    ann.dqn.fit(env, nb_steps=args['iterations'], visualize=False, verbose=2)
 
-    # ann.load(f"data/{config['name']}_keras-nn")
-    # ann.dqn.test(env, nb_episodes=25, visualize=True)
+    # Evaluating model
+    get_average_reward(config, ann, episodes=100, verbose=True)
+    
+    # Saving model
+    ann.save(args['output_filepath'])
+
+    # Visualization
+    if args['should_visualize']:
+        ann.dqn.test(env, nb_episodes=25, visualize=True)

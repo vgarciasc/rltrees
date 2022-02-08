@@ -89,6 +89,7 @@ if __name__ == "__main__":
     parser.add_argument('-i','--iterations', help='Number of iterations to run', required=True, type=int)
     parser.add_argument('-e','--episodes', help='Number of episodes to collect every iteration', required=True, type=int)
     parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--dataset_size', help='Size of new dataset to create', required=False, default=0, type=int)
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())

@@ -25,6 +25,7 @@ def handle_args(args, config):
     if args['should_collect_dataset']:
         X, y = get_dataset_from_model(config, expert, args['dataset_size'])
         save_dataset(f"{filename}_dataset", X, y)
+        print(f"Create dataset with {len(y)} observations for {config['name']}.")
     else:
         X, y = load_dataset(f"{filename}_dataset")
         
