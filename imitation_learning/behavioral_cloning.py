@@ -31,6 +31,7 @@ if __name__ == "__main__":
     parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--dataset_size', help='Size of new dataset to create', required=False, default=0, type=int)
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--episodes_to_grade_model', help='How many episodes to grade model?', required=False, default=100, type=int)
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
@@ -43,7 +44,10 @@ if __name__ == "__main__":
     dt.save_fig()
 
     # Printing results
-    avg, rewards = get_average_reward(config, dt, episodes=50, verbose=args['verbose'])
+    avg, rewards = get_average_reward(
+        config, dt,
+        episodes=args['episodes_to_grade_model'],
+        verbose=args['verbose'] if args['episodes_to_grade_model'] < 100 else False)
     deviation = np.std(rewards)
     print(f"Average reward is {avg} ± {deviation}.")
     print(f"Resulting tree has {dt.model.get_n_leaves()} leaves and depth {dt.model.get_depth()}.")

@@ -17,7 +17,8 @@ from imitation_learning.distilled_tree import DistilledTree
 from imitation_learning.keras_dnn import KerasDNN
 from imitation_learning.behavioral_cloning import run_behavior_cloning
 
-def run_grid_behavior_cloning(config, X, y, start, end, steps, verbose=False):
+def run_grid_behavior_cloning(config, X, y, start, end, steps, 
+    episodes_to_grade=100, should_save_trees=False, verbose=False):
     history = []
 
     for i, pruning_alpha in enumerate(np.linspace(start, end, steps)):
@@ -27,7 +28,7 @@ def run_grid_behavior_cloning(config, X, y, start, end, steps, verbose=False):
             pruning_alpha=pruning_alpha)
 
         # Evaluating tree
-        avg_reward, rewards = get_average_reward(config, dt, episodes=50)
+        avg_reward, rewards = get_average_reward(config, dt, episodes=episodes_to_grade)
         deviation = np.std(rewards)
 
         # Keeping history of trees
@@ -38,15 +39,16 @@ def run_grid_behavior_cloning(config, X, y, start, end, steps, verbose=False):
         # Logging info if necessary
         printv(f"#({i} / {steps}) PRUNING = {pruning_alpha}: \t"
             + f"REWARD = {'{:.3f}'.format(avg_reward)} ± {'{:.3f}'.format(deviation)}"
-            + f"\tLEAVES: {leaves}, DEPTH: {depth}.",
+            + f"\tNODES: {leaves*2 -1}, DEPTH: {depth}.",
             verbose)
 
         # Saving tree
-        qtree = dt.get_as_qtree()
-        qtree.sort(key = lambda x : x[0])
-        save_tree_from_print(
-            qtree, config['actions'],
-            f"_{config['name']}_bc_pruning_{pruning_alpha}")
+        if should_save_trees:
+            qtree = dt.get_as_qtree()
+            qtree.sort(key = lambda x : x[0])
+            save_tree_from_print(
+                qtree, config['actions'],
+                f"_{config['name']}_bc_pruning_{pruning_alpha}")
     
     # pruning_params, avg_rewards, deviations, leaves, depths = zip(*history)
     return zip(*history)
@@ -79,7 +81,9 @@ if __name__ == "__main__":
     parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--dataset_size', help='Size of new dataset to create', required=False, default=0, type=int)
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_save_trees', help='Should save intermediary trees?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--episodes_to_grade_model', help='How many episodes to grade model?', required=False, default=100, type=int)
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
@@ -92,6 +96,8 @@ if __name__ == "__main__":
         start=args['start'],
         end=args['end'],
         steps=args['steps'],
+        episodes_to_grade=args['episodes_to_grade_model'],
+        should_save_trees=args['should_save_trees'],
         verbose=args['verbose'])
 
     # Plotting behavior cloning

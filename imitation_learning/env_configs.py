@@ -3,6 +3,7 @@ config_CP = {
     "can_render": True,
     "episode_max_score": 195,
     "should_force_episode_termination_score": True,
+    "should_convert_state_to_array": False,
     "episode_termination_score": 0,
     "n_actions": 2,
     "actions": ["left", "right"],
@@ -18,6 +19,9 @@ config_LL = {
     "name": "LunarLander-v2",
     "can_render": True,
     "n_actions": 4,
+    "should_force_episode_termination_score": False,
+    "should_convert_state_to_array": False,
+    "episode_termination_score": 0,
     "actions": ["nop", "left engine", "main engine", "right engine"],
     "n_attributes": 8,              
     "attributes": [
@@ -36,6 +40,7 @@ config_MC = {
     "can_render": True,
     "episode_max_score": 195,
     "should_force_episode_termination_score": False,
+    "should_convert_state_to_array": False,
     "episode_termination_score": 0,
     "n_actions": 3,
     "actions": ["left", "nop", "right"],
@@ -45,6 +50,22 @@ config_MC = {
         ("Car Velocity", "continuous", -1, -1)],
 }
 
+config_BJ = {
+    "name": "Blackjack-v0",
+    "can_render": False,
+    "episode_max_score": 1,
+    "should_force_episode_termination_score": False,
+    "should_convert_state_to_array": True,
+    "episode_termination_score": None,
+    "n_actions": 2,
+    "actions": ["stick", "hit"],
+    "n_attributes": 3,
+    "attributes": [
+        ("Player's Sum", "discrete", 0, 22),
+        ("Dealer's Card", "discrete", 1, 11),
+        ("Usable Ace", "binary", -1, -1)],
+}
+
 def get_config(task_name):
     if task_name == "cartpole":
         return config_CP
@@ -52,6 +73,8 @@ def get_config(task_name):
         return config_MC
     elif task_name == "lunar_lander":
         return config_LL
+    elif task_name == "blackjack":
+        return config_BJ
         
     print(f"Invalid task_name {task_name}.")
     return None

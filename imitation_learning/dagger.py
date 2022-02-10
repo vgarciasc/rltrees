@@ -52,6 +52,7 @@ def run_dagger(config, X, y, pruning_alpha, expert,
         leaves = dt.model.get_n_leaves()
         depth = dt.model.get_depth()
 
+        printv(f"- Dataset length: {len(X)}")
         printv(f"- Obtained tree with {leaves} leaves and depth {depth}.", verbose)
         printv(f"- Average reward for the student: {avg_reward} ± {deviation}.", verbose)
 
@@ -92,6 +93,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset_size', help='Size of new dataset to create', required=False, default=0, type=int)
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
     config = imitation_learning.env_configs.get_config(args['task'])
@@ -104,7 +106,7 @@ if __name__ == "__main__":
         expert=expert, 
         iterations=args['iterations'],
         episodes=args['episodes'],
-        verbose=True)
+        verbose=args['verbose'])
     iterations, avg_rewards, deviations, leaves, depths = history
 
     # Plotting results
@@ -115,6 +117,14 @@ if __name__ == "__main__":
         pruning_alpha=args['pruning'],
         episodes=args['episodes']
     )
+
+    # Printing the best model
+    avg_reward, rewards = get_average_reward(config, dt)
+    deviation = np.std(rewards)
+    leaves = dt.model.get_n_leaves()
+    depth = dt.model.get_depth()
+    printv(f"- Obtained tree with {leaves} leaves and depth {depth}.")
+    printv(f"- Average reward for the best policy: {avg_reward} ± {deviation}.")
 
     # Visualizing the best model
     dt.save_fig()

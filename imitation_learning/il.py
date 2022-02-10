@@ -26,6 +26,9 @@ def get_average_reward(config, model, episodes=10, verbose=False):
         done = False
         
         while not done:
+            if config['should_convert_state_to_array']:
+                state = np.array(state)
+            
             action = model.act(state)
             next_state, reward, done, _ = env.step(action)
 
@@ -72,7 +75,11 @@ def get_dataset_from_model(config, model, episodes, verbose=False):
     X = []
     y = []
 
-    for _ in range(episodes):
+    printv("Collecting dataset from model.", verbose)
+    for i in range(episodes):
+        if i % 10 == 0:
+            printv(f"{i} / {episodes} episodes... |D| = {len(X)}.", verbose)
+
         state = env.reset()
         done = False
         
