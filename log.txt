@@ -1,0 +1,52 @@
+Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 
+22-22_dagger_LunarLander-v2'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 53 nodes.
+Before pruning, tree had 53 nodes.
+After pruning, tree has 17 nodes.
+Average reward: 72.13965581939254 ± 147.60922600820345
+> Saved tree of size 17 to file 'data/tree 2022-02-15 01-01_LunarLander-v2_pruned_0'!
+Averages: (72.13965581939254,), avg: 72.13965581939254 ± 0.0
+Tree size: (17,), avg: 17.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 
+21-28_dagger_LunarLander-v2'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 225 nodes.
+Before pruning, tree had 225 nodes.
+After pruning, tree has 35 nodes.
+Average reward: 161.6753027750893 ± 116.24869011829556
+> Saved tree of size 35 to file 'data/tree 2022-02-15 03-15_LunarLander-v2_pruned_0'!
+Averages: (161.6753027750893,), avg: 161.6753027750893 ± 0.0
+Tree size: (35,), avg: 35.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 
+20-15_dagger_LunarLander-v2'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 309 nodes.
+Before pruning, tree had 309 nodes.
+After pruning, tree has 35 nodes.
+Average reward: 147.91133232493505 ± 150.99093271771224
+> Saved tree of size 35 to file 'data/tree 2022-02-15 05-50_LunarLander-v2_pruned_0'!
+Averages: (147.91133232493505,), avg: 147.91133232493505 ± 0.0
+Tree size: (35,), avg: 35.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 
+18-59_dagger_LunarLander-v2'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 1105 nodes.
+Before pruning, tree had 1105 nodes.
+After pruning, tree has 23 nodes.
+Average reward: 5.627164085500315 ± 97.99084418116944
+> Saved tree of size 23 to file 'data/tree 2022-02-15 14-58_LunarLander-v2_pruned_0'!
+Averages: (5.627164085500315,), avg: 5.627164085500315 ± 0.0
+Tree size: (23,), avg: 23.0 ± 0.0
+-------------eof------------- 

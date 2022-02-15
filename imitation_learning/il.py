@@ -41,11 +41,11 @@ def get_average_reward(config, model, episodes=10, verbose=False):
     env.close()
     
     average_reward = np.mean(total_rewards)
-    printv(f"Average reward for this model is {average_reward} ± {np.std(total_rewards)}.", verbose)
+    printv(f"Average reward for this model is {'{:.3f}'.format(average_reward)} ± {'{:.3f}'.format(np.std(total_rewards))}.", verbose)
 
     return average_reward, total_rewards
 
-def visualize_model(config, model, episodes):
+def visualize_model(config, model, episodes, print_state=False):
     env = gym.make(config["name"])
     total_rewards = []
 
@@ -54,11 +54,19 @@ def visualize_model(config, model, episodes):
         total_reward = 0
         done = False
         
+        state_idx = 0
         while not done:
+            state_idx += 1
             env.render()
 
             action = model.act(state)
             next_state, reward, done, _ = env.step(action)
+
+            if print_state and state_idx % 5 == 0:
+                for i, attribute in enumerate(config['attributes']):
+                    print(f"\t'{attribute[0]}': {state[i]}")
+                print(f"[red]Action[/red]: [yellow]{config['actions'][action]}[/yellow]")
+                print("---")
 
             state = next_state
             total_reward += reward

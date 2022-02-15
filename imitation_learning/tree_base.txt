@@ -1,0 +1,47 @@
+- Leg 1 is Touching <= 0.500    
+-- Angle <= -0.042
+--- Y Velocity <= -0.225
+---- Angular Velocity <= 0.0
+----- X Velocity <= -0.219
+------ MAIN ENGINE
+------ LEFT ENGINE
+----- MAIN ENGINE
+---- X Velocity <= -0.011
+----- X Position <= 0.074
+------ MAIN ENGINE
+------ LEFT ENGINE
+----- LEFT ENGINE
+--- X Velocity <= -0.079
+---- Y Velocity <= -0.305
+----- MAIN ENGINE
+----- RIGHT ENGINE
+---- Angle <= 0.143
+----- X Position <= -0.019
+------ Y Velocity <= -0.159
+------- MAIN ENGINE
+------- Y Position <= 0.1
+-------- NOP
+-------- RIGHT ENGINE
+------ Y Velocity <= -0.323
+------- MAIN ENGINE
+------- Y Position <= 0.1
+-------- NOP
+-------- LEFT ENGINE
+----- Y Position <= 0.2
+------ X Position <= -0.019
+------- Y Velocity <= -0.159
+-------- MAIN ENGINE
+-------- RIGHT ENGINE
+------- Y Velocity <= -0.323
+-------- MAIN ENGINE
+-------- LEFT ENGINE
+------ Angular Velocity <= -0.101
+------- Angle <= 0.273
+-------- MAIN ENGINE
+-------- X Velocity <= 0.131
+--------- RIGHT ENGINE
+--------- MAIN ENGINE
+------- RIGHT ENGINE
+-- Y Velocity <= -0.120
+--- MAIN ENGINE
+--- NOP

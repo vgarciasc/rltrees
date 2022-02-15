@@ -5,7 +5,9 @@ import gym
 import pickle
 import argparse
 import pdb
-from qtree import QLeaf, QNode
+
+from rich import print
+from qtree import QLeaf, QNode, save_tree
 
 def get_average_reward_qtree(qtree, config, episodes=10, verbose=False):
     gym_env = gym.make(config['name'])
@@ -55,13 +57,12 @@ def prune_by_reward(qtree, node, config,
         history += new_history
     
     parent_of_leaves = is_leaf(node.left) and is_leaf(node.right)
-    parent_of_subtree = is_leaf(node.left) and is_inner_node(node.right) or \
-        is_leaf(node.right) and is_inner_node(node.left)
+    parent_of_subtree = is_inner_node(node.right) or is_inner_node(node.left)
     
-    print(f"\n-- Evaluating node {node}...")
+    printv(f"\n-- Evaluating node {node.pretty_string(config)}...", verbose)
     if parent_of_leaves or parent_of_subtree:
         avg_reward, deviation = get_average_reward_qtree(qtree, config, episodes=episodes_per_prune)
-        printv(f"The average reward of the tree is {avg_reward} ± {deviation}.", verbose)
+        printv(f"\tThe average reward of the tree is {avg_reward} ± {deviation}.", verbose)
         changing_left_node = (node.parent and node == node.parent.left)
         
         if parent_of_leaves:
@@ -76,7 +77,7 @@ def prune_by_reward(qtree, node, config,
             else:
                 qtree = merged_leaf
 
-            printv(f"Merged leaves of node '{config['attributes'][node.attribute][0]} <= {node.value}'!", verbose)
+            printv(f"\tMerged leaves of node '{config['attributes'][node.attribute][0]} <= {node.value}'!", verbose)
         
         elif parent_of_subtree:
             if node.left.__class__.__name__ == "QNode":
@@ -93,15 +94,15 @@ def prune_by_reward(qtree, node, config,
                 qtree = node.left if node.left.__class__.__name__ == "QNode" else node.right
 
             child_node = node.left if node.left.__class__.__name__ == "QNode" else node.right
-            printv(f"Routed from node '{config['attributes'][node.attribute][0]} <= {node.value}' to its subtree '{config['attributes'][child_node.attribute][0]} <= {child_node.value}'!", verbose)
+            printv(f"\tRouted from node '{config['attributes'][node.attribute][0]} <= {node.value}' to its subtree '{config['attributes'][child_node.attribute][0]} <= {child_node.value}'!", verbose)
 
         new_avg_reward, new_deviation = get_average_reward_qtree(qtree, config, episodes=episodes_per_prune)
-        printv(f"The average reward of the tree is {new_avg_reward} ± {new_deviation}.", verbose)
-        printv(f"Got average reward {new_avg_reward} after merge.", verbose)
+        printv(f"\tThe average reward of the tree is {new_avg_reward} ± {new_deviation}.", verbose)
+        printv(f"\tGot average reward {new_avg_reward} after merge.", verbose)
 
         reward_comparison_threshold = (comp_threshold if avg_reward > 0 else (2 - comp_threshold))
         if new_avg_reward < reward_comparison_threshold * avg_reward:
-            printv("Average reward was reduced too much. Undoing merge...", verbose)
+            printv("\tAverage reward was reduced too much. Undoing merge...", verbose)
             if node.parent:
                 if changing_left_node:
                     node.parent.left = node
@@ -113,7 +114,7 @@ def prune_by_reward(qtree, node, config,
             if parent_of_subtree:
                 (node.left if node.left.__class__.__name__ == "QNode" else node.right).parent = node
         else:
-            printv(f"Appending {(qtree.get_size(), new_avg_reward)}", verbose)
+            printv(f"\tAppending {(qtree.get_size(), new_avg_reward)}", verbose)
             history.append((qtree.get_size(), new_avg_reward))
 
     return qtree, history
@@ -122,7 +123,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Pruning by Rewards')
     parser.add_argument('-t','--task', help="Which task to run?", required=True)
     parser.add_argument('-f','--filepath', help='Filepath to load old tree', required=True)
+    parser.add_argument('-o','--output_filepath', help='Filepath to save pruned tree', required=True)
     parser.add_argument('--comp_threshold', help='Reward comparison threshold', required=False, default=0.95, type=float)
+    parser.add_argument('--max_pruning_iters', help='Maximum number of pruning iterations', required=False, default=5, type=int)
     parser.add_argument('--episodes_per_prune', help='Number of episodes used to evaluate pruning', required=False, default=100, type=int)
     parser.add_argument('--pruning_cycles', help='How many pruning cycles should be done?', required=False, default=1, type=int)
     parser.add_argument('--grading_episodes', help='How many episodes to use during grading of final model?', required=False, default=10000, type=int)
@@ -133,12 +136,18 @@ if __name__ == "__main__":
     config = imitation_learning.env_configs.get_config(args['task'])
     output = []
 
+    print(f"Starting reward pruning for {config['name']}, loading file '{args['filepath']}'.")
+
     for cycle in range(args['pruning_cycles']):
+        original_size = None
         print(f"\n\n===== Pruning cycle: {cycle} =====")
         with open(args['filepath'], "rb") as f:
             qtree = pickle.load(f)
+            original_size = qtree.get_size()
+            printv(f"Before pruning, tree had {original_size} nodes.")
         
-        qtree.print_tree()
+        if args['verbose']:
+            qtree.print_tree()
 
         count = 0
         history = []
@@ -149,16 +158,20 @@ if __name__ == "__main__":
                 episodes_per_prune=args['episodes_per_prune'])
 
             count += 1
-            if count > 5:
+            if count > args['max_pruning_iters']:
                 break
         
-        qtree.print_tree()
-        printv(f"Tree has {qtree.get_size()} nodes.")
+        if args['verbose']:
+            qtree.print_tree()
+        
+        printv(f"Before pruning, tree had {original_size} nodes.")
+        printv(f"After pruning, tree has {qtree.get_size()} nodes.")
         avg, stdev = get_average_reward_qtree(
             qtree, config,
             episodes=args['grading_episodes'],
             verbose=True)
         output.append((avg, stdev, qtree.get_size()))
+        save_tree(qtree, f"_{config['name']}_pruned_{cycle}")
     
     averages, deviations, tree_sizes = zip(*output)
     printv(f"Averages: {averages}, avg: {np.mean(averages)} ± {np.std(averages)}")

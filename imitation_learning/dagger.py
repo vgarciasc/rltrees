@@ -17,7 +17,7 @@ from imitation_learning.distilled_tree import DistilledTree
 from imitation_learning.keras_dnn import KerasDNN
 
 def run_dagger(config, X, y, pruning_alpha, expert, 
-    iterations, episodes, verbose=False):
+    iterations, episodes, episodes_to_evaluate=10, verbose=False):
 
     best_reward = -9999
     best_model = None
@@ -47,13 +47,14 @@ def run_dagger(config, X, y, pruning_alpha, expert,
 
         # Housekeeping
         printv(f"Step #{i}.", verbose)
-        avg_reward, rewards = get_average_reward(config, dt)
+        avg_reward, rewards = get_average_reward(
+            config, dt, episodes=episodes_to_evaluate)
         deviation = np.std(rewards)
         leaves = dt.model.get_n_leaves()
         depth = dt.model.get_depth()
 
         printv(f"- Dataset length: {len(X)}")
-        printv(f"- Obtained tree with {leaves} leaves and depth {depth}.", verbose)
+        printv(f"- Obtained tree with {leaves * 2 - 1} nodes and depth {depth}.", verbose)
         printv(f"- Average reward for the student: {avg_reward} ± {deviation}.", verbose)
 
         history.append((i, avg_reward, deviation, leaves, depth))
@@ -64,7 +65,7 @@ def run_dagger(config, X, y, pruning_alpha, expert,
     
     return best_model, best_reward, zip(*history)
 
-def plot_dagger(config, avg_rewards, deviations, pruning_alpha, episodes):
+def plot_dagger(config, avg_rewards, deviations, pruning_alpha, episodes, show=False):
     avg_rewards = np.array(avg_rewards)
     deviations = np.array(deviations)
 
@@ -79,7 +80,11 @@ def plot_dagger(config, avg_rewards, deviations, pruning_alpha, episodes):
     ax2.set_xlabel("Iterations")
     plt.suptitle(f"DAgger for {config['name']} w/ pruning $\\alpha = {pruning_alpha}$" +
         f", {episodes} per iteration")
-    plt.show()
+    
+    if show:
+        plt.show()
+    else:
+        plt.savefig(f"figures/dagger_{config['name']}_{pruning_alpha}.png")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Behavior Cloning')
@@ -89,16 +94,20 @@ if __name__ == "__main__":
     parser.add_argument('-p','--pruning', help='Pruning alpha to use', required=True, type=float)
     parser.add_argument('-i','--iterations', help='Number of iterations to run', required=True, type=int)
     parser.add_argument('-e','--episodes', help='Number of episodes to collect every iteration', required=True, type=int)
+    parser.add_argument('--episodes_to_evaluate', help='Number of episodes to run when evaluating best model', required=False, default=100, type=int)
     parser.add_argument('--should_collect_dataset', help='Should collect and save new dataset?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--dataset_size', help='Size of new dataset to create', required=False, default=0, type=int)
+    parser.add_argument('--expert_exploration_rate', help='The epsilon to use during dataset collection', required=False, default=0.0, type=float)
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_plot', help='Should plot performance?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
     config = imitation_learning.env_configs.get_config(args['task'])
     expert, X, y = imitation_learning.parser.handle_args(args, config)
     
+    printv(f"Running DAgger for {config['name']} with pruning level alpha = {args['pruning']}.")
     # Running DAgger
     dt, reward, history = run_dagger(
         config, X, y,
@@ -106,6 +115,7 @@ if __name__ == "__main__":
         expert=expert, 
         iterations=args['iterations'],
         episodes=args['episodes'],
+        episodes_to_evaluate=args['episodes_to_evaluate'],
         verbose=args['verbose'])
     iterations, avg_rewards, deviations, leaves, depths = history
 
@@ -115,15 +125,16 @@ if __name__ == "__main__":
         avg_rewards=avg_rewards,
         deviations=deviations,
         pruning_alpha=args['pruning'],
-        episodes=args['episodes']
+        episodes=args['episodes'],
+        show=args['should_plot']
     )
 
     # Printing the best model
-    avg_reward, rewards = get_average_reward(config, dt)
+    avg_reward, rewards = get_average_reward(config, dt, 1000)
     deviation = np.std(rewards)
     leaves = dt.model.get_n_leaves()
     depth = dt.model.get_depth()
-    printv(f"- Obtained tree with {leaves} leaves and depth {depth}.")
+    printv(f"- Obtained tree with {leaves * 2 - 1} nodes and depth {depth}.")
     printv(f"- Average reward for the best policy: {avg_reward} ± {deviation}.")
 
     # Visualizing the best model

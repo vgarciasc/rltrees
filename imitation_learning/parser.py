@@ -12,13 +12,13 @@ def handle_args(args, config):
     filename = args['expert_filepath']
 
     if args['expert_class'] == "KerasDNN":
-        expert = KerasDNN(config)
+        expert = KerasDNN(config, exploration_rate=args['expert_exploration_rate'])
         expert.load(filename)
     elif args['expert_class'] == "MLP":
-        expert = ann.MLPAgent(config, exploration_rate=0)
+        expert = ann.MLPAgent(config, exploration_rate=args['expert_exploration_rate'])
         expert.load_model(filename)
     elif args['expert_class'] == "QTable" and args['task'] == "blackjack":
-        expert = BlackjackQLearner(config, exploration_rate=0.0)
+        expert = BlackjackQLearner(config, exploration_rate=args['expert_exploration_rate'])
         expert.load_model(filename)
 
     if args['should_grade_expert']:

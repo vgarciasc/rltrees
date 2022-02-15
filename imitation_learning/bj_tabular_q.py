@@ -1,6 +1,8 @@
+from operator import ne
 from imitation_learning.env_configs import *
 from imitation_learning.utils import printv
 from imitation_learning.il import get_average_reward
+from rich import print
 
 import argparse
 import time
@@ -18,9 +20,9 @@ class BlackjackQLearner:
         self.discount = discount
 
         self.q_values = {}
-        for i in range(0, 35):
+        for i in range(0, 22):
             for j in range(0, 11):
-                for k in [True, False]:
+                for k in [0, 1]:
                     self.q_values[(i, j, k)] = [0, 0]
                     for a in [1, 0]:
                         if (i == 21) and (a == 0):
@@ -29,14 +31,17 @@ class BlackjackQLearner:
                             self.q_values[(i, j, k)][a] = 0
     
     def act(self, state):
-        state = tuple(state)
-
         if np.random.uniform(0, 1) <= self.exploration_rate:
             return np.random.randint(0, self.n_actions)
         
+        state = tuple(state)
+        if np.sum(self.get_q_values(state)) == 0:
+            return np.random.randint(0, self.n_actions)
+
         return np.argmax(self.get_q_values(state))
     
     def get_q_values(self, state):
+        state = (min(state[0], 21), state[1], int(state[2]))
         return self.q_values[state]
     
     def save_model(self, filepath):
@@ -46,6 +51,17 @@ class BlackjackQLearner:
     def load_model(self, filepath):
         with open(filepath, 'rb') as f:
             self.q_values = pickle.load(f)
+    
+    def print(self):
+        print("NO USABLE ACE")
+        print(f"      {'   '.join(['{:02d}'.format(j) for j in range(1, 11)])}")
+        for i in range(21, 6, -1):
+            print(f" {i:02}: {['[green]H[/green]' if np.argmax(self.get_q_values((i, j, False))) else '[red]S[/red]' for j in range(1, 11)]}")
+        
+        print("USABLE ACE")
+        print(f"      {'   '.join(['{:02d}'.format(j) for j in range(1, 11)])}")
+        for i in range(21, 11, -1):
+            print(f"A,{i-11}: {['[green]H[/green]' if np.argmax(self.get_q_values((i, j, True))) else '[red]S[/red]' for j in range(1, 11)]}")
     
 def train_tabular_q_learner(config, args, verbose=False):
     alpha = args['learning_rate']
@@ -63,24 +79,28 @@ def train_tabular_q_learner(config, args, verbose=False):
         done = False
         
         while not done:
-            # printv(f"PLAYER: {state[0]}, DEALER: {state[1]}, USABLE ACE?: {state[2]}")
-            # printv(f"   Q_VALUES: {model.get_q_values(state)}")
             action = model.act(state)
-            # printv(f"   ACTION {['stick', 'hit'][action]}")
+            # if state[2]:
+            #     printv(f"PLAYER: {state[0]}, DEALER: {state[1]}, USABLE ACE?: {state[2]}")
+            #     printv(f"   Q_VALUES: {model.get_q_values(state)}")
+            #     printv(f"   ACTION {['stick', 'hit'][action]}")
 
             next_state, reward, done, _ = env.step(action)
             Q1 = model.get_q_values(state)
             Q2 = model.get_q_values(next_state)
 
-            # if done:
+            # if done and state[2]:
             #     printv(f"   REWARD: {reward}")
 
             next_q = 0 if done else np.max(Q2)
             delta_q = alpha * (reward + gamma * next_q - Q1[action])
             model.q_values[state][action] += delta_q
+            # if state[2]:
+            #     printv(f"Added {delta_q} to action {['stick', 'hit'][action]} in state {state}")
 
             state = next_state
-        # print("----")
+        # if state[2]:
+        #     print("----")
 
     model.save_model(args['filepath'])
     
@@ -114,4 +134,7 @@ if __name__ == "__main__":
     model.exploration_rate = 0.0
     _, rewards = get_average_reward(config, model, episodes=10000, verbose=False)
     printv(f"Average reward for this model is {np.mean(rewards)} ± {np.std(rewards)}.")
+
+    if args['should_visualize']:
+        model.print()
     

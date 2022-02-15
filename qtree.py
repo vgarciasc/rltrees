@@ -21,6 +21,10 @@ class QNode():
 		else:
 			return self.right.predict(state)
 	
+	def act(self, state):
+		_, action = self.predict(state)
+		return action
+	
 	def set_left_child(self, node):
 		self.left = node
 		
@@ -49,9 +53,19 @@ class QNode():
 	
 	def __str__(self):
 		return f"x[{self.attribute}] <= {str(self.value)}"
+
+	def pretty_string(self, config):
+		output = ""
+		output += config['attributes'][self.attribute][0]
+		output += " <= "
+		output += '{:.3f}'.format(self.value)
+		return output
 	
 	def get_size(self):
 		return 1 + self.left.get_size() + self.right.get_size()
+	
+	def get_depth(self):
+		return 1 + np.max([self.left.get_depth(), self.right.get_depth()])
 	
 	def get_leaves(self):
 		return [] + self.left.get_leaves() + self.right.get_leaves()
@@ -108,8 +122,15 @@ class QLeaf():
 		self.full_dq_history[action].append((state, delta_q))
 		self.q_history[action].append(self.q_values[action])
 		self.full_q_history[action].append((state, self.q_values[action]))
+
+	def pretty_string(self, config):
+		best_action_id = np.argmax(self.q_values)
+		return (config['actions'][best_action_id]).upper()
 	
 	def get_size(self):
+		return 1
+	
+	def get_depth(self):
 		return 1
 	
 	def get_leaves(self):
@@ -133,6 +154,11 @@ def grow_tree(tree, leaf, splitting_criterion, split=None):
 	
 	return tree
 
+def load_tree(filepath):
+	with open(filepath, "rb") as f:
+		qtree = pickle.load(f)
+		return qtree
+
 def save_tree(tree, suffix="", reward=-1):
 	filename = datetime.now().strftime("tree %Y-%m-%d %H-%M")
 	with open('data/' + filename + suffix, 'wb') as file:
@@ -143,7 +169,7 @@ def save_tree_from_print(printed_structure, actions, suffix):
 	qtree = QNode(printed_structure[0][4], None, None, None)
 	
 	tree_list = [qtree]
-	for id, kind, parent_id, is_left, essence in printed_structure[1:]:
+	for _, kind, parent_id, is_left, essence in printed_structure[1:]:
 		parent = tree_list[parent_id]
 
 		if kind == "node":

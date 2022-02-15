@@ -13,12 +13,14 @@ import keras
 import gym
 import argparse
 import pdb
+import random
 import numpy as np
 
 class KerasDNN:
-    def __init__(self, config):
+    def __init__(self, config, exploration_rate):
         self.n_attributes = config['n_attributes']
         self.n_actions = config['n_actions']
+        self.exploration_rate = exploration_rate
 
         model = self.build_model(config)
         dqn = DQNAgent(
@@ -37,10 +39,12 @@ class KerasDNN:
         return self.dqn.compute_q_values(s)
     
     def batch_predict(self, X):
-        X = np.reshape(X, (len(X), 1, self.n_attributes))
+        # X = np.reshape(X, (len(X), 1, self.n_attributes))
         return self.dqn.compute_batch_q_values(X)
     
     def act(self, state):
+        if np.random.rand() < self.exploration_rate:
+            return random.randrange(self.n_actions)
         q_values = self.predict(state)
         return np.argmax(q_values)
 
