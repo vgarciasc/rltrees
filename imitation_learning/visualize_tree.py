@@ -71,6 +71,7 @@ if __name__ == "__main__":
     parser.add_argument('-f','--filename', help='Filepath for expert', required=True)
     parser.add_argument('-c','--tree_class', help='Tree is QTree, Distilled Tree, or Viztree?', required=True)
     parser.add_argument('-i','--iterations', help='Number of iterations to run', required=True, type=int)
+    parser.add_argument('--task_solution_threshold', help='Minimum reward to solve task', required=False, default=-1, type=int)
     parser.add_argument('--grading_episodes', help='How many episodes should we use to measure model\'s accuracy?', required=False, default=100, type=int)
     parser.add_argument('--should_print_state', help='Should print state?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize model?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
@@ -113,6 +114,10 @@ if __name__ == "__main__":
         tree_size = dt.get_size()
         depth = dt.get_depth()
     print(f"Tree has {tree_size} nodes and depth {depth}.")
+
+    if args['task_solution_threshold'] != -1:
+        solved_episodes = len([r for r in rewards if r >= args['task_solution_threshold']])
+        print(f"Success in {solved_episodes} / {args['grading_episodes']} episodes ({'{:3f}'.format(solved_episodes / args['grading_episodes'])} %)")
 
     # qtree = dt.get_as_qtree()
     # save_tree_from_print(

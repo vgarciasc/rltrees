@@ -92,7 +92,7 @@ class QLeaf():
 				data = self.dq_history[action_id][-100:]
 				value = 2 * np.std(data, ddof=1)
 				test = ("test: " + str(value)) 
-			print(" " * 2 * level, f"Q(s, {self.actions[action_id]})  = {'{:.4f}'.format(self.q_values[action_id])}, mean ΔQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.mean([q for q in self.dq_history[action_id]]))}, var ΔQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.var([q for q in self.dq_history[action_id]]))}, {test}, {' [*]' if best_action_id == action_id else ''}")
+			print(" " * 2 * level, f"Q(s, {self.actions[action_id]})  = {'{:.4f}'.format(self.q_values[action_id])}, mean deltaQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.mean([q for q in self.dq_history[action_id]]))}, var deltaQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.var([q for q in self.dq_history[action_id]]))}, {test}, {' [*]' if best_action_id == action_id else ''}")
 	
 	def predict(self, state):
 		if np.sum(self.q_values) == 0:

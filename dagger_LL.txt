@@ -1,0 +1,1035 @@
+Dataset length: 329330
+Running DAgger for LunarLander-v2 with pruning level alpha = 7.5e-05.
+Step #0.
+- Dataset length: 359823
+- Obtained tree with 1035 nodes and depth 20.
+- Average reward for the student: 147.05841735277087 � 178.2152086366907.
+Step #1.
+- Dataset length: 392313
+- Obtained tree with 1121 nodes and depth 20.
+- Average reward for the student: 208.76255508741454 � 118.6798608517049.
+Step #2.
+- Dataset length: 421669
+- Obtained tree with 1159 nodes and depth 21.
+- Average reward for the student: 235.11471850425767 � 68.79843011460976.
+Step #3.
+- Dataset length: 455215
+- Obtained tree with 1259 nodes and depth 22.
+- Average reward for the student: 230.2662951387983 � 72.15969341442235.
+Step #4.
+- Dataset length: 486802
+- Obtained tree with 1269 nodes and depth 24.
+- Average reward for the student: 215.5301529652942 � 91.25218880635447.
+Step #5.
+- Dataset length: 518347
+- Obtained tree with 1319 nodes and depth 21.
+- Average reward for the student: 234.51806374471826 � 66.06615152666744.
+Step #6.
+- Dataset length: 549313
+- Obtained tree with 1343 nodes and depth 22.
+- Average reward for the student: 242.3624931757608 � 53.705618406671725.
+Step #7.
+- Dataset length: 585233
+- Obtained tree with 1371 nodes and depth 22.
+- Average reward for the student: 236.6925786301462 � 62.07072635526229.
+Step #8.
+- Dataset length: 614800
+- Obtained tree with 1397 nodes and depth 22.
+- Average reward for the student: 247.75411062234426 � 39.115388260728196.
+Step #9.
+- Dataset length: 645348
+- Obtained tree with 1395 nodes and depth 20.
+- Average reward for the student: 237.38076015195907 � 73.83358972969046.
+Step #10.
+- Dataset length: 677737
+- Obtained tree with 1413 nodes and depth 24.
+- Average reward for the student: 220.33692758598573 � 77.82347624442498.
+Step #11.
+- Dataset length: 708115
+- Obtained tree with 1409 nodes and depth 24.
+- Average reward for the student: 230.920248714156 � 78.79476851608551.
+Step #12.
+- Dataset length: 739878
+- Obtained tree with 1453 nodes and depth 23.
+- Average reward for the student: 244.08096174966045 � 54.423109178569355.
+Step #13.
+- Dataset length: 770092
+- Obtained tree with 1463 nodes and depth 20.
+- Average reward for the student: 235.91053115732677 � 61.36959703031527.
+Step #14.
+- Dataset length: 802042
+- Obtained tree with 1435 nodes and depth 20.
+- Average reward for the student: 239.78392438360956 � 50.4504599402406.
+Step #15.
+- Dataset length: 835162
+- Obtained tree with 1421 nodes and depth 24.
+- Average reward for the student: 241.24713884468252 � 66.6583324186697.
+Step #16.
+- Dataset length: 866526
+- Obtained tree with 1423 nodes and depth 22.
+- Average reward for the student: 248.43652518494358 � 50.22599826891208.
+Step #17.
+- Dataset length: 900471
+- Obtained tree with 1427 nodes and depth 22.
+- Average reward for the student: 247.82102796079002 � 41.28282429585632.
+Step #18.
+- Dataset length: 931970
+- Obtained tree with 1447 nodes and depth 21.
+- Average reward for the student: 250.36869994118646 � 46.92284183606387.
+Step #19.
+- Dataset length: 963825
+- Obtained tree with 1431 nodes and depth 20.
+- Average reward for the student: 229.15691995722443 � 63.89018640685527.
+Step #20.
+- Dataset length: 993775
+- Obtained tree with 1483 nodes and depth 22.
+- Average reward for the student: 244.49185312789032 � 59.93913089606449.
+Step #21.
+- Dataset length: 1025863
+- Obtained tree with 1443 nodes and depth 20.
+- Average reward for the student: 227.53802999840812 � 71.36009730914742.
+Step #22.
+- Dataset length: 1057900
+- Obtained tree with 1469 nodes and depth 20.
+- Average reward for the student: 243.07196583764602 � 56.412586196871025.
+Step #23.
+- Dataset length: 1087758
+- Obtained tree with 1447 nodes and depth 20.
+- Average reward for the student: 244.95059093565865 � 49.0144884427916.
+Step #24.
+- Dataset length: 1120826
+- Obtained tree with 1455 nodes and depth 21.
+- Average reward for the student: 238.72762836329792 � 56.844055491195924.
+Step #25.
+- Dataset length: 1152002
+- Obtained tree with 1467 nodes and depth 22.
+- Average reward for the student: 242.1642004635992 � 65.27522735395526.
+Step #26.
+- Dataset length: 1183373
+- Obtained tree with 1485 nodes and depth 23.
+- Average reward for the student: 250.7903657003722 � 42.19138759405348.
+Step #27.
+- Dataset length: 1213704
+- Obtained tree with 1511 nodes and depth 21.
+- Average reward for the student: 240.08962931055422 � 60.26843610137962.
+Step #28.
+- Dataset length: 1247127
+- Obtained tree with 1453 nodes and depth 21.
+- Average reward for the student: 258.0915717109073 � 32.21873913195745.
+Step #29.
+- Dataset length: 1280793
+- Obtained tree with 1471 nodes and depth 22.
+- Average reward for the student: 256.42184380723114 � 32.19619474025812.
+Step #30.
+- Dataset length: 1311270
+- Obtained tree with 1473 nodes and depth 21.
+- Average reward for the student: 238.99101922809743 � 50.97837315964921.
+Step #31.
+- Dataset length: 1342891
+- Obtained tree with 1495 nodes and depth 21.
+- Average reward for the student: 247.49919327652034 � 61.789747809690354.
+Step #32.
+- Dataset length: 1373208
+- Obtained tree with 1415 nodes and depth 20.
+- Average reward for the student: 236.7329478967778 � 74.00068938446587.
+Step #33.
+- Dataset length: 1407215
+- Obtained tree with 1451 nodes and depth 22.
+- Average reward for the student: 258.1454538687951 � 39.42396197494828.
+Step #34.
+- Dataset length: 1437906
+- Obtained tree with 1435 nodes and depth 21.
+- Average reward for the student: 247.53595089189375 � 50.09843080238883.
+Step #35.
+- Dataset length: 1468796
+- Obtained tree with 1463 nodes and depth 21.
+- Average reward for the student: 240.56043355487105 � 65.60915239241251.
+Step #36.
+- Dataset length: 1497844
+- Obtained tree with 1425 nodes and depth 22.
+- Average reward for the student: 242.09247975519736 � 59.239271416631894.
+Step #37.
+- Dataset length: 1530437
+- Obtained tree with 1473 nodes and depth 20.
+- Average reward for the student: 246.78197626567865 � 47.832373442476076.
+Step #38.
+- Dataset length: 1562373
+- Obtained tree with 1475 nodes and depth 20.
+- Average reward for the student: 241.74076631115182 � 61.60227157690404.
+Step #39.
+- Dataset length: 1592159
+- Obtained tree with 1419 nodes and depth 21.
+- Average reward for the student: 240.57454825367356 � 56.08048488482354.
+Step #40.
+- Dataset length: 1624312
+- Obtained tree with 1497 nodes and depth 23.
+- Average reward for the student: 251.89000172600598 � 27.892191323029714.
+Step #41.
+- Dataset length: 1656353
+- Obtained tree with 1443 nodes and depth 20.
+- Average reward for the student: 250.04129298024617 � 41.32771118105323.
+Step #42.
+- Dataset length: 1688240
+- Obtained tree with 1469 nodes and depth 21.
+- Average reward for the student: 239.2747445684302 � 64.27985789339343.
+Step #43.
+- Dataset length: 1717761
+- Obtained tree with 1447 nodes and depth 21.
+- Average reward for the student: 244.8246224101879 � 59.68013316428527.
+Step #44.
+- Dataset length: 1750819
+- Obtained tree with 1461 nodes and depth 19.
+- Average reward for the student: 256.75456496680954 � 33.67829035211217.
+Step #45.
+- Dataset length: 1782656
+- Obtained tree with 1431 nodes and depth 21.
+- Average reward for the student: 245.05783513574087 � 49.97344668322858.
+Step #46.
+- Dataset length: 1816839
+- Obtained tree with 1467 nodes and depth 22.
+- Average reward for the student: 254.50099323789723 � 44.113124068385204.
+Step #47.
+- Dataset length: 1847520
+- Obtained tree with 1433 nodes and depth 19.
+- Average reward for the student: 231.84105066396583 � 70.5715791679329.
+Step #48.
+- Dataset length: 1877295
+- Obtained tree with 1457 nodes and depth 19.
+- Average reward for the student: 237.7677241832035 � 57.937403951047294.
+Step #49.
+- Dataset length: 1909087
+- Obtained tree with 1449 nodes and depth 19.
+- Average reward for the student: 241.44600918350733 � 56.06632879903059.
+- Obtained tree with 1451 nodes and depth 22.
+- Average reward for the best policy: 247.056640802765 � 54.24221376078545.
+Saved tree to 'data/dagger_best_tree_LunarLander-v2'.
+> Saved tree of size 1451 to file 'data/tree 2022-02-14 17-29_dagger_LunarLander-v2'!
+-------------eof------------- 
+Dataset length: 329330
+Running DAgger for LunarLander-v2 with pruning level alpha = 0.0001.
+Step #0.
+- Dataset length: 358182
+- Obtained tree with 725 nodes and depth 17.
+- Average reward for the student: 74.53340877345494 � 190.22709764173885.
+Step #1.
+- Dataset length: 391079
+- Obtained tree with 825 nodes and depth 20.
+- Average reward for the student: 178.00509325092375 � 139.37081365647055.
+Step #2.
+- Dataset length: 425430
+- Obtained tree with 891 nodes and depth 22.
+- Average reward for the student: 188.64034508450175 � 121.9413643696527.
+Step #3.
+- Dataset length: 455125
+- Obtained tree with 949 nodes and depth 20.
+- Average reward for the student: 202.68001975461993 � 96.36438209037229.
+Step #4.
+- Dataset length: 485205
+- Obtained tree with 985 nodes and depth 21.
+- Average reward for the student: 210.02522391606078 � 89.43147916420685.
+Step #5.
+- Dataset length: 517854
+- Obtained tree with 1007 nodes and depth 21.
+- Average reward for the student: 236.17724582762605 � 63.36905593474229.
+Step #6.
+- Dataset length: 549397
+- Obtained tree with 1023 nodes and depth 23.
+- Average reward for the student: 228.13438105049556 � 74.62472718795101.
+Step #7.
+- Dataset length: 580483
+- Obtained tree with 1025 nodes and depth 20.
+- Average reward for the student: 221.24411312524103 � 86.22962402896397.
+Step #8.
+- Dataset length: 613007
+- Obtained tree with 1059 nodes and depth 23.
+- Average reward for the student: 240.4831707509073 � 52.807229710528205.
+Step #9.
+- Dataset length: 647016
+- Obtained tree with 1033 nodes and depth 20.
+- Average reward for the student: 236.53942062541748 � 73.87780153196867.
+Step #10.
+- Dataset length: 679410
+- Obtained tree with 1055 nodes and depth 23.
+- Average reward for the student: 233.83743800080762 � 68.38321389805606.
+Step #11.
+- Dataset length: 711917
+- Obtained tree with 1065 nodes and depth 20.
+- Average reward for the student: 231.58955045001537 � 70.43201874687051.
+Step #12.
+- Dataset length: 746086
+- Obtained tree with 1063 nodes and depth 21.
+- Average reward for the student: 182.41318149679694 � 123.59104460139504.
+Step #13.
+- Dataset length: 771935
+- Obtained tree with 1077 nodes and depth 19.
+- Average reward for the student: 231.1367843685291 � 80.45918828846645.
+Step #14.
+- Dataset length: 799861
+- Obtained tree with 1113 nodes and depth 20.
+- Average reward for the student: 236.74232839350827 � 58.724067877444476.
+Step #15.
+- Dataset length: 832636
+- Obtained tree with 1091 nodes and depth 22.
+- Average reward for the student: 235.95542522753883 � 56.87874169563659.
+Step #16.
+- Dataset length: 865671
+- Obtained tree with 1039 nodes and depth 21.
+- Average reward for the student: 221.9278790233666 � 94.92871279241096.
+Step #17.
+- Dataset length: 897645
+- Obtained tree with 1139 nodes and depth 21.
+- Average reward for the student: 247.67412229648133 � 49.01765461760263.
+Step #18.
+- Dataset length: 930101
+- Obtained tree with 1119 nodes and depth 20.
+- Average reward for the student: 235.88636476410838 � 57.804860259165906.
+Step #19.
+- Dataset length: 962540
+- Obtained tree with 1119 nodes and depth 19.
+- Average reward for the student: 242.93675734772572 � 49.91149372262959.
+Step #20.
+- Dataset length: 993720
+- Obtained tree with 1157 nodes and depth 20.
+- Average reward for the student: 234.46735090839982 � 80.97554526789332.
+Step #21.
+- Dataset length: 1024909
+- Obtained tree with 1123 nodes and depth 19.
+- Average reward for the student: 223.7293082925357 � 82.92297938015379.
+Step #22.
+- Dataset length: 1054995
+- Obtained tree with 1167 nodes and depth 19.
+- Average reward for the student: 233.16332040415222 � 75.64262738543424.
+Step #23.
+- Dataset length: 1084972
+- Obtained tree with 1105 nodes and depth 20.
+- Average reward for the student: 248.6481352157183 � 44.589639583546486.
+Step #24.
+- Dataset length: 1114962
+- Obtained tree with 1089 nodes and depth 19.
+- Average reward for the student: 233.86449144535334 � 74.40227974225571.
+Step #25.
+- Dataset length: 1146664
+- Obtained tree with 1129 nodes and depth 21.
+- Average reward for the student: 247.32193068744658 � 55.509752106273005.
+Step #26.
+- Dataset length: 1177035
+- Obtained tree with 1099 nodes and depth 21.
+- Average reward for the student: 236.73848771250127 � 57.87635553053284.
+Step #27.
+- Dataset length: 1207811
+- Obtained tree with 1089 nodes and depth 20.
+- Average reward for the student: 225.0097866938436 � 79.85263390990451.
+Step #28.
+- Dataset length: 1243803
+- Obtained tree with 1109 nodes and depth 19.
+- Average reward for the student: 241.5208152170695 � 54.268577600794934.
+Step #29.
+- Dataset length: 1276540
+- Obtained tree with 1099 nodes and depth 21.
+- Average reward for the student: 245.25254371867703 � 49.69148113835216.
+Step #30.
+- Dataset length: 1306789
+- Obtained tree with 1125 nodes and depth 19.
+- Average reward for the student: 245.02236652327107 � 56.61921715475275.
+Step #31.
+- Dataset length: 1336427
+- Obtained tree with 1121 nodes and depth 19.
+- Average reward for the student: 245.8290601580094 � 58.22594320079913.
+Step #32.
+- Dataset length: 1365655
+- Obtained tree with 1095 nodes and depth 19.
+- Average reward for the student: 237.50188032205773 � 45.69042891635237.
+Step #33.
+- Dataset length: 1399860
+- Obtained tree with 1113 nodes and depth 20.
+- Average reward for the student: 248.43731221074347 � 51.282467088454105.
+Step #34.
+- Dataset length: 1429352
+- Obtained tree with 1083 nodes and depth 21.
+- Average reward for the student: 241.82767525617598 � 56.689387742223325.
+Step #35.
+- Dataset length: 1458728
+- Obtained tree with 1129 nodes and depth 18.
+- Average reward for the student: 239.65393507227955 � 61.355210793015786.
+Step #36.
+- Dataset length: 1489768
+- Obtained tree with 1129 nodes and depth 21.
+- Average reward for the student: 225.01923126708218 � 81.25744929147517.
+Step #37.
+- Dataset length: 1521261
+- Obtained tree with 1107 nodes and depth 20.
+- Average reward for the student: 225.01673076187285 � 91.39482481254038.
+Step #38.
+- Dataset length: 1552403
+- Obtained tree with 1083 nodes and depth 19.
+- Average reward for the student: 246.4641313036947 � 39.88113089830897.
+Step #39.
+- Dataset length: 1587544
+- Obtained tree with 1145 nodes and depth 18.
+- Average reward for the student: 237.20664383784356 � 66.55923088728535.
+Step #40.
+- Dataset length: 1621827
+- Obtained tree with 1141 nodes and depth 20.
+- Average reward for the student: 242.1474375071912 � 56.63638648131439.
+Step #41.
+- Dataset length: 1652788
+- Obtained tree with 1147 nodes and depth 19.
+- Average reward for the student: 230.98326023455823 � 80.1712877408482.
+Step #42.
+- Dataset length: 1683974
+- Obtained tree with 1147 nodes and depth 21.
+- Average reward for the student: 221.1583644097304 � 95.84635041587595.
+Step #43.
+- Dataset length: 1715762
+- Obtained tree with 1151 nodes and depth 19.
+- Average reward for the student: 243.60604299606052 � 43.27941420122598.
+Step #44.
+- Dataset length: 1746557
+- Obtained tree with 1151 nodes and depth 19.
+- Average reward for the student: 232.32443725711192 � 75.60910764926027.
+Step #45.
+- Dataset length: 1778014
+- Obtained tree with 1117 nodes and depth 19.
+- Average reward for the student: 236.6782821794217 � 60.69747527058857.
+Step #46.
+- Dataset length: 1811710
+- Obtained tree with 1095 nodes and depth 19.
+- Average reward for the student: 227.4019922899484 � 70.9454774518235.
+Step #47.
+- Dataset length: 1844444
+- Obtained tree with 1103 nodes and depth 20.
+- Average reward for the student: 230.56701643461187 � 69.25384849298065.
+Step #48.
+- Dataset length: 1878393
+- Obtained tree with 1149 nodes and depth 19.
+- Average reward for the student: 234.44909114154802 � 89.31218892813257.
+Step #49.
+- Dataset length: 1912605
+- Obtained tree with 1123 nodes and depth 18.
+- Average reward for the student: 239.36683239040644 � 62.23529236526481.
+- Obtained tree with 1105 nodes and depth 20.
+- Average reward for the best policy: 239.64143063467105 � 66.35598156221394.
+Saved tree to 'data/dagger_best_tree_LunarLander-v2'.
+> Saved tree of size 1105 to file 'data/tree 2022-02-14 18-59_dagger_LunarLander-v2'!
+-------------eof------------- 
+Dataset length: 329330
+Running DAgger for LunarLander-v2 with pruning level alpha = 0.0004.
+Step #0.
+- Dataset length: 370298
+- Obtained tree with 187 nodes and depth 12.
+- Average reward for the student: -3.2488390694180524 � 238.6117787117699.
+Step #1.
+- Dataset length: 405235
+- Obtained tree with 219 nodes and depth 12.
+- Average reward for the student: 31.180454664269 � 158.6813475727961.
+Step #2.
+- Dataset length: 434481
+- Obtained tree with 245 nodes and depth 14.
+- Average reward for the student: 204.20376724422596 � 91.92038467998567.
+Step #3.
+- Dataset length: 471762
+- Obtained tree with 269 nodes and depth 14.
+- Average reward for the student: 159.4787569071112 � 139.95316085711474.
+Step #4.
+- Dataset length: 505859
+- Obtained tree with 279 nodes and depth 15.
+- Average reward for the student: 122.51334345005851 � 137.61631335487806.
+Step #5.
+- Dataset length: 533727
+- Obtained tree with 287 nodes and depth 15.
+- Average reward for the student: 174.08994131692495 � 113.37147306301478.
+Step #6.
+- Dataset length: 560147
+- Obtained tree with 287 nodes and depth 16.
+- Average reward for the student: 172.08554483059174 � 120.08713364472196.
+Step #7.
+- Dataset length: 587983
+- Obtained tree with 283 nodes and depth 14.
+- Average reward for the student: 182.45776998511244 � 116.78553183195959.
+Step #8.
+- Dataset length: 615293
+- Obtained tree with 273 nodes and depth 15.
+- Average reward for the student: 125.01210048001714 � 128.4914786685002.
+Step #9.
+- Dataset length: 637100
+- Obtained tree with 293 nodes and depth 15.
+- Average reward for the student: 163.28906865490055 � 119.12490078372024.
+Step #10.
+- Dataset length: 663432
+- Obtained tree with 313 nodes and depth 16.
+- Average reward for the student: 156.64153158966076 � 120.68197740411881.
+Step #11.
+- Dataset length: 690234
+- Obtained tree with 295 nodes and depth 15.
+- Average reward for the student: 194.9307620232117 � 102.82677573463772.
+Step #12.
+- Dataset length: 716475
+- Obtained tree with 287 nodes and depth 17.
+- Average reward for the student: 153.4449411891138 � 124.38072036865917.
+Step #13.
+- Dataset length: 740097
+- Obtained tree with 285 nodes and depth 14.
+- Average reward for the student: 209.90847400679027 � 93.2795638666785.
+Step #14.
+- Dataset length: 765530
+- Obtained tree with 269 nodes and depth 14.
+- Average reward for the student: 181.17172980710265 � 111.74664414903857.
+Step #15.
+- Dataset length: 793204
+- Obtained tree with 293 nodes and depth 15.
+- Average reward for the student: 152.4897887086648 � 125.62469826884615.
+Step #16.
+- Dataset length: 820645
+- Obtained tree with 295 nodes and depth 18.
+- Average reward for the student: 216.99911322656095 � 114.18960154830336.
+Step #17.
+- Dataset length: 850098
+- Obtained tree with 289 nodes and depth 15.
+- Average reward for the student: 192.00792285657712 � 100.12283704353484.
+Step #18.
+- Dataset length: 879448
+- Obtained tree with 307 nodes and depth 14.
+- Average reward for the student: 188.52461266841172 � 124.40858840775904.
+Step #19.
+- Dataset length: 910042
+- Obtained tree with 295 nodes and depth 15.
+- Average reward for the student: 170.91873305916985 � 118.02139810531511.
+Step #20.
+- Dataset length: 939619
+- Obtained tree with 301 nodes and depth 14.
+- Average reward for the student: 184.153766663903 � 114.35773054786324.
+Step #21.
+- Dataset length: 970839
+- Obtained tree with 291 nodes and depth 15.
+- Average reward for the student: 216.46088839362645 � 84.1454220893841.
+Step #22.
+- Dataset length: 1004412
+- Obtained tree with 315 nodes and depth 15.
+- Average reward for the student: 201.5383472116888 � 91.32049021561168.
+Step #23.
+- Dataset length: 1032180
+- Obtained tree with 309 nodes and depth 17.
+- Average reward for the student: 238.60962289174134 � 62.9849065336972.
+Step #24.
+- Dataset length: 1062686
+- Obtained tree with 317 nodes and depth 14.
+- Average reward for the student: 212.15417141440204 � 93.50077427771392.
+Step #25.
+- Dataset length: 1092790
+- Obtained tree with 313 nodes and depth 16.
+- Average reward for the student: 170.86917744993698 � 116.02703177725671.
+Step #26.
+- Dataset length: 1118016
+- Obtained tree with 317 nodes and depth 14.
+- Average reward for the student: 211.33305298335927 � 96.37020586612293.
+Step #27.
+- Dataset length: 1150540
+- Obtained tree with 313 nodes and depth 14.
+- Average reward for the student: 209.3030385945671 � 101.02134742472413.
+Step #28.
+- Dataset length: 1174376
+- Obtained tree with 307 nodes and depth 15.
+- Average reward for the student: 162.80368851854243 � 115.14985726553854.
+Step #29.
+- Dataset length: 1200909
+- Obtained tree with 301 nodes and depth 15.
+- Average reward for the student: 229.90232305816232 � 77.13247910582005.
+Step #30.
+- Dataset length: 1229890
+- Obtained tree with 297 nodes and depth 14.
+- Average reward for the student: 211.1615178522679 � 87.31069482291112.
+Step #31.
+- Dataset length: 1262651
+- Obtained tree with 287 nodes and depth 14.
+- Average reward for the student: 216.32538476741655 � 86.43638679117932.
+Step #32.
+- Dataset length: 1290766
+- Obtained tree with 301 nodes and depth 16.
+- Average reward for the student: 207.8371792627532 � 103.69087672947053.
+Step #33.
+- Dataset length: 1319474
+- Obtained tree with 317 nodes and depth 15.
+- Average reward for the student: 187.80298329617693 � 107.15699736093377.
+Step #34.
+- Dataset length: 1347915
+- Obtained tree with 295 nodes and depth 14.
+- Average reward for the student: 180.59456822009568 � 111.87033587510031.
+Step #35.
+- Dataset length: 1374626
+- Obtained tree with 303 nodes and depth 15.
+- Average reward for the student: 176.02482645069568 � 114.323780770967.
+Step #36.
+- Dataset length: 1399664
+- Obtained tree with 317 nodes and depth 16.
+- Average reward for the student: 217.43119066773542 � 95.86012585500579.
+Step #37.
+- Dataset length: 1430529
+- Obtained tree with 315 nodes and depth 15.
+- Average reward for the student: 222.24384854749908 � 86.86292149945336.
+Step #38.
+- Dataset length: 1459800
+- Obtained tree with 315 nodes and depth 15.
+- Average reward for the student: 204.0989615887634 � 99.24281554725933.
+Step #39.
+- Dataset length: 1489842
+- Obtained tree with 307 nodes and depth 15.
+- Average reward for the student: 237.56112040262656 � 64.9205018396384.
+Step #40.
+- Dataset length: 1521215
+- Obtained tree with 317 nodes and depth 15.
+- Average reward for the student: 231.42663164462533 � 72.71906428887462.
+Step #41.
+- Dataset length: 1549767
+- Obtained tree with 303 nodes and depth 15.
+- Average reward for the student: 221.4739956141824 � 74.83244107393537.
+Step #42.
+- Dataset length: 1580276
+- Obtained tree with 325 nodes and depth 13.
+- Average reward for the student: 231.93415312894797 � 74.2476777342311.
+Step #43.
+- Dataset length: 1608015
+- Obtained tree with 309 nodes and depth 14.
+- Average reward for the student: 213.7368171269269 � 89.18755279870926.
+Step #44.
+- Dataset length: 1640190
+- Obtained tree with 313 nodes and depth 14.
+- Average reward for the student: 195.82899668085926 � 107.20078495123211.
+Step #45.
+- Dataset length: 1669375
+- Obtained tree with 329 nodes and depth 15.
+- Average reward for the student: 181.8172500243879 � 110.4370477960639.
+Step #46.
+- Dataset length: 1697907
+- Obtained tree with 311 nodes and depth 16.
+- Average reward for the student: 184.5417731000379 � 127.3241507671082.
+Step #47.
+- Dataset length: 1726611
+- Obtained tree with 315 nodes and depth 15.
+- Average reward for the student: 161.75696831394177 � 126.83527095918286.
+Step #48.
+- Dataset length: 1753051
+- Obtained tree with 329 nodes and depth 15.
+- Average reward for the student: 226.58545757990652 � 61.1352830253097.
+Step #49.
+- Dataset length: 1783367
+- Obtained tree with 307 nodes and depth 15.
+- Average reward for the student: 229.2368671133598 � 66.81308739118487.
+- Obtained tree with 309 nodes and depth 17.
+- Average reward for the best policy: 235.7949055053887 � 63.47597344646818.
+Saved tree to 'data/dagger_best_tree_LunarLander-v2'.
+> Saved tree of size 309 to file 'data/tree 2022-02-14 20-15_dagger_LunarLander-v2'!
+-------------eof------------- 
+Dataset length: 329330
+Running DAgger for LunarLander-v2 with pruning level alpha = 0.0006.
+Step #0.
+- Dataset length: 349523
+- Obtained tree with 111 nodes and depth 11.
+- Average reward for the student: -270.76206601372076 � 275.5572454103143.
+Step #1.
+- Dataset length: 373959
+- Obtained tree with 143 nodes and depth 13.
+- Average reward for the student: 7.211119113027102 � 125.62937143611227.
+Step #2.
+- Dataset length: 402576
+- Obtained tree with 153 nodes and depth 13.
+- Average reward for the student: 128.46289559523214 � 126.84104841137493.
+Step #3.
+- Dataset length: 440494
+- Obtained tree with 169 nodes and depth 12.
+- Average reward for the student: 153.56693714554007 � 124.982708301946.
+Step #4.
+- Dataset length: 476891
+- Obtained tree with 171 nodes and depth 14.
+- Average reward for the student: 114.5782051081784 � 145.42247924819407.
+Step #5.
+- Dataset length: 504630
+- Obtained tree with 177 nodes and depth 15.
+- Average reward for the student: 63.27353055962518 � 129.78521000356997.
+Step #6.
+- Dataset length: 530107
+- Obtained tree with 165 nodes and depth 14.
+- Average reward for the student: 142.48801453418807 � 123.14237826567545.
+Step #7.
+- Dataset length: 556766
+- Obtained tree with 179 nodes and depth 13.
+- Average reward for the student: 146.47458626741818 � 124.529787341241.
+Step #8.
+- Dataset length: 582259
+- Obtained tree with 185 nodes and depth 14.
+- Average reward for the student: 143.93062766543324 � 213.1585685173145.
+Step #9.
+- Dataset length: 615513
+- Obtained tree with 183 nodes and depth 13.
+- Average reward for the student: 209.05268156702385 � 92.9627814063602.
+Step #10.
+- Dataset length: 652852
+- Obtained tree with 189 nodes and depth 14.
+- Average reward for the student: 211.15675942124108 � 91.7113238066394.
+Step #11.
+- Dataset length: 682105
+- Obtained tree with 191 nodes and depth 13.
+- Average reward for the student: 191.18848126261636 � 102.99248192613507.
+Step #12.
+- Dataset length: 710463
+- Obtained tree with 189 nodes and depth 13.
+- Average reward for the student: 168.17214878760223 � 123.43939698390611.
+Step #13.
+- Dataset length: 737269
+- Obtained tree with 211 nodes and depth 15.
+- Average reward for the student: 155.40264731112498 � 116.4870746384029.
+Step #14.
+- Dataset length: 768487
+- Obtained tree with 191 nodes and depth 13.
+- Average reward for the student: 185.23545539485931 � 123.32119570108344.
+Step #15.
+- Dataset length: 799076
+- Obtained tree with 197 nodes and depth 14.
+- Average reward for the student: 143.0916181091241 � 120.00408886041282.
+Step #16.
+- Dataset length: 826136
+- Obtained tree with 199 nodes and depth 14.
+- Average reward for the student: 213.0097472429853 � 74.77211440395381.
+Step #17.
+- Dataset length: 863626
+- Obtained tree with 223 nodes and depth 13.
+- Average reward for the student: 171.4339922339044 � 113.29796785109541.
+Step #18.
+- Dataset length: 894608
+- Obtained tree with 221 nodes and depth 14.
+- Average reward for the student: 232.05147915263697 � 66.65635191832054.
+Step #19.
+- Dataset length: 925389
+- Obtained tree with 221 nodes and depth 14.
+- Average reward for the student: 228.7208000872428 � 74.91844057327457.
+Step #20.
+- Dataset length: 954781
+- Obtained tree with 211 nodes and depth 14.
+- Average reward for the student: 207.24574398542637 � 101.02287844490114.
+Step #21.
+- Dataset length: 986173
+- Obtained tree with 203 nodes and depth 14.
+- Average reward for the student: 130.55884459584584 � 138.39574644271917.
+Step #22.
+- Dataset length: 1010455
+- Obtained tree with 211 nodes and depth 13.
+- Average reward for the student: 179.98860084180268 � 117.38341192245781.
+Step #23.
+- Dataset length: 1042624
+- Obtained tree with 235 nodes and depth 14.
+- Average reward for the student: 223.73221470486408 � 81.93184079171547.
+Step #24.
+- Dataset length: 1070789
+- Obtained tree with 219 nodes and depth 14.
+- Average reward for the student: 218.58280140132916 � 81.94912157095149.
+Step #25.
+- Dataset length: 1101637
+- Obtained tree with 215 nodes and depth 14.
+- Average reward for the student: 178.17516677494928 � 114.13366667593762.
+Step #26.
+- Dataset length: 1130508
+- Obtained tree with 197 nodes and depth 16.
+- Average reward for the student: 202.14693067785925 � 102.25298940283588.
+Step #27.
+- Dataset length: 1155529
+- Obtained tree with 207 nodes and depth 15.
+- Average reward for the student: 192.7951655249613 � 102.74373819716793.
+Step #28.
+- Dataset length: 1184383
+- Obtained tree with 205 nodes and depth 17.
+- Average reward for the student: 192.69704692950967 � 102.8830419300645.
+Step #29.
+- Dataset length: 1212779
+- Obtained tree with 223 nodes and depth 15.
+- Average reward for the student: 224.05623885325753 � 79.45083425291715.
+Step #30.
+- Dataset length: 1240595
+- Obtained tree with 205 nodes and depth 15.
+- Average reward for the student: 215.32969402528087 � 94.4326529953898.
+Step #31.
+- Dataset length: 1268252
+- Obtained tree with 217 nodes and depth 14.
+- Average reward for the student: 197.51925556727446 � 120.49414729759059.
+Step #32.
+- Dataset length: 1298438
+- Obtained tree with 211 nodes and depth 13.
+- Average reward for the student: 234.62304538237603 � 67.58637384205304.
+Step #33.
+- Dataset length: 1328844
+- Obtained tree with 213 nodes and depth 14.
+- Average reward for the student: 199.85576648229917 � 110.63401550858315.
+Step #34.
+- Dataset length: 1356456
+- Obtained tree with 195 nodes and depth 14.
+- Average reward for the student: 210.06362501362165 � 95.90393293065921.
+Step #35.
+- Dataset length: 1385767
+- Obtained tree with 203 nodes and depth 14.
+- Average reward for the student: 223.46231214896423 � 92.00172536832058.
+Step #36.
+- Dataset length: 1411321
+- Obtained tree with 225 nodes and depth 15.
+- Average reward for the student: 238.14942820114575 � 63.91760159718784.
+Step #37.
+- Dataset length: 1438976
+- Obtained tree with 221 nodes and depth 13.
+- Average reward for the student: 221.7038786318123 � 80.39495986868323.
+Step #38.
+- Dataset length: 1468320
+- Obtained tree with 229 nodes and depth 13.
+- Average reward for the student: 190.83671328614864 � 106.12524998392541.
+Step #39.
+- Dataset length: 1496291
+- Obtained tree with 217 nodes and depth 13.
+- Average reward for the student: 210.42120151889202 � 96.34292897737876.
+Step #40.
+- Dataset length: 1526258
+- Obtained tree with 229 nodes and depth 13.
+- Average reward for the student: 210.67506848646033 � 102.03843097898073.
+Step #41.
+- Dataset length: 1555076
+- Obtained tree with 223 nodes and depth 13.
+- Average reward for the student: 203.7347263494767 � 130.15751254991565.
+Step #42.
+- Dataset length: 1583254
+- Obtained tree with 211 nodes and depth 13.
+- Average reward for the student: 185.8042051136719 � 127.75995242778896.
+Step #43.
+- Dataset length: 1610574
+- Obtained tree with 209 nodes and depth 13.
+- Average reward for the student: 147.14769173129662 � 128.6116371945219.
+Step #44.
+- Dataset length: 1631015
+- Obtained tree with 207 nodes and depth 13.
+- Average reward for the student: 170.29323734556002 � 121.00377131409927.
+Step #45.
+- Dataset length: 1659858
+- Obtained tree with 197 nodes and depth 15.
+- Average reward for the student: 220.67231035528417 � 91.22977790528967.
+Step #46.
+- Dataset length: 1688569
+- Obtained tree with 223 nodes and depth 12.
+- Average reward for the student: 217.97500143405782 � 75.23979898127683.
+Step #47.
+- Dataset length: 1720432
+- Obtained tree with 217 nodes and depth 12.
+- Average reward for the student: 225.7642628625558 � 76.12703729217353.
+Step #48.
+- Dataset length: 1752771
+- Obtained tree with 207 nodes and depth 13.
+- Average reward for the student: 232.83582874325487 � 64.83310450932116.
+Step #49.
+- Dataset length: 1786135
+- Obtained tree with 217 nodes and depth 13.
+- Average reward for the student: 214.40301718949686 � 90.05447251232734.
+- Obtained tree with 225 nodes and depth 15.
+- Average reward for the best policy: 231.4258819393536 � 72.8000865097508.
+Saved tree to 'data/dagger_best_tree_LunarLander-v2'.
+> Saved tree of size 225 to file 'data/tree 2022-02-14 21-28_dagger_LunarLander-v2'!
+-------------eof------------- 
+Dataset length: 329330
+Running DAgger for LunarLander-v2 with pruning level alpha = 0.003.
+Step #0.
+- Dataset length: 341561
+- Obtained tree with 25 nodes and depth 7.
+- Average reward for the student: -552.0846406406657 � 143.29238771387537.
+Step #1.
+- Dataset length: 355167
+- Obtained tree with 33 nodes and depth 9.
+- Average reward for the student: -238.304689791192 � 150.6055048501301.
+Step #2.
+- Dataset length: 370470
+- Obtained tree with 33 nodes and depth 9.
+- Average reward for the student: -104.38569551621123 � 64.72003139363814.
+Step #3.
+- Dataset length: 384922
+- Obtained tree with 37 nodes and depth 9.
+- Average reward for the student: -85.86289942742732 � 108.24501067941591.
+Step #4.
+- Dataset length: 403987
+- Obtained tree with 35 nodes and depth 8.
+- Average reward for the student: -55.207134380516806 � 83.62049773700865.
+Step #5.
+- Dataset length: 420541
+- Obtained tree with 41 nodes and depth 9.
+- Average reward for the student: -20.026812190667176 � 139.350245689904.
+Step #6.
+- Dataset length: 445474
+- Obtained tree with 41 nodes and depth 9.
+- Average reward for the student: -4.842210763081774 � 145.67672385342092.
+Step #7.
+- Dataset length: 469678
+- Obtained tree with 37 nodes and depth 8.
+- Average reward for the student: -73.03071287811677 � 89.02163675408976.
+Step #8.
+- Dataset length: 483615
+- Obtained tree with 47 nodes and depth 9.
+- Average reward for the student: 127.5055870467868 � 119.34962169947978.
+Step #9.
+- Dataset length: 527997
+- Obtained tree with 47 nodes and depth 8.
+- Average reward for the student: 32.06857385266309 � 114.41509455157082.
+Step #10.
+- Dataset length: 545916
+- Obtained tree with 55 nodes and depth 9.
+- Average reward for the student: 126.79891491648074 � 139.5254728171589.
+Step #11.
+- Dataset length: 573529
+- Obtained tree with 45 nodes and depth 9.
+- Average reward for the student: 52.13926987425787 � 130.1017956928142.
+Step #12.
+- Dataset length: 598068
+- Obtained tree with 39 nodes and depth 8.
+- Average reward for the student: -48.008206200970946 � 86.54374180918794.
+Step #13.
+- Dataset length: 613887
+- Obtained tree with 43 nodes and depth 7.
+- Average reward for the student: 127.48846610784223 � 123.7542517737244.
+Step #14.
+- Dataset length: 644851
+- Obtained tree with 45 nodes and depth 8.
+- Average reward for the student: 23.11546616319127 � 128.71721304570298.
+Step #15.
+- Dataset length: 664890
+- Obtained tree with 45 nodes and depth 8.
+- Average reward for the student: 91.60627637534361 � 118.13299783165834.
+Step #16.
+- Dataset length: 691198
+- Obtained tree with 43 nodes and depth 8.
+- Average reward for the student: -17.477615524871823 � 112.98066238252177.
+Step #17.
+- Dataset length: 705732
+- Obtained tree with 43 nodes and depth 8.
+- Average reward for the student: 95.35476169428583 � 124.44374538957011.
+Step #18.
+- Dataset length: 726246
+- Obtained tree with 49 nodes and depth 10.
+- Average reward for the student: -23.82327429148906 � 111.66728826479105.
+Step #19.
+- Dataset length: 743130
+- Obtained tree with 47 nodes and depth 8.
+- Average reward for the student: 148.0573759927418 � 117.49760456924453.
+Step #20.
+- Dataset length: 771490
+- Obtained tree with 47 nodes and depth 8.
+- Average reward for the student: 123.5562754562392 � 120.0360854101487.
+Step #21.
+- Dataset length: 803611
+- Obtained tree with 49 nodes and depth 9.
+- Average reward for the student: 120.0040253031658 � 143.67933078494676.
+Step #22.
+- Dataset length: 828272
+- Obtained tree with 45 nodes and depth 9.
+- Average reward for the student: 35.50324047220175 � 220.94571509890065.
+Step #23.
+- Dataset length: 845975
+- Obtained tree with 47 nodes and depth 8.
+- Average reward for the student: 47.04830290147174 � 157.78812550626333.
+Step #24.
+- Dataset length: 902575
+- Obtained tree with 47 nodes and depth 9.
+- Average reward for the student: 101.22918669326081 � 131.56836897317905.
+Step #25.
+- Dataset length: 928435
+- Obtained tree with 49 nodes and depth 9.
+- Average reward for the student: 89.80077588450011 � 164.97441501344534.
+Step #26.
+- Dataset length: 950971
+- Obtained tree with 45 nodes and depth 9.
+- Average reward for the student: 81.10608892453367 � 121.26121614189393.
+Step #27.
+- Dataset length: 967644
+- Obtained tree with 47 nodes and depth 9.
+- Average reward for the student: 48.12850513770371 � 148.79224693659359.
+Step #28.
+- Dataset length: 988529
+- Obtained tree with 41 nodes and depth 7.
+- Average reward for the student: 62.903603776573966 � 134.4048182227853.
+Step #29.
+- Dataset length: 1010551
+- Obtained tree with 45 nodes and depth 8.
+- Average reward for the student: 33.75042846136146 � 126.852563337177.
+Step #30.
+- Dataset length: 1029616
+- Obtained tree with 45 nodes and depth 8.
+- Average reward for the student: 64.57032326686036 � 122.10137505121779.
+Step #31.
+- Dataset length: 1050346
+- Obtained tree with 45 nodes and depth 8.
+- Average reward for the student: 107.89902291407688 � 137.00835445959692.
+Step #32.
+- Dataset length: 1070536
+- Obtained tree with 49 nodes and depth 7.
+- Average reward for the student: 81.63260853681713 � 168.73142836512702.
+Step #33.
+- Dataset length: 1099177
+- Obtained tree with 49 nodes and depth 8.
+- Average reward for the student: 114.36106596878788 � 149.10302225922163.
+Step #34.
+- Dataset length: 1121892
+- Obtained tree with 49 nodes and depth 9.
+- Average reward for the student: 111.3941935867587 � 139.70539484491917.
+Step #35.
+- Dataset length: 1143065
+- Obtained tree with 47 nodes and depth 8.
+- Average reward for the student: 19.14857262086499 � 201.55624668360463.
+Step #36.
+- Dataset length: 1159902
+- Obtained tree with 53 nodes and depth 9.
+- Average reward for the student: -1.9386371983394974 � 222.67913034248235.
+Step #37.
+- Dataset length: 1177171
+- Obtained tree with 45 nodes and depth 9.
+- Average reward for the student: 28.229906793173853 � 142.6801526077838.
+Step #38.
+- Dataset length: 1193406
+- Obtained tree with 51 nodes and depth 8.
+- Average reward for the student: 23.440762006194003 � 206.45584608487016.
+Step #39.
+- Dataset length: 1214088
+- Obtained tree with 47 nodes and depth 7.
+- Average reward for the student: 56.4797253973465 � 161.9854385996793.
+Step #40.
+- Dataset length: 1235563
+- Obtained tree with 49 nodes and depth 7.
+- Average reward for the student: 32.74984685871389 � 123.54040443626107.
+Step #41.
+- Dataset length: 1253637
+- Obtained tree with 51 nodes and depth 7.
+- Average reward for the student: 37.225698914809534 � 168.15711189054764.
+Step #42.
+- Dataset length: 1277979
+- Obtained tree with 47 nodes and depth 7.
+- Average reward for the student: 58.647524819286964 � 173.18724628563226.
+Step #43.
+- Dataset length: 1303213
+- Obtained tree with 49 nodes and depth 7.
+- Average reward for the student: 19.99611744102512 � 125.36090021664411.
+Step #44.
+- Dataset length: 1319315
+- Obtained tree with 53 nodes and depth 8.
+- Average reward for the student: 44.97872636371164 � 113.64679951962752.
+Step #45.
+- Dataset length: 1337553
+- Obtained tree with 49 nodes and depth 7.
+- Average reward for the student: 73.25274450822941 � 191.51167743861083.
+Step #46.
+- Dataset length: 1369202
+- Obtained tree with 51 nodes and depth 7.
+- Average reward for the student: -336.8281137811342 � 716.3092923315071.
+Step #47.
+- Dataset length: 1405340
+- Obtained tree with 55 nodes and depth 9.
+- Average reward for the student: 93.4071475617677 � 186.15913705276904.
+Step #48.
+- Dataset length: 1428654
+- Obtained tree with 53 nodes and depth 9.
+- Average reward for the student: 102.65162470577363 � 141.65796481014203.
+Step #49.
+- Dataset length: 1448827
+- Obtained tree with 53 nodes and depth 7.
+- Average reward for the student: 152.6818591473283 � 121.03490541706427.
+- Obtained tree with 53 nodes and depth 7.
+- Average reward for the best policy: 154.5481975088986 � 130.58134075445474.
+Saved tree to 'data/dagger_best_tree_LunarLander-v2'.
+> Saved tree of size 53 to file 'data/tree 2022-02-14 22-22_dagger_LunarLander-v2'!
+-------------eof------------- 

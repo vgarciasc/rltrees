@@ -88,6 +88,7 @@
 ---------- RIGHT ENGINE
 ---------- MAIN ENGINE
 -------- RIGHT ENGINE
+-- Leg 2 is Touching <= 0.5
 -- Y Velocity <= -0.120
 --- MAIN ENGINE
 --- NOP

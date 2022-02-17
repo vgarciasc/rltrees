@@ -1,0 +1,77 @@
+Starting reward pruning for MountainCar-v0, loading file 'data/tree 2022-02-08 
+15-42_dagger_MountainCar-v0'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 11 nodes.
+Before pruning, tree had 11 nodes.
+After pruning, tree has 7 nodes.
+Average reward: -103.93 ± 10.872216885253899
+> Saved tree of size 7 to file 'data/tree 2022-02-14 15-17_MountainCar-v0_pruned_0'!
+Averages: (-103.93,), avg: -103.93 ± 0.0
+Tree size: (7,), avg: 7.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for MountainCar-v0, loading file 'data/tree 2022-02-11 
+16-09_dagger_MountainCar-v0'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 23 nodes.
+Before pruning, tree had 23 nodes.
+After pruning, tree has 7 nodes.
+Average reward: -105.02 ± 10.887589264846465
+> Saved tree of size 7 to file 'data/tree 2022-02-14 15-17_MountainCar-v0_pruned_0'!
+Averages: (-105.02,), avg: -105.02 ± 0.0
+Tree size: (7,), avg: 7.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for MountainCar-v0, loading file 'data/tree 2022-02-11 
+16-36_dagger_MountainCar-v0'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 27 nodes.
+Before pruning, tree had 27 nodes.
+After pruning, tree has 7 nodes.
+Average reward: -105.58 ± 10.9363430816704
+> Saved tree of size 7 to file 'data/tree 2022-02-14 15-17_MountainCar-v0_pruned_0'!
+Averages: (-105.58,), avg: -105.58 ± 0.0
+Tree size: (7,), avg: 7.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for MountainCar-v0, loading file 'data/tree 2022-02-11 
+16-40_dagger_MountainCar-v0'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 23 nodes.
+Before pruning, tree had 23 nodes.
+After pruning, tree has 7 nodes.
+Average reward: -103.5 ± 11.874763155532829
+> Saved tree of size 7 to file 'data/tree 2022-02-14 15-17_MountainCar-v0_pruned_0'!
+Averages: (-103.5,), avg: -103.5 ± 0.0
+Tree size: (7,), avg: 7.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for MountainCar-v0, loading file 'data/tree 2022-02-11 
+16-45_dagger_MountainCar-v0'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 13 nodes.
+Before pruning, tree had 13 nodes.
+After pruning, tree has 7 nodes.
+Average reward: -105.35 ± 11.676793224169039
+> Saved tree of size 7 to file 'data/tree 2022-02-14 15-17_MountainCar-v0_pruned_0'!
+Averages: (-105.35,), avg: -105.35 ± 0.0
+Tree size: (7,), avg: 7.0 ± 0.0
+-------------eof------------- 
+Starting reward pruning for MountainCar-v0, loading file 'data/tree 2022-02-11 
+16-50_dagger_MountainCar-v0'.
+
+
+===== Pruning cycle: 0 =====
+Before pruning, tree had 3 nodes.
+Before pruning, tree had 3 nodes.
+After pruning, tree has 3 nodes.
+Average reward: -120.31 ± 3.678844927419475
+> Saved tree of size 3 to file 'data/tree 2022-02-14 15-18_MountainCar-v0_pruned_0'!
+Averages: (-120.31,), avg: -120.31 ± 0.0
+Tree size: (3,), avg: 3.0 ± 0.0

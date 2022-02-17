@@ -5,6 +5,7 @@ import gym
 import pickle
 import argparse
 import pdb
+import matplotlib.pyplot as plt
 
 from rich import print
 from qtree import QLeaf, QNode, save_tree
@@ -115,7 +116,7 @@ def prune_by_reward(qtree, node, config,
                 (node.left if node.left.__class__.__name__ == "QNode" else node.right).parent = node
         else:
             printv(f"\tAppending {(qtree.get_size(), new_avg_reward)}", verbose)
-            history.append((qtree.get_size(), new_avg_reward))
+            history.append((qtree.get_size(), new_avg_reward, new_deviation))
 
     return qtree, history
 
@@ -129,6 +130,7 @@ if __name__ == "__main__":
     parser.add_argument('--episodes_per_prune', help='Number of episodes used to evaluate pruning', required=False, default=100, type=int)
     parser.add_argument('--pruning_cycles', help='How many pruning cycles should be done?', required=False, default=1, type=int)
     parser.add_argument('--grading_episodes', help='How many episodes to use during grading of final model?', required=False, default=10000, type=int)
+    parser.add_argument('--should_plot', help='Should plot pruning results?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
@@ -151,16 +153,32 @@ if __name__ == "__main__":
 
         count = 0
         history = []
+        plot_history = []
         while count == 0 or len(history) > 0:
             qtree, history = prune_by_reward(
                 qtree, qtree, config,
                 verbose=args['verbose'],
                 episodes_per_prune=args['episodes_per_prune'])
+            plot_history += history
 
             count += 1
             if count > args['max_pruning_iters']:
                 break
         
+        if args['should_plot']:
+            tree_sizes, avg_rewards, std_rewards = zip(*plot_history)
+
+            avg_rewards = np.array(avg_rewards)
+            std_rewards = np.array(std_rewards)
+
+            plt.title(f"File: {args['filepath']} \n\n Performance during Reward Pruning for {config['name']}")
+            plt.fill_between(tree_sizes, avg_rewards - std_rewards, avg_rewards + std_rewards, color="blue", alpha=0.2)
+            plt.plot(tree_sizes, avg_rewards, color='blue')
+            plt.xlabel("Tree size")
+            plt.gca().invert_xaxis()
+            plt.ylabel("Average reward")
+            plt.show()
+
         if args['verbose']:
             qtree.print_tree()
         
