@@ -1,0 +1,14 @@
+IF "Car Velocity <= -0.00035513544571585953"
+THEN left
+
+IF "Car Position > -0.4857790470123291"
+   "Car Velocity <= 0.0032402026699855924"
+THEN left
+
+IF "Car Velocity <= 0.0032402026699855924"
+THEN right
+
+IF "Car Velocity > -0.00035513544571585953"
+THEN right
+
+ELSE left

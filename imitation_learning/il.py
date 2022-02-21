@@ -45,6 +45,10 @@ def get_average_reward(config, model, episodes=10, verbose=False):
 
     return average_reward, total_rewards
 
+def get_average_reward_with_std(config, model, episodes=10, verbose=False):
+    avg_reward, rewards = get_average_reward(config, model, episodes, verbose)
+    return avg_reward, np.std(rewards)
+
 def visualize_model(config, model, episodes, print_state=False):
     env = gym.make(config["name"])
     total_rewards = []

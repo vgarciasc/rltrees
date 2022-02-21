@@ -82,22 +82,13 @@ class QLeaf():
 		self.q_values = np.zeros(self.n_actions) if q_values is None else q_values
 		self.value = 0 if value is None else value
 
-	def print_tree(self, level=1):
-		# print(" " * 2 * level, f"Q(s, left)  = {self.q_values[0]}")
-		# print(" " * 2 * level, f"Q(s, right) = {self.q_values[1]}")
-		best_action_id = np.argmax(self.q_values)
-		for action_id in range(self.n_actions):
-			test = "---"
-			if len(self.dq_history[action_id]) > 100:
-				data = self.dq_history[action_id][-100:]
-				value = 2 * np.std(data, ddof=1)
-				test = ("test: " + str(value)) 
-			print(" " * 2 * level, f"Q(s, {self.actions[action_id]})  = {'{:.4f}'.format(self.q_values[action_id])}, mean deltaQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.mean([q for q in self.dq_history[action_id]]))}, var deltaQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.var([q for q in self.dq_history[action_id]]))}, {test}, {' [*]' if best_action_id == action_id else ''}")
-	
 	def predict(self, state):
 		if np.sum(self.q_values) == 0:
 			return self, np.random.randint(0, self.n_actions)
 		return self, np.argmax(self.q_values)
+
+	def get_best_action(self):
+		return np.argmax(self.q_values)
 	
 	def reset_history(self):
 		self.state_history = []
@@ -122,11 +113,6 @@ class QLeaf():
 		self.full_dq_history[action].append((state, delta_q))
 		self.q_history[action].append(self.q_values[action])
 		self.full_q_history[action].append((state, self.q_values[action]))
-
-	def pretty_string(self, config):
-		best_action_id = np.argmax(self.q_values)
-		return (config['actions'][best_action_id]).upper()
-	
 	def get_size(self):
 		return 1
 	
@@ -135,6 +121,33 @@ class QLeaf():
 	
 	def get_leaves(self):
 		return [self]
+	
+	def get_ancestors(self):
+		ancestors = []
+
+		node = self
+		while node.parent != None:
+			is_left = node.parent.left == node
+			ancestors.append((node.parent, is_left))
+			node = node.parent
+		
+		return ancestors
+
+	def pretty_string(self, config):
+		best_action_id = np.argmax(self.q_values)
+		return (config['actions'][best_action_id]).upper()
+	
+	def print_tree(self, level=1):
+		# print(" " * 2 * level, f"Q(s, left)  = {self.q_values[0]}")
+		# print(" " * 2 * level, f"Q(s, right) = {self.q_values[1]}")
+		best_action_id = np.argmax(self.q_values)
+		for action_id in range(self.n_actions):
+			test = "---"
+			if len(self.dq_history[action_id]) > 100:
+				data = self.dq_history[action_id][-100:]
+				value = 2 * np.std(data, ddof=1)
+				test = ("test: " + str(value)) 
+			print(" " * 2 * level, f"Q(s, {self.actions[action_id]})  = {'{:.4f}'.format(self.q_values[action_id])}, mean deltaQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.mean([q for q in self.dq_history[action_id]]))}, var deltaQ = {'---' if len(self.dq_history[action_id]) == 0 else '{:.4f}'.format(np.var([q for q in self.dq_history[action_id]]))}, {test}, {' [*]' if best_action_id == action_id else ''}")
 
 def grow_tree(tree, leaf, splitting_criterion, split=None):
 	if split is None:

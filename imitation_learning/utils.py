@@ -13,3 +13,6 @@ def load_dataset(filename):
     with open(filename, "rb") as f:
         X, y = pickle.load(f)
     return X, y
+
+def str_avg(avg, std):
+    return f"{'{:.3f}'.format(avg)} ± {'{:.3f}'.format(std)}"

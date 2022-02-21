@@ -4,66 +4,16 @@ import pdb
 import time
 import numpy as np
 
+from rulelists import Rulelist
 from qtree import load_tree, QLeaf, QNode
 from distilled_tree import DistilledTree
 from il import visualize_model
 from imitation_learning.il import get_average_reward
 from qtree import save_tree_from_print
 from rich import print
+from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
 
 import imitation_learning.env_configs
-
-def load_viztree(filename):
-    with open(filename, "r") as f:
-        return f.read()
-    
-def viztree2qtree(config, string):
-    actions = [a.lower() for a in config['actions']]
-    attributes = [name.lower() for name, _, _, _ in config['attributes']]
-
-    lines = string.split("\n")
-
-    parents = [None for _ in lines]
-    child_count = [0 for _ in lines]
-
-    for line in lines:
-        depth = line.rindex("- ") + 1
-        content = line[depth:].strip()
-
-        parent = parents[depth - 1] if depth > 1 else None
-        is_left = (child_count[depth - 1] == 0) if depth > 1 else None
-        
-        is_leaf = content.lower() in actions
-
-        if not is_leaf:
-            attribute, threshold = content.split(" <= ")
-            
-            attribute = attributes.index(attribute.lower())
-            threshold = float(threshold)
-            split = (attribute, threshold)
-
-            node = QNode(split, parent)
-        if is_leaf:
-            action = actions.index(content.lower())
-
-            q_values = np.zeros(len(actions))
-            q_values[action] = 1
-
-            node = QLeaf(parent, is_left, actions, q_values)
-        
-        if parent:
-            if is_left:
-                parent.left = node
-            else:
-                parent.right = node
-        else:
-            root = node
-
-        parents[depth] = node
-        child_count[depth] = 0
-        child_count[depth - 1] += 1
-    
-    return root
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Behavior Cloning')
@@ -90,6 +40,9 @@ if __name__ == "__main__":
     elif args['tree_class'] == "VizTree":
         string = load_viztree(filename)
         dt = viztree2qtree(config, string)
+    elif args['tree_class'] == "Rulelist":
+        dt = Rulelist(config)
+        dt.load_txt(filename)
 
     if args['should_visualize']:
         visualize_model(config, dt,

@@ -11,6 +11,29 @@ import pdb
 colors = ["blue", "grey", "orange"]
 cmap = ListedColormap(colors)
 
+def plot_mountaincar_model(X, y, model):
+    plot_step = 0.001
+    x_min, x_max = X[:, 0].min() - 0.05, X[:, 0].max() + 0.05
+    y_min, y_max = X[:, 1].min() - 0.05, X[:, 1].max() + 0.05
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
+                         np.arange(y_min, y_max, plot_step))
+
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    cs = plt.contourf(xx, yy, Z, cmap=cmap, alpha=0.5)
+
+    for (action_id, action) in enumerate(config['actions']):
+        car_pos = [x1 for (i, [x1, x2]) in enumerate(X) if y[i] == action_id]
+        car_vel = [x2 for (i, [x1, x2]) in enumerate(X) if y[i] == action_id]
+
+        plt.scatter(car_pos, car_vel, label=action, color=colors[action_id])
+
+    plt.legend()
+    plt.xlabel("Car Position")
+    plt.ylabel("Car Velocity")
+    plt.title("Expert decision boundaries for MountainCar-v0")
+    plt.show()
+
 if __name__ == "__main__":
     config = {
 		"name": "MountainCar-v0",
@@ -32,26 +55,4 @@ if __name__ == "__main__":
 
     dt = DistilledTree(config)
     dt.load_model("data/best_bc_mountaincar")
-
-    plot_step = 0.001
-    x_min, x_max = X[:, 0].min() - 0.05, X[:, 0].max() + 0.05
-    y_min, y_max = X[:, 1].min() - 0.05, X[:, 1].max() + 0.05
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, plot_step),
-                         np.arange(y_min, y_max, plot_step))
-
-    pdb.set_trace()
-    Z = dt.model.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-    cs = plt.contourf(xx, yy, Z, cmap=cmap, alpha=0.5)
-
-    for (action_id, action) in enumerate(config['actions']):
-        car_pos = [x1 for (i, [x1, x2]) in enumerate(X) if y[i] == action_id]
-        car_vel = [x2 for (i, [x1, x2]) in enumerate(X) if y[i] == action_id]
-
-        plt.scatter(car_pos, car_vel, label=action, color=colors[action_id])
-
-    plt.legend()
-    plt.xlabel("Car Position")
-    plt.ylabel("Car Velocity")
-    plt.title("Expert decision boundaries for MountainCar-v0")
-    plt.show()
+    plot_mountaincar_model(X, y, dt.model)
