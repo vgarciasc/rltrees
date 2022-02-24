@@ -1,0 +1,56 @@
+IF "Y Velocity > -0.12"
+   "Leg 1 is Touching > 0.5"
+THEN nop
+
+IF "X Position > 0.074"
+   "Y Velocity > -0.225"
+   "Angle <= -0.042"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+IF "X Velocity > -0.219"
+   "Angular Velocity <= -0.062"
+   "Angle <= -0.042"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+IF "X Velocity > -0.011"
+   "Y Velocity > -0.225"
+   "Angle <= -0.042"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+IF "X Position <= 0.074"
+   "Y Velocity > -0.225"
+   "Angle > 0.042"
+   "Leg 2 is Touching <= 0.5"
+THEN right engine
+
+IF "X Velocity <= 0.219"
+   "Angular Velocity > 0.062"
+   "Angle > 0.042"
+   "Leg 2 is Touching <= 0.5"
+THEN right engine
+
+IF "X Position > 0.1"
+   "Angle > 0.1"
+THEN right engine
+
+IF "X Velocity <= 0.011"
+   "Y Velocity <= 0.225"
+   "Angle > 0.042"
+   "Leg 2 is Touching <= 0.5"
+THEN right engine
+
+IF "X Velocity > 0.2"
+   "Angle <= 0.1"
+THEN right engine
+
+IF "Y Velocity <= -0.12"
+   "Leg 1 is Touching > 0.5"
+THEN main engine
+
+IF "Y Velocity <= -0.225"
+THEN main engine
+
+ELSE nop

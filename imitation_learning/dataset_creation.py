@@ -18,12 +18,12 @@ from rulelists import Rulelist
 from ann import MLPAgent
 from keras_dnn import KerasDNN
 
-def get_model(model_class, filename, config):
+def get_model(model_class, filename, config, expert=None):
     if model_class == "QTree":
         model = load_tree(filename)
     elif model_class == "VizTree":
         string = load_viztree(filename)
-        model = viztree2qtree(config, string)
+        model = viztree2qtree(config, string, expert=expert)
     elif model_class == "Rulelist":
         model = Rulelist(config)
         model.load_txt(filename)

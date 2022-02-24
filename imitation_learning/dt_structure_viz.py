@@ -10,7 +10,7 @@ def load_viztree(filename):
     with open(filename, "r") as f:
         return f.read()
     
-def viztree2qtree(config, string):
+def viztree2qtree(config, string, expert=None):
     actions = [a.lower() for a in config['actions']]
     attributes = [name.lower() for name, _, _, _ in config['attributes']]
 
@@ -26,7 +26,7 @@ def viztree2qtree(config, string):
         parent = parents[depth - 1] if depth > 1 else None
         is_left = (child_count[depth - 1] == 0) if depth > 1 else None
         
-        is_leaf = content.lower() in actions
+        is_leaf = "<=" not in content
 
         if not is_leaf:
             attribute, threshold = content.split(" <= ")
@@ -36,13 +36,19 @@ def viztree2qtree(config, string):
             split = (attribute, threshold)
 
             node = QNode(split, parent)
+            
         if is_leaf:
-            action = actions.index(content.lower())
-
             q_values = np.zeros(len(actions))
-            q_values[action] = 1
+            leaf_expert = None
 
-            node = QLeaf(parent, is_left, actions, q_values)
+            if content.lower() == "expert":
+                leaf_expert = expert
+            else:
+                action = actions.index(content.lower())
+                q_values[action] = 1
+
+            node = QLeaf(parent, is_left, actions, 
+                q_values=q_values, expert=leaf_expert)
         
         if parent:
             if is_left:

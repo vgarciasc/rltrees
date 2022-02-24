@@ -1,8 +1,8 @@
-IF "Pole Angular Velocity <= 0.562"
-   "Pole Angle <= -0.009"
-THEN left
-
-IF "Pole Angular Velocity > -0.231"
+IF "Pole Angle > -0.009092022199183702"
+   "Pole Angular Velocity > -0.23104359954595566"
 THEN right
 
-ELSE left
+IF "Pole Angular Velocity <= 0.5621489882469177"
+THEN left
+
+ELSE right

@@ -16,11 +16,14 @@ class QNode():
 		self.right = right
 	
 	def predict(self, state):
-		if state[self.attribute] <= self.value:
+		if self.evaluate(state):
 			return self.left.predict(state)
 		else:
 			return self.right.predict(state)
 	
+	def evaluate(self, state):
+		return state[self.attribute] <= self.value
+
 	def act(self, state):
 		_, action = self.predict(state)
 		return action
@@ -69,13 +72,27 @@ class QNode():
 	
 	def get_leaves(self):
 		return [] + self.left.get_leaves() + self.right.get_leaves()
+	
+	def get_covered_samples(self, X, y, output=[]):
+		data_left = [(x_i, y_i) for x_i, y_i in zip(X, y) if self.evaluate(x_i)]
+		X_left, y_left = zip(*data_left)
+		output = self.left.get_covered_samples(X_left, y_left, output)
+
+		data_right = [(x_i, y_i) for x_i, y_i in zip(X, y) if not self.evaluate(x_i)]
+		X_right, y_right = zip(*data_right)
+		output = self.right.get_covered_samples(X_right, y_right, output)
+
+		return output
 
 class QLeaf():
-	def __init__(self,  parent=None, is_left=False, actions=[], q_values=None, value=None):
+	def __init__(self,  parent=None, is_left=False, 
+		actions=[], q_values=None, value=None, expert=None):
+
 		self.actions = actions
 		self.n_actions = len(actions)
 		self.parent = parent
 		self.is_left = is_left
+		self.expert = expert
 
 		self.reset_all()
 
@@ -83,9 +100,13 @@ class QLeaf():
 		self.value = 0 if value is None else value
 
 	def predict(self, state):
+		if hasattr(self, 'expert') and self.expert is not None:
+			return self, self.expert.act(state)
+		
 		if np.sum(self.q_values) == 0:
 			return self, np.random.randint(0, self.n_actions)
-		return self, np.argmax(self.q_values)
+		
+		return self, self.get_best_action()
 
 	def get_best_action(self):
 		return np.argmax(self.q_values)
@@ -113,6 +134,7 @@ class QLeaf():
 		self.full_dq_history[action].append((state, delta_q))
 		self.q_history[action].append(self.q_values[action])
 		self.full_q_history[action].append((state, self.q_values[action]))
+	
 	def get_size(self):
 		return 1
 	
@@ -132,6 +154,9 @@ class QLeaf():
 			node = node.parent
 		
 		return ancestors
+	
+	def get_covered_samples(self, X, y, output=[]):
+		return output + [(self, X, y)]
 
 	def pretty_string(self, config):
 		best_action_id = np.argmax(self.q_values)
