@@ -1,0 +1,18 @@
+IF "Pole Angular Velocity <= -0.23104359954595566"
+THEN left
+
+IF "Pole Angular Velocity <= 0.5621489882469177"
+   "Pole Angle <= -0.009092022199183702"
+   "Pole Angular Velocity > -0.23104359954595566"
+THEN left
+
+IF "Pole Angular Velocity > 0.5621489882469177"
+   "Pole Angle <= -0.009092022199183702"
+   "Pole Angular Velocity > -0.23104359954595566"
+THEN right
+
+IF "Pole Angle > -0.009092022199183702"
+   "Pole Angular Velocity > -0.23104359954595566"
+THEN right
+
+ELSE left

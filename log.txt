@@ -1056,3 +1056,18 @@ Averages: (137.71923590209605, 125.01815520210101, 22.13542587403546,
 134.06474078416136, 47.796523440498795), avg: 93.34681624057853 ± 
 48.53004432200647
 Tree size: (27, 31, 23, 25, 17), avg: 24.6 ± 4.63033476111609
+
+------------
+
+Elapsed time: 635.5893440246582 seconds.
+Tree has 17 nodes and depth 5.
+Success in 380 / 1000 episodes (0.380000 %)
+Elapsed time: 348.75233697891235 seconds.
+Tree has 35 nodes and depth 8.
+Success in 533 / 1000 episodes (0.533000 %)
+Elapsed time: 380.84815740585327 seconds.
+Tree has 35 nodes and depth 9.
+Success in 597 / 1000 episodes (0.597000 %)
+Elapsed time: 155.33850574493408 seconds.
+Tree has 23 nodes and depth 6.
+Success in 67 / 1000 episodes (0.067000 %)

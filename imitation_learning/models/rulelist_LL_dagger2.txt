@@ -1,0 +1,158 @@
+IF "Angle <= 0.28854574263095856"
+   "Angle > -0.18380700051784515"
+   "Leg 1 is Touching > 0.5"
+THEN nop
+
+IF "Angle > -0.18407248705625534"
+   "Y Position > 1.1765981912612915"
+   "Angle <= -0.04200657270848751"
+THEN nop
+
+IF "Leg 2 is Touching > 0.5"
+   "X Position > -0.11858372762799263"
+   "Angle > -0.04200657270848751"
+THEN nop
+
+IF "Y Velocity > -0.41816742718219757"
+   "Y Position > 0.81857630610466"
+   "X Velocity <= -0.07912562787532806"
+THEN nop
+
+IF "Y Position > 0.651857852935791"
+   "X Velocity <= -0.07912562787532806"
+THEN nop
+
+IF "Y Position <= 0.22214438021183014"
+   "Y Velocity <= -0.22463590651750565"
+THEN main engine
+
+IF "Angle > 0.02578721661120653"
+   "Y Position <= 0.12945163995027542"
+   "Y Velocity <= -0.08461660146713257"
+THEN main engine
+
+IF "X Velocity <= -0.21928387880325317"
+   "Y Position <= 1.1765981912612915"
+   "Angle <= -0.04200657270848751"
+THEN main engine
+
+IF "X Velocity <= 0.4924241155385971"
+   "Y Velocity <= -0.2541368305683136"
+   "X Velocity > 0.11641347408294678"
+THEN main engine
+
+IF "Y Velocity <= -0.29680581390857697"
+   "Y Position <= 1.1765981912612915"
+   "Angle <= -0.04200657270848751"
+THEN main engine
+
+IF "Y Position <= 0.6707923114299774"
+   "X Position > -0.15498991310596466"
+   "Y Velocity <= -0.22463590651750565"
+THEN main engine
+
+IF "Y Velocity <= -0.2844775319099426"
+   "X Position <= -0.0186172965914011"
+   "X Velocity > -0.07912562787532806"
+THEN main engine
+
+IF "Y Velocity <= -0.10369162634015083"
+   "Y Position <= 0.3072325736284256"
+THEN main engine
+
+IF "Y Velocity <= -0.41816742718219757"
+   "Angle <= 0.0840453952550888"
+   "X Velocity > -0.30245445668697357"
+THEN main engine
+
+IF "Y Position <= 0.81857630610466"
+   "Y Velocity <= -0.30480000376701355"
+   "X Velocity <= -0.07912562787532806"
+THEN main engine
+
+IF "Y Position <= 0.9490303695201874"
+   "Angular Velocity > -0.10941804200410843"
+   "Y Velocity <= -0.08461660146713257"
+THEN main engine
+
+IF "X Velocity > 0.1312936246395111"
+   "Angular Velocity <= -0.10068733245134354"
+   "Angle > 0.1428142935037613"
+THEN main engine
+
+IF "Y Position <= 0.29701681435108185"
+   "X Velocity > 0.026901723816990852"
+   "Y Velocity <= -0.08461660146713257"
+THEN main engine
+
+IF "Y Velocity > -0.1108919270336628"
+   "X Velocity <= -0.07912562787532806"
+   "Leg 1 is Touching <= 0.5"
+THEN right engine
+
+IF "Angle > -0.11448284611105919"
+   "X Position <= -0.15498991310596466"
+   "Y Velocity > -0.29680581390857697"
+THEN right engine
+
+IF "Angle > 0.049448778852820396"
+   "Y Velocity > -0.32272006571292877"
+THEN right engine
+
+IF "Angle > 0.0840453952550888"
+THEN right engine
+
+IF "Y Position > 0.3072325736284256"
+   "X Velocity > -0.011498657055199146"
+   "Y Velocity > -0.22463590651750565"
+THEN left engine
+
+IF "Angular Velocity <= -0.1279134526848793"
+   "Y Position > 0.81857630610466"
+   "X Velocity > -0.30245445668697357"
+THEN left engine
+
+IF "X Velocity > -0.21928387880325317"
+   "Angular Velocity <= -0.06202212907373905"
+   "Angle <= -0.04200657270848751"
+THEN left engine
+
+IF "Angular Velocity <= -0.10941804200410843"
+   "Angle <= 0.1428142935037613"
+   "X Velocity > -0.07912562787532806"
+THEN left engine
+
+IF "Angular Velocity <= -0.2306680753827095"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+IF "X Position > -0.13713040202856064"
+   "X Velocity > -0.0036254003643989563"
+   "Angle <= -0.04200657270848751"
+THEN left engine
+
+IF "Y Velocity > -0.29680581390857697"
+   "Angle <= -0.04200657270848751"
+THEN left engine
+
+IF "Angular Velocity <= -0.17301896959543228"
+   "Y Velocity > -0.08461660146713257"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+IF "X Position > -0.0186172965914011"
+   "X Velocity > -0.07912562787532806"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+IF "X Velocity > -0.022975552827119827"
+   "Y Position > 0.5441494584083557"
+   "Angle <= 0.1428142935037613"
+THEN left engine
+
+IF "X Velocity > 0.03548930212855339"
+   "Y Position <= 0.000445703262812458"
+   "Leg 1 is Touching <= 0.5"
+THEN left engine
+
+ELSE right engine

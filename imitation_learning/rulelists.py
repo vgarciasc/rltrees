@@ -77,7 +77,7 @@ class Rulelist:
             avg, std = get_average_reward_with_std(self.config, self, episodes=100)
             printv(f"[yellow]Average reward for this rulelist is {str_avg(avg, std)}.[/yellow]")
             
-            pdb.set_trace()
+            # pdb.set_trace()
 
             assignment_memory = [(i, r, c) for i, r, c, in assignment_memory if r >= rule_id]
             if not assignment_memory:
@@ -293,7 +293,7 @@ class Rulelist:
                         best_antecedent_id = antecedent_id
 
                     printv(f"    [bright_black]W/out antecedent {antecedent}:\t" +
-                        f"N = {str(N_minus).rjust(5, ' ')}, " + 
+                        f"N: {str(N_minus).rjust(5, ' ')}, " + 
                         f"C: {str(y_C_minus).rjust(5, ' ')}, " +
                         f"I: {str(y_I_minus).rjust(5, ' ')}, " +
                         f"UCF = {'{:.2f}'.format(ucf_minus * 100)}%[/bright_black]",
@@ -343,6 +343,53 @@ class Rulelist:
             self.rules.pop(rule_id)
         
         self.update_default(X, y, verbose)
+
+    def generalize_single_rules_reward(self, X, y, 
+        comp_threshold, max_antecedents, grading_episodes, verbose=False):
+
+        print(f"[yellow]Generalizing rules by reward estimation..." +
+            f" Dataset has size {len(X)}.[/yellow]", verbose)
+                    
+        base_avg, base_std = get_average_reward_with_std(
+            self.config, self,
+            episodes=grading_episodes)
+
+        printv(f"[yellow]Average reward for this rulelist is {str_avg(base_avg, base_std)}.[/yellow]")
+        
+        for rule_id, rule in enumerate(self.rules):
+            counter = 0
+            removed_antecedents = 0
+
+            while counter == 0 or removed_antecedents != 0:
+                counter += 1
+                removed_antecedents = 0
+
+                printv(f" [blue]Evaluating rule #{rule_id}, cycle {counter}:[/blue]")
+
+                for antecedent_id, antecedent in enumerate(rule.antecedents):
+                    printv(f"  Evaluating antecedent {antecedent}:")
+                    printv(f"    [bright_black]Before removing antecedent: average reward is {str_avg(base_avg, base_std)}.[/bright_black]")
+                    rule.remove_antecedent(antecedent)
+                    new_avg, new_std = get_average_reward_with_std(
+                        self.config, self,
+                        episodes=grading_episodes)
+                    printv(f"    [bright_black]After removing antecedent: average reward is {str_avg(new_avg, new_std)}.[/bright_black]")
+
+                    if new_avg >= 0:
+                        comparison_value = base_avg * comp_threshold
+                    else:
+                        comparison_value = base_avg * (2 - comp_threshold)
+
+                    if new_avg <= comparison_value:
+                        printv(f"    [red]Undoing removal of antecedent...[/red]")
+                        rule.antecedents.append(antecedent)
+                    else:
+                        printv(f"    [green]Maintaining removal of antecedent...[/green]")
+                        removed_antecedents += 1
+                        base_avg = new_avg
+                        base_std = new_std
+            
+        self.update_default(X, y, verbose)
     
     def update_default(self, X, y, verbose=False):
         y_default = []
@@ -373,7 +420,7 @@ class Rulelist:
             episodes=episodes,
             verbose=False)
         
-        for i, rule in reversed(list(enumerate(self.rules))):
+        for i, rule in enumerate(self.rules):
             printv(f"  Evaluating impact of removing rule {i}...", verbose)
 
             rule_id = self.rules.index(rule)
@@ -640,7 +687,7 @@ if __name__ == "__main__":
         start_time = time.time()
         X, y = load_dataset(args['dataset'])
         
-        if args['pruning'] in ["generalization", "all", "cabro"]:
+        if args['pruning'] in ["generalization", "all", "cabro", "reward"]:
             if args['pruning'] == "cabro":
                 rulelist.sort_rules_coverage(
                     X, y, verbose=args['verbose'])
@@ -650,6 +697,14 @@ if __name__ == "__main__":
                     comp_threshold=args['generalization_threshold'],
                     max_antecedents=args['max_antecedents'],
                     verbose=args['verbose'])
+            elif args['pruning'] == 'reward':
+                rulelist.generalize_single_rules_reward(
+                    X, y,
+                    comp_threshold=args['generalization_threshold'],
+                    max_antecedents=args['max_antecedents'],
+                    grading_episodes=args['grading_episodes'],
+                    verbose=args['verbose'])
+                print("")
             else:
                 rulelist.generalize_single_rules(
                     X, y,
