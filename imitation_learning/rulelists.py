@@ -9,6 +9,7 @@ from functools import reduce
 from collections import Counter
 from rich import print
 from imitation_learning.il import get_average_reward, get_average_reward_with_std
+from imitation_learning.ova import CartOvaAgent
 from qtree import QNode, QLeaf, load_tree
 from statsmodels.stats.proportion import proportion_confint
 from imitation_learning.utils import printv, str_avg
@@ -553,6 +554,24 @@ class Rulelist:
         
         self.rules = rules
 
+    def load_ova(self, ova):
+        rules = []
+        for action, tree in enumerate(ova.trees):
+            qtree = tree.get_as_qtree()
+            
+            for leaf in qtree.get_leaves():
+                if leaf.get_best_action() == 1:
+                    ancestors = leaf.get_ancestors()
+
+                    antecedents = [Antecedent(a.attribute, a.value, is_left) for a, is_left in ancestors]
+                    consequent = action
+
+                    rule = Rule(antecedents, consequent)
+                    rules.append((rule, leaf.q_values[1] / np.sum(leaf.q_values)))
+        
+        rules.sort(key=lambda r : r[1], reverse=True)
+        self.rules = [rule for rule, _ in rules]
+
     def load_txt(self, filename):
         self.rules = []
         actions = [a.lower() for a in self.config['actions']]
@@ -658,13 +677,13 @@ if __name__ == "__main__":
     parser.add_argument('-f','--filename', help='Filepath for expert', required=True)
     parser.add_argument('-c','--class', help='Which type of file was loaded?', required=True)
     parser.add_argument('-o','--output', help='Filepath to output converted tree', required=False)
+    parser.add_argument('-d', '--dataset', help='Dataset filename', required=False, default="")
     parser.add_argument('--pruning', help='Which pruning to do? ("none", "all", "generalization", "reward")', required=False, default="none")
     parser.add_argument('--only_reward_prune', help='Should only reward prune loaded tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--max_antecedents', help='What is the maximum number of antecedents in a rule?', required=False, default=1000, type=int)
     parser.add_argument('--generalization_threshold', help='The comparison threshold for single rule generalization', required=False, default=1, type=float)
     parser.add_argument('--pruning_threshold', help='The comparison threshold for pruning', required=False, default=1, type=float)
     parser.add_argument('--grading_episodes', help='Number of episodes used during pruning.', required=False, default=10, type=int)
-    parser.add_argument('--dataset', help='Dataset filename', required=False, default="")
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
@@ -678,14 +697,21 @@ if __name__ == "__main__":
         string = load_viztree(args['filename'])
         qtree = viztree2qtree(config, string)
         rulelist.load_qtree(qtree)
+    elif args['class'] == "CartOva":
+        model = CartOvaAgent(config)
+        model.load_model(args['filename'])
+        rulelist.load_ova(model)
     elif args['class'] == "Rulelist":
         rulelist.load_txt(args['filename'])
     
-    print(f"[yellow]Loaded a rulelist with {len(rulelist.rules)} rules.[/yellow]")
-
     if args['pruning'] != "none":
+        if args['dataset']:
+            print(f"[yellow]Loaded a rulelist with {len(rulelist.rules)} rules.[/yellow]")
+            X, y = load_dataset(args['dataset'])
+        else:
+            print("Please include dataset with flag -d or --dataset")
+        
         start_time = time.time()
-        X, y = load_dataset(args['dataset'])
         
         if args['pruning'] in ["generalization", "all", "cabro", "reward"]:
             if args['pruning'] == "cabro":
@@ -741,3 +767,4 @@ if __name__ == "__main__":
         episodes=args['grading_episodes'],
         verbose=False)
     print(f"[yellow]Average reward for this rulelist is {str_avg(avg, std)}.[/yellow]")
+    # print(f"Default comprises {'{:2f}'.format((default_executions / normal_executions * 100))}% of all rule executions")

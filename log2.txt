@@ -1,0 +1,1422 @@
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.002.
+Step #0.
+- Dataset length: 349949
+- Obtained tree with [21, 29, 37, 29] nodes.
+- Average reward for the student: -164.063 ï¿½ 256.380.
+Step #1.
+- Dataset length: 377153
+- Obtained tree with [27, 31, 39, 29] nodes.
+- Average reward for the student: -18.077 ï¿½ 140.706.
+Step #2.
+- Dataset length: 400452
+- Obtained tree with [23, 37, 39, 27] nodes.
+- Average reward for the student: 11.373 ï¿½ 151.827.
+Step #3.
+- Dataset length: 426304
+- Obtained tree with [29, 39, 35, 31] nodes.
+- Average reward for the student: 156.327 ï¿½ 124.691.
+Step #4.
+- Dataset length: 463996
+- Obtained tree with [27, 41, 31, 33] nodes.
+- Average reward for the student: 131.565 ï¿½ 136.463.
+Step #5.
+- Dataset length: 493498
+- Obtained tree with [33, 33, 27, 35] nodes.
+- Average reward for the student: 164.095 ï¿½ 161.080.
+Step #6.
+- Dataset length: 524554
+- Obtained tree with [29, 37, 25, 33] nodes.
+- Average reward for the student: 126.900 ï¿½ 131.767.
+Step #7.
+- Dataset length: 551118
+- Obtained tree with [29, 29, 27, 37] nodes.
+- Average reward for the student: 200.831 ï¿½ 91.845.
+Step #8.
+- Dataset length: 580809
+- Obtained tree with [29, 31, 27, 41] nodes.
+- Average reward for the student: 178.995 ï¿½ 104.896.
+Step #9.
+- Dataset length: 615702
+- Obtained tree with [23, 33, 29, 39] nodes.
+- Average reward for the student: 206.354 ï¿½ 69.820.
+Step #10.
+- Dataset length: 656227
+- Obtained tree with [27, 31, 25, 49] nodes.
+- Average reward for the student: 95.433 ï¿½ 146.087.
+Step #11.
+- Dataset length: 683748
+- Obtained tree with [25, 37, 25, 43] nodes.
+- Average reward for the student: 64.186 ï¿½ 137.210.
+Step #12.
+- Dataset length: 707839
+- Obtained tree with [25, 35, 21, 47] nodes.
+- Average reward for the student: 159.550 ï¿½ 129.677.
+Step #13.
+- Dataset length: 740328
+- Obtained tree with [25, 31, 25, 45] nodes.
+- Average reward for the student: 199.526 ï¿½ 93.687.
+Step #14.
+- Dataset length: 775978
+- Obtained tree with [25, 39, 27, 43] nodes.
+- Average reward for the student: 183.152 ï¿½ 110.860.
+Step #15.
+- Dataset length: 810674
+- Obtained tree with [25, 43, 23, 49] nodes.
+- Average reward for the student: 195.295 ï¿½ 90.221.
+Step #16.
+- Dataset length: 840059
+- Obtained tree with [25, 39, 27, 41] nodes.
+- Average reward for the student: 134.761 ï¿½ 172.172.
+Step #17.
+- Dataset length: 866764
+- Obtained tree with [25, 37, 27, 45] nodes.
+- Average reward for the student: 180.434 ï¿½ 115.416.
+Step #18.
+- Dataset length: 894460
+- Obtained tree with [25, 43, 29, 43] nodes.
+- Average reward for the student: 152.188 ï¿½ 130.296.
+Step #19.
+- Dataset length: 922477
+- Obtained tree with [29, 35, 29, 43] nodes.
+- Average reward for the student: 201.141 ï¿½ 100.071.
+Step #20.
+- Dataset length: 950307
+- Obtained tree with [29, 39, 25, 47] nodes.
+- Average reward for the student: 164.079 ï¿½ 118.082.
+Step #21.
+- Dataset length: 975108
+- Obtained tree with [29, 37, 23, 37] nodes.
+- Average reward for the student: 211.699 ï¿½ 81.859.
+Step #22.
+- Dataset length: 1004624
+- Obtained tree with [29, 39, 25, 39] nodes.
+- Average reward for the student: 151.884 ï¿½ 130.442.
+Step #23.
+- Dataset length: 1030316
+- Obtained tree with [29, 37, 27, 43] nodes.
+- Average reward for the student: 163.043 ï¿½ 111.945.
+Step #24.
+- Dataset length: 1056218
+- Obtained tree with [29, 37, 27, 43] nodes.
+- Average reward for the student: 207.649 ï¿½ 87.548.
+Step #25.
+- Dataset length: 1089992
+- Obtained tree with [31, 35, 25, 39] nodes.
+- Average reward for the student: 197.216 ï¿½ 99.716.
+Step #26.
+- Dataset length: 1118158
+- Obtained tree with [31, 35, 23, 43] nodes.
+- Average reward for the student: 201.385 ï¿½ 95.450.
+Step #27.
+- Dataset length: 1148216
+- Obtained tree with [29, 37, 27, 43] nodes.
+- Average reward for the student: 168.711 ï¿½ 125.976.
+Step #28.
+- Dataset length: 1174972
+- Obtained tree with [31, 37, 29, 51] nodes.
+- Average reward for the student: 161.424 ï¿½ 137.711.
+Step #29.
+- Dataset length: 1199177
+- Obtained tree with [31, 35, 27, 51] nodes.
+- Average reward for the student: 192.971 ï¿½ 121.060.
+Step #30.
+- Dataset length: 1226798
+- Obtained tree with [25, 37, 25, 43] nodes.
+- Average reward for the student: 221.880 ï¿½ 59.443.
+Step #31.
+- Dataset length: 1259581
+- Obtained tree with [31, 41, 25, 41] nodes.
+- Average reward for the student: 196.954 ï¿½ 118.253.
+Step #32.
+- Dataset length: 1288212
+- Obtained tree with [31, 37, 27, 41] nodes.
+- Average reward for the student: 234.634 ï¿½ 66.204.
+Step #33.
+- Dataset length: 1319095
+- Obtained tree with [31, 35, 23, 35] nodes.
+- Average reward for the student: 201.508 ï¿½ 97.640.
+Step #34.
+- Dataset length: 1348776
+- Obtained tree with [31, 39, 27, 33] nodes.
+- Average reward for the student: 220.460 ï¿½ 80.946.
+Step #35.
+- Dataset length: 1378773
+- Obtained tree with [31, 39, 27, 35] nodes.
+- Average reward for the student: 236.575 ï¿½ 72.810.
+Step #36.
+- Dataset length: 1406479
+- Obtained tree with [31, 39, 25, 45] nodes.
+- Average reward for the student: 219.302 ï¿½ 91.439.
+Step #37.
+- Dataset length: 1435889
+- Obtained tree with [27, 33, 25, 35] nodes.
+- Average reward for the student: 148.486 ï¿½ 124.768.
+Step #38.
+- Dataset length: 1459546
+- Obtained tree with [27, 31, 25, 47] nodes.
+- Average reward for the student: 183.851 ï¿½ 109.225.
+Step #39.
+- Dataset length: 1492733
+- Obtained tree with [29, 37, 25, 41] nodes.
+- Average reward for the student: 154.507 ï¿½ 123.507.
+Step #40.
+- Dataset length: 1519013
+- Obtained tree with [29, 37, 25, 41] nodes.
+- Average reward for the student: 159.796 ï¿½ 122.157.
+Step #41.
+- Dataset length: 1543479
+- Obtained tree with [27, 37, 21, 39] nodes.
+- Average reward for the student: 183.581 ï¿½ 108.058.
+Step #42.
+- Dataset length: 1571430
+- Obtained tree with [25, 33, 21, 43] nodes.
+- Average reward for the student: 220.384 ï¿½ 77.669.
+Step #43.
+- Dataset length: 1598300
+- Obtained tree with [25, 43, 19, 43] nodes.
+- Average reward for the student: 206.993 ï¿½ 89.990.
+Step #44.
+- Dataset length: 1627682
+- Obtained tree with [25, 43, 23, 43] nodes.
+- Average reward for the student: 197.390 ï¿½ 110.510.
+Step #45.
+- Dataset length: 1657365
+- Obtained tree with [29, 41, 23, 37] nodes.
+- Average reward for the student: 208.607 ï¿½ 95.150.
+Step #46.
+- Dataset length: 1687290
+- Obtained tree with [27, 49, 23, 41] nodes.
+- Average reward for the student: 160.135 ï¿½ 142.993.
+Step #47.
+- Dataset length: 1713183
+- Obtained tree with [27, 49, 21, 35] nodes.
+- Average reward for the student: 143.642 ï¿½ 169.354.
+Step #48.
+- Dataset length: 1737976
+- Obtained tree with [27, 39, 21, 41] nodes.
+- Average reward for the student: 208.170 ï¿½ 85.482.
+Step #49.
+- Dataset length: 1767058
+- Obtained tree with [27, 37, 23, 39] nodes.
+- Average reward for the student: 159.721 ï¿½ 136.974.
+- Obtained tree with [31, 39, 27, 35] nodes.
+- Average reward for the best policy: 226.962 ï¿½ 79.627.
+Saved OVA to 'data/dagger_best_tree_LunarLander-v2'.
+Saved OVA to 'data/LunarLander-v2_tree_2022-03-04_21-26_dagger_0.002'.
+-------------eof------------- 
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.003.
+Step #0.
+- Dataset length: 358703
+- Obtained tree with [17, 21, 21, 19] nodes.
+- Average reward for the student: -138.134 ï¿½ 98.882.
+Step #1.
+- Dataset length: 375205
+- Obtained tree with [17, 25, 23, 23] nodes.
+- Average reward for the student: 61.038 ï¿½ 139.961.
+Step #2.
+- Dataset length: 402999
+- Obtained tree with [15, 23, 21, 17] nodes.
+- Average reward for the student: 44.231 ï¿½ 195.908.
+Step #3.
+- Dataset length: 439061
+- Obtained tree with [17, 25, 25, 19] nodes.
+- Average reward for the student: 130.754 ï¿½ 146.321.
+Step #4.
+- Dataset length: 474925
+- Obtained tree with [19, 27, 23, 31] nodes.
+- Average reward for the student: 158.147 ï¿½ 111.531.
+Step #5.
+- Dataset length: 507317
+- Obtained tree with [19, 25, 15, 27] nodes.
+- Average reward for the student: 94.110 ï¿½ 199.407.
+Step #6.
+- Dataset length: 538297
+- Obtained tree with [21, 29, 13, 29] nodes.
+- Average reward for the student: 32.499 ï¿½ 162.394.
+Step #7.
+- Dataset length: 561596
+- Obtained tree with [21, 29, 13, 23] nodes.
+- Average reward for the student: 112.734 ï¿½ 137.396.
+Step #8.
+- Dataset length: 595428
+- Obtained tree with [21, 29, 15, 29] nodes.
+- Average reward for the student: 99.816 ï¿½ 131.745.
+Step #9.
+- Dataset length: 621694
+- Obtained tree with [23, 27, 15, 29] nodes.
+- Average reward for the student: 140.814 ï¿½ 135.414.
+Step #10.
+- Dataset length: 651315
+- Obtained tree with [23, 33, 21, 29] nodes.
+- Average reward for the student: 127.656 ï¿½ 178.430.
+Step #11.
+- Dataset length: 674727
+- Obtained tree with [23, 29, 23, 31] nodes.
+- Average reward for the student: 90.985 ï¿½ 125.889.
+Step #12.
+- Dataset length: 700294
+- Obtained tree with [23, 29, 21, 31] nodes.
+- Average reward for the student: 91.298 ï¿½ 137.892.
+Step #13.
+- Dataset length: 723069
+- Obtained tree with [25, 29, 25, 31] nodes.
+- Average reward for the student: 109.401 ï¿½ 120.355.
+Step #14.
+- Dataset length: 745597
+- Obtained tree with [23, 29, 23, 33] nodes.
+- Average reward for the student: 150.513 ï¿½ 135.832.
+Step #15.
+- Dataset length: 768043
+- Obtained tree with [23, 25, 23, 31] nodes.
+- Average reward for the student: 172.712 ï¿½ 108.029.
+Step #16.
+- Dataset length: 806011
+- Obtained tree with [23, 23, 23, 29] nodes.
+- Average reward for the student: 112.663 ï¿½ 129.017.
+Step #17.
+- Dataset length: 823783
+- Obtained tree with [25, 23, 21, 27] nodes.
+- Average reward for the student: 160.728 ï¿½ 128.693.
+Step #18.
+- Dataset length: 854086
+- Obtained tree with [21, 21, 15, 27] nodes.
+- Average reward for the student: 179.163 ï¿½ 109.123.
+Step #19.
+- Dataset length: 882023
+- Obtained tree with [21, 29, 17, 29] nodes.
+- Average reward for the student: 138.015 ï¿½ 137.723.
+Step #20.
+- Dataset length: 909710
+- Obtained tree with [21, 25, 19, 29] nodes.
+- Average reward for the student: 181.534 ï¿½ 110.993.
+Step #21.
+- Dataset length: 943243
+- Obtained tree with [19, 25, 13, 29] nodes.
+- Average reward for the student: 94.418 ï¿½ 127.717.
+Step #22.
+- Dataset length: 965461
+- Obtained tree with [19, 27, 17, 29] nodes.
+- Average reward for the student: 91.230 ï¿½ 173.018.
+Step #23.
+- Dataset length: 989590
+- Obtained tree with [19, 27, 19, 31] nodes.
+- Average reward for the student: 168.741 ï¿½ 112.293.
+Step #24.
+- Dataset length: 1014338
+- Obtained tree with [19, 25, 13, 27] nodes.
+- Average reward for the student: 171.124 ï¿½ 138.073.
+Step #25.
+- Dataset length: 1038076
+- Obtained tree with [19, 27, 15, 23] nodes.
+- Average reward for the student: 165.029 ï¿½ 123.995.
+Step #26.
+- Dataset length: 1065417
+- Obtained tree with [19, 27, 13, 25] nodes.
+- Average reward for the student: 126.174 ï¿½ 134.568.
+Step #27.
+- Dataset length: 1090947
+- Obtained tree with [19, 25, 17, 25] nodes.
+- Average reward for the student: 149.819 ï¿½ 128.682.
+Step #28.
+- Dataset length: 1115551
+- Obtained tree with [19, 29, 17, 29] nodes.
+- Average reward for the student: 176.981 ï¿½ 112.136.
+Step #29.
+- Dataset length: 1142045
+- Obtained tree with [19, 29, 17, 31] nodes.
+- Average reward for the student: 190.463 ï¿½ 106.692.
+Step #30.
+- Dataset length: 1168675
+- Obtained tree with [19, 27, 17, 35] nodes.
+- Average reward for the student: 203.733 ï¿½ 97.674.
+Step #31.
+- Dataset length: 1198746
+- Obtained tree with [21, 29, 17, 33] nodes.
+- Average reward for the student: 211.846 ï¿½ 82.173.
+Step #32.
+- Dataset length: 1228451
+- Obtained tree with [21, 33, 15, 25] nodes.
+- Average reward for the student: 147.144 ï¿½ 118.384.
+Step #33.
+- Dataset length: 1259595
+- Obtained tree with [21, 29, 17, 31] nodes.
+- Average reward for the student: 221.262 ï¿½ 67.689.
+Step #34.
+- Dataset length: 1289577
+- Obtained tree with [17, 33, 17, 31] nodes.
+- Average reward for the student: 207.493 ï¿½ 111.499.
+Step #35.
+- Dataset length: 1319053
+- Obtained tree with [17, 33, 17, 29] nodes.
+- Average reward for the student: 197.400 ï¿½ 120.185.
+Step #36.
+- Dataset length: 1348278
+- Obtained tree with [19, 33, 19, 21] nodes.
+- Average reward for the student: 148.480 ï¿½ 168.853.
+Step #37.
+- Dataset length: 1376486
+- Obtained tree with [21, 33, 17, 25] nodes.
+- Average reward for the student: 147.081 ï¿½ 149.124.
+Step #38.
+- Dataset length: 1404458
+- Obtained tree with [19, 23, 19, 27] nodes.
+- Average reward for the student: 193.392 ï¿½ 106.322.
+Step #39.
+- Dataset length: 1434122
+- Obtained tree with [21, 29, 19, 27] nodes.
+- Average reward for the student: 178.544 ï¿½ 105.313.
+Step #40.
+- Dataset length: 1461104
+- Obtained tree with [21, 29, 19, 27] nodes.
+- Average reward for the student: 201.434 ï¿½ 91.451.
+Step #41.
+- Dataset length: 1491194
+- Obtained tree with [19, 29, 17, 29] nodes.
+- Average reward for the student: 209.527 ï¿½ 89.894.
+Step #42.
+- Dataset length: 1522778
+- Obtained tree with [17, 31, 17, 27] nodes.
+- Average reward for the student: 199.777 ï¿½ 90.515.
+Step #43.
+- Dataset length: 1550606
+- Obtained tree with [19, 29, 19, 25] nodes.
+- Average reward for the student: 152.330 ï¿½ 120.236.
+Step #44.
+- Dataset length: 1576260
+- Obtained tree with [21, 31, 17, 27] nodes.
+- Average reward for the student: 208.645 ï¿½ 93.781.
+Step #45.
+- Dataset length: 1604588
+- Obtained tree with [21, 25, 17, 23] nodes.
+- Average reward for the student: 184.775 ï¿½ 146.166.
+Step #46.
+- Dataset length: 1635487
+- Obtained tree with [19, 27, 19, 25] nodes.
+- Average reward for the student: 183.917 ï¿½ 114.487.
+Step #47.
+- Dataset length: 1660164
+- Obtained tree with [19, 35, 17, 27] nodes.
+- Average reward for the student: 158.049 ï¿½ 125.280.
+Step #48.
+- Dataset length: 1685168
+- Obtained tree with [19, 33, 17, 19] nodes.
+- Average reward for the student: 140.273 ï¿½ 159.077.
+Step #49.
+- Dataset length: 1713323
+- Obtained tree with [19, 25, 19, 19] nodes.
+- Average reward for the student: 103.631 ï¿½ 192.310.
+- Obtained tree with [21, 29, 17, 31] nodes.
+- Average reward for the best policy: 216.738 ï¿½ 79.090.
+Saved OVA to 'data/dagger_best_tree_LunarLander-v2'.
+Saved OVA to 'data/LunarLander-v2_tree_2022-03-04_23-38_dagger_0.003'.
+-------------eof------------- 
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.005.
+Step #0.
+- Dataset length: 335693
+- Obtained tree with [11, 9, 17, 9] nodes.
+- Average reward for the student: -139.366 ï¿½ 129.950.
+Step #1.
+- Dataset length: 352836
+- Obtained tree with [11, 11, 21, 11] nodes.
+- Average reward for the student: -52.060 ï¿½ 176.050.
+Step #2.
+- Dataset length: 376984
+- Obtained tree with [11, 11, 13, 13] nodes.
+- Average reward for the student: 15.995 ï¿½ 109.574.
+Step #3.
+- Dataset length: 403699
+- Obtained tree with [13, 9, 15, 15] nodes.
+- Average reward for the student: 14.860 ï¿½ 141.768.
+Step #4.
+- Dataset length: 433693
+- Obtained tree with [13, 11, 11, 15] nodes.
+- Average reward for the student: 102.466 ï¿½ 108.202.
+Step #5.
+- Dataset length: 480380
+- Obtained tree with [13, 15, 11, 17] nodes.
+- Average reward for the student: 56.136 ï¿½ 141.905.
+Step #6.
+- Dataset length: 514326
+- Obtained tree with [15, 15, 9, 15] nodes.
+- Average reward for the student: 59.319 ï¿½ 123.672.
+Step #7.
+- Dataset length: 544231
+- Obtained tree with [15, 11, 11, 13] nodes.
+- Average reward for the student: 60.785 ï¿½ 113.067.
+Step #8.
+- Dataset length: 571312
+- Obtained tree with [15, 15, 11, 21] nodes.
+- Average reward for the student: 49.026 ï¿½ 129.854.
+Step #9.
+- Dataset length: 595554
+- Obtained tree with [11, 15, 11, 21] nodes.
+- Average reward for the student: 8.151 ï¿½ 102.049.
+Step #10.
+- Dataset length: 617453
+- Obtained tree with [11, 17, 11, 19] nodes.
+- Average reward for the student: 30.129 ï¿½ 132.281.
+Step #11.
+- Dataset length: 634412
+- Obtained tree with [9, 17, 9, 21] nodes.
+- Average reward for the student: 107.814 ï¿½ 118.005.
+Step #12.
+- Dataset length: 658316
+- Obtained tree with [7, 17, 11, 23] nodes.
+- Average reward for the student: 72.587 ï¿½ 131.145.
+Step #13.
+- Dataset length: 681499
+- Obtained tree with [11, 19, 11, 15] nodes.
+- Average reward for the student: 82.141 ï¿½ 132.618.
+Step #14.
+- Dataset length: 707748
+- Obtained tree with [13, 19, 13, 15] nodes.
+- Average reward for the student: 40.846 ï¿½ 118.939.
+Step #15.
+- Dataset length: 725635
+- Obtained tree with [13, 17, 9, 15] nodes.
+- Average reward for the student: 24.957 ï¿½ 167.310.
+Step #16.
+- Dataset length: 744585
+- Obtained tree with [13, 17, 13, 17] nodes.
+- Average reward for the student: 121.247 ï¿½ 131.843.
+Step #17.
+- Dataset length: 772537
+- Obtained tree with [13, 17, 13, 15] nodes.
+- Average reward for the student: 43.724 ï¿½ 152.476.
+Step #18.
+- Dataset length: 790435
+- Obtained tree with [13, 15, 13, 15] nodes.
+- Average reward for the student: 60.115 ï¿½ 135.105.
+Step #19.
+- Dataset length: 812533
+- Obtained tree with [13, 13, 15, 13] nodes.
+- Average reward for the student: 148.606 ï¿½ 131.048.
+Step #20.
+- Dataset length: 839221
+- Obtained tree with [13, 13, 13, 17] nodes.
+- Average reward for the student: 164.950 ï¿½ 167.123.
+Step #21.
+- Dataset length: 871435
+- Obtained tree with [9, 17, 11, 15] nodes.
+- Average reward for the student: 129.270 ï¿½ 159.655.
+Step #22.
+- Dataset length: 899004
+- Obtained tree with [11, 19, 11, 13] nodes.
+- Average reward for the student: 142.361 ï¿½ 117.446.
+Step #23.
+- Dataset length: 929940
+- Obtained tree with [9, 17, 11, 11] nodes.
+- Average reward for the student: 58.104 ï¿½ 124.170.
+Step #24.
+- Dataset length: 950870
+- Obtained tree with [11, 17, 13, 13] nodes.
+- Average reward for the student: -5.899 ï¿½ 247.458.
+Step #25.
+- Dataset length: 975099
+- Obtained tree with [11, 17, 11, 11] nodes.
+- Average reward for the student: 207.258 ï¿½ 72.872.
+Step #26.
+- Dataset length: 1007608
+- Obtained tree with [11, 17, 13, 15] nodes.
+- Average reward for the student: -136.601 ï¿½ 329.410.
+Step #27.
+- Dataset length: 1026917
+- Obtained tree with [11, 15, 9, 15] nodes.
+- Average reward for the student: 14.874 ï¿½ 149.026.
+Step #28.
+- Dataset length: 1042326
+- Obtained tree with [11, 19, 11, 15] nodes.
+- Average reward for the student: 82.629 ï¿½ 156.116.
+Step #29.
+- Dataset length: 1066825
+- Obtained tree with [11, 19, 9, 13] nodes.
+- Average reward for the student: 118.764 ï¿½ 114.695.
+Step #30.
+- Dataset length: 1095572
+- Obtained tree with [9, 19, 9, 15] nodes.
+- Average reward for the student: 67.034 ï¿½ 134.212.
+Step #31.
+- Dataset length: 1113967
+- Obtained tree with [9, 17, 11, 19] nodes.
+- Average reward for the student: 87.482 ï¿½ 123.781.
+Step #32.
+- Dataset length: 1139474
+- Obtained tree with [9, 17, 11, 15] nodes.
+- Average reward for the student: 109.955 ï¿½ 140.787.
+Step #33.
+- Dataset length: 1168129
+- Obtained tree with [11, 23, 9, 15] nodes.
+- Average reward for the student: 59.029 ï¿½ 135.698.
+Step #34.
+- Dataset length: 1189627
+- Obtained tree with [11, 19, 11, 19] nodes.
+- Average reward for the student: 135.585 ï¿½ 118.931.
+Step #35.
+- Dataset length: 1224066
+- Obtained tree with [11, 23, 11, 15] nodes.
+- Average reward for the student: 166.010 ï¿½ 113.734.
+Step #36.
+- Dataset length: 1252112
+- Obtained tree with [13, 19, 11, 17] nodes.
+- Average reward for the student: 160.837 ï¿½ 112.241.
+Step #37.
+- Dataset length: 1284089
+- Obtained tree with [13, 21, 9, 17] nodes.
+- Average reward for the student: 118.291 ï¿½ 136.929.
+Step #38.
+- Dataset length: 1308895
+- Obtained tree with [13, 21, 13, 17] nodes.
+- Average reward for the student: 182.634 ï¿½ 103.550.
+Step #39.
+- Dataset length: 1338858
+- Obtained tree with [13, 15, 9, 19] nodes.
+- Average reward for the student: 224.112 ï¿½ 105.011.
+Step #40.
+- Dataset length: 1369173
+- Obtained tree with [11, 17, 9, 17] nodes.
+- Average reward for the student: 10.904 ï¿½ 223.146.
+Step #41.
+- Dataset length: 1389970
+- Obtained tree with [11, 21, 15, 19] nodes.
+- Average reward for the student: 127.569 ï¿½ 124.683.
+Step #42.
+- Dataset length: 1414938
+- Obtained tree with [11, 15, 15, 17] nodes.
+- Average reward for the student: 115.690 ï¿½ 185.215.
+Step #43.
+- Dataset length: 1440806
+- Obtained tree with [11, 21, 13, 15] nodes.
+- Average reward for the student: 155.960 ï¿½ 113.041.
+Step #44.
+- Dataset length: 1471190
+- Obtained tree with [11, 21, 15, 19] nodes.
+- Average reward for the student: 92.831 ï¿½ 125.088.
+Step #45.
+- Dataset length: 1497053
+- Obtained tree with [15, 17, 15, 19] nodes.
+- Average reward for the student: 116.734 ï¿½ 228.341.
+Step #46.
+- Dataset length: 1523774
+- Obtained tree with [11, 17, 11, 21] nodes.
+- Average reward for the student: 30.391 ï¿½ 160.713.
+Step #47.
+- Dataset length: 1540992
+- Obtained tree with [11, 15, 11, 17] nodes.
+- Average reward for the student: 98.589 ï¿½ 156.090.
+Step #48.
+- Dataset length: 1561203
+- Obtained tree with [11, 21, 15, 19] nodes.
+- Average reward for the student: 168.719 ï¿½ 118.790.
+Step #49.
+- Dataset length: 1589146
+- Obtained tree with [13, 21, 9, 19] nodes.
+- Average reward for the student: 134.053 ï¿½ 127.589.
+- Obtained tree with [13, 15, 9, 19] nodes.
+- Average reward for the best policy: 215.807 ï¿½ 118.999.
+Saved OVA to 'data/dagger_best_tree_LunarLander-v2'.
+Saved OVA to 'data/LunarLander-v2_tree_2022-03-05_01-24_dagger_0.005'.
+-------------eof------------- 
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.007.
+Step #0.
+- Dataset length: 335605
+- Obtained tree with [9, 5, 13, 7] nodes.
+- Average reward for the student: -391.331 ï¿½ 205.128.
+Step #1.
+- Dataset length: 353800
+- Obtained tree with [9, 5, 9, 9] nodes.
+- Average reward for the student: 24.540 ï¿½ 125.341.
+Step #2.
+- Dataset length: 407245
+- Obtained tree with [5, 9, 13, 9] nodes.
+- Average reward for the student: -6.744 ï¿½ 144.777.
+Step #3.
+- Dataset length: 434617
+- Obtained tree with [5, 9, 11, 9] nodes.
+- Average reward for the student: -2.808 ï¿½ 166.668.
+Step #4.
+- Dataset length: 456749
+- Obtained tree with [5, 9, 11, 9] nodes.
+- Average reward for the student: 46.606 ï¿½ 143.424.
+Step #5.
+- Dataset length: 476996
+- Obtained tree with [5, 11, 11, 9] nodes.
+- Average reward for the student: 40.069 ï¿½ 115.844.
+Step #6.
+- Dataset length: 497772
+- Obtained tree with [5, 11, 11, 9] nodes.
+- Average reward for the student: 49.916 ï¿½ 131.743.
+Step #7.
+- Dataset length: 515179
+- Obtained tree with [5, 9, 11, 9] nodes.
+- Average reward for the student: -40.557 ï¿½ 257.413.
+Step #8.
+- Dataset length: 544076
+- Obtained tree with [5, 11, 11, 11] nodes.
+- Average reward for the student: 128.801 ï¿½ 110.336.
+Step #9.
+- Dataset length: 584090
+- Obtained tree with [9, 11, 9, 13] nodes.
+- Average reward for the student: 149.249 ï¿½ 106.595.
+Step #10.
+- Dataset length: 621945
+- Obtained tree with [9, 13, 9, 13] nodes.
+- Average reward for the student: 61.470 ï¿½ 136.747.
+Step #11.
+- Dataset length: 648355
+- Obtained tree with [7, 11, 7, 13] nodes.
+- Average reward for the student: 11.051 ï¿½ 98.759.
+Step #12.
+- Dataset length: 667313
+- Obtained tree with [9, 9, 7, 13] nodes.
+- Average reward for the student: 3.276 ï¿½ 117.230.
+Step #13.
+- Dataset length: 688946
+- Obtained tree with [9, 13, 11, 13] nodes.
+- Average reward for the student: 169.921 ï¿½ 105.788.
+Step #14.
+- Dataset length: 722556
+- Obtained tree with [5, 9, 9, 9] nodes.
+- Average reward for the student: -76.042 ï¿½ 198.453.
+Step #15.
+- Dataset length: 743329
+- Obtained tree with [9, 9, 9, 11] nodes.
+- Average reward for the student: -52.386 ï¿½ 203.691.
+Step #16.
+- Dataset length: 760474
+- Obtained tree with [7, 11, 7, 11] nodes.
+- Average reward for the student: 61.549 ï¿½ 124.055.
+Step #17.
+- Dataset length: 785456
+- Obtained tree with [9, 13, 7, 11] nodes.
+- Average reward for the student: 0.811 ï¿½ 141.814.
+Step #18.
+- Dataset length: 804802
+- Obtained tree with [7, 13, 7, 9] nodes.
+- Average reward for the student: -29.839 ï¿½ 166.533.
+Step #19.
+- Dataset length: 824056
+- Obtained tree with [7, 11, 7, 9] nodes.
+- Average reward for the student: -33.449 ï¿½ 127.745.
+Step #20.
+- Dataset length: 842721
+- Obtained tree with [7, 11, 7, 9] nodes.
+- Average reward for the student: 59.442 ï¿½ 112.599.
+Step #21.
+- Dataset length: 866921
+- Obtained tree with [7, 11, 11, 9] nodes.
+- Average reward for the student: 53.287 ï¿½ 124.261.
+Step #22.
+- Dataset length: 886294
+- Obtained tree with [7, 11, 11, 9] nodes.
+- Average reward for the student: -44.678 ï¿½ 141.600.
+Step #23.
+- Dataset length: 902615
+- Obtained tree with [7, 13, 7, 9] nodes.
+- Average reward for the student: 52.083 ï¿½ 123.585.
+Step #24.
+- Dataset length: 923641
+- Obtained tree with [7, 13, 11, 9] nodes.
+- Average reward for the student: -1.123 ï¿½ 106.722.
+Step #25.
+- Dataset length: 936783
+- Obtained tree with [7, 13, 11, 9] nodes.
+- Average reward for the student: 66.781 ï¿½ 181.716.
+Step #26.
+- Dataset length: 959145
+- Obtained tree with [7, 11, 11, 9] nodes.
+- Average reward for the student: 66.274 ï¿½ 122.422.
+Step #27.
+- Dataset length: 975262
+- Obtained tree with [7, 9, 11, 9] nodes.
+- Average reward for the student: 89.242 ï¿½ 138.749.
+Step #28.
+- Dataset length: 998091
+- Obtained tree with [5, 13, 7, 9] nodes.
+- Average reward for the student: 110.750 ï¿½ 122.821.
+Step #29.
+- Dataset length: 1027353
+- Obtained tree with [5, 13, 9, 9] nodes.
+- Average reward for the student: 63.187 ï¿½ 235.627.
+Step #30.
+- Dataset length: 1056772
+- Obtained tree with [5, 13, 9, 13] nodes.
+- Average reward for the student: 20.502 ï¿½ 103.279.
+Step #31.
+- Dataset length: 1078449
+- Obtained tree with [9, 13, 9, 13] nodes.
+- Average reward for the student: 63.674 ï¿½ 193.774.
+Step #32.
+- Dataset length: 1102566
+- Obtained tree with [9, 11, 9, 13] nodes.
+- Average reward for the student: 32.692 ï¿½ 114.831.
+Step #33.
+- Dataset length: 1126588
+- Obtained tree with [9, 13, 13, 9] nodes.
+- Average reward for the student: 95.030 ï¿½ 156.228.
+Step #34.
+- Dataset length: 1155564
+- Obtained tree with [9, 11, 13, 9] nodes.
+- Average reward for the student: 79.747 ï¿½ 149.394.
+Step #35.
+- Dataset length: 1176808
+- Obtained tree with [9, 13, 11, 13] nodes.
+- Average reward for the student: 131.597 ï¿½ 121.726.
+Step #36.
+- Dataset length: 1204131
+- Obtained tree with [7, 13, 9, 13] nodes.
+- Average reward for the student: -50.318 ï¿½ 262.437.
+Step #37.
+- Dataset length: 1224133
+- Obtained tree with [9, 13, 9, 13] nodes.
+- Average reward for the student: -41.719 ï¿½ 263.988.
+Step #38.
+- Dataset length: 1244731
+- Obtained tree with [9, 13, 9, 13] nodes.
+- Average reward for the student: 69.013 ï¿½ 143.825.
+Step #39.
+- Dataset length: 1265078
+- Obtained tree with [11, 11, 9, 13] nodes.
+- Average reward for the student: 33.969 ï¿½ 169.549.
+Step #40.
+- Dataset length: 1284524
+- Obtained tree with [11, 15, 9, 13] nodes.
+- Average reward for the student: 155.544 ï¿½ 151.148.
+Step #41.
+- Dataset length: 1311937
+- Obtained tree with [11, 15, 9, 13] nodes.
+- Average reward for the student: 90.349 ï¿½ 132.385.
+Step #42.
+- Dataset length: 1333281
+- Obtained tree with [9, 15, 9, 11] nodes.
+- Average reward for the student: 102.683 ï¿½ 118.065.
+Step #43.
+- Dataset length: 1355678
+- Obtained tree with [7, 15, 9, 9] nodes.
+- Average reward for the student: 99.321 ï¿½ 122.798.
+Step #44.
+- Dataset length: 1376395
+- Obtained tree with [7, 13, 9, 9] nodes.
+- Average reward for the student: 70.467 ï¿½ 175.983.
+Step #45.
+- Dataset length: 1403268
+- Obtained tree with [11, 15, 9, 9] nodes.
+- Average reward for the student: 155.960 ï¿½ 104.016.
+Step #46.
+- Dataset length: 1434172
+- Obtained tree with [9, 15, 9, 9] nodes.
+- Average reward for the student: 76.652 ï¿½ 132.456.
+Step #47.
+- Dataset length: 1457349
+- Obtained tree with [9, 15, 9, 13] nodes.
+- Average reward for the student: 91.747 ï¿½ 126.198.
+Step #48.
+- Dataset length: 1481563
+- Obtained tree with [9, 15, 9, 11] nodes.
+- Average reward for the student: 98.580 ï¿½ 121.457.
+Step #49.
+- Dataset length: 1505216
+- Obtained tree with [7, 19, 9, 13] nodes.
+- Average reward for the student: 72.286 ï¿½ 121.382.
+- Obtained tree with [9, 13, 11, 13] nodes.
+- Average reward for the best policy: 157.904 ï¿½ 108.650.
+Saved OVA to 'data/dagger_best_tree_LunarLander-v2'.
+Saved OVA to 'data/LunarLander-v2_tree_2022-03-05_03-04_dagger_0.007'.
+-------------eof------------- 
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.01.
+Step #0.
+- Dataset length: 348573
+- Obtained tree with [5, 3, 11, 7] nodes.
+- Average reward for the student: -80.641 ï¿½ 179.962.
+Step #1.
+- Dataset length: 381125
+- Obtained tree with [5, 3, 7, 7] nodes.
+- Average reward for the student: -334.600 ï¿½ 213.311.
+Step #2.
+- Dataset length: 403067
+- Obtained tree with [5, 3, 9, 7] nodes.
+- Average reward for the student: -33.119 ï¿½ 203.470.
+Step #3.
+- Dataset length: 436452
+- Obtained tree with [5, 5, 7, 7] nodes.
+- Average reward for the student: -121.194 ï¿½ 183.734.
+Step #4.
+- Dataset length: 458789
+- Obtained tree with [5, 5, 7, 9] nodes.
+- Average reward for the student: -19.817 ï¿½ 204.005.
+Step #5.
+- Dataset length: 482953
+- Obtained tree with [5, 5, 7, 9] nodes.
+- Average reward for the student: -21.423 ï¿½ 209.393.
+Step #6.
+- Dataset length: 504300
+- Obtained tree with [5, 5, 7, 9] nodes.
+- Average reward for the student: -50.764 ï¿½ 222.712.
+Step #7.
+- Dataset length: 523527
+- Obtained tree with [5, 7, 7, 11] nodes.
+- Average reward for the student: 3.335 ï¿½ 238.611.
+Step #8.
+- Dataset length: 556598
+- Obtained tree with [5, 11, 7, 11] nodes.
+- Average reward for the student: 53.799 ï¿½ 117.433.
+Step #9.
+- Dataset length: 589921
+- Obtained tree with [5, 9, 7, 11] nodes.
+- Average reward for the student: 12.978 ï¿½ 121.963.
+Step #10.
+- Dataset length: 604910
+- Obtained tree with [5, 9, 7, 11] nodes.
+- Average reward for the student: 71.321 ï¿½ 126.924.
+Step #11.
+- Dataset length: 641998
+- Obtained tree with [5, 11, 7, 11] nodes.
+- Average reward for the student: 85.877 ï¿½ 124.514.
+Step #12.
+- Dataset length: 665396
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: 70.092 ï¿½ 123.084.
+Step #13.
+- Dataset length: 692222
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: 1.514 ï¿½ 101.111.
+Step #14.
+- Dataset length: 709454
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: 43.252 ï¿½ 108.382.
+Step #15.
+- Dataset length: 736643
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: -20.139 ï¿½ 116.124.
+Step #16.
+- Dataset length: 750945
+- Obtained tree with [7, 9, 7, 9] nodes.
+- Average reward for the student: -39.361 ï¿½ 104.833.
+Step #17.
+- Dataset length: 760313
+- Obtained tree with [7, 9, 7, 9] nodes.
+- Average reward for the student: 30.293 ï¿½ 132.942.
+Step #18.
+- Dataset length: 775700
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: 58.985 ï¿½ 118.704.
+Step #19.
+- Dataset length: 798640
+- Obtained tree with [5, 7, 7, 9] nodes.
+- Average reward for the student: 58.300 ï¿½ 138.524.
+Step #20.
+- Dataset length: 829232
+- Obtained tree with [5, 11, 7, 7] nodes.
+- Average reward for the student: 0.336 ï¿½ 108.785.
+Step #21.
+- Dataset length: 846601
+- Obtained tree with [5, 11, 7, 7] nodes.
+- Average reward for the student: 49.291 ï¿½ 124.108.
+Step #22.
+- Dataset length: 870567
+- Obtained tree with [5, 11, 7, 7] nodes.
+- Average reward for the student: 35.736 ï¿½ 120.330.
+Step #23.
+- Dataset length: 893684
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: -18.187 ï¿½ 103.439.
+Step #24.
+- Dataset length: 908935
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: 99.904 ï¿½ 123.361.
+Step #25.
+- Dataset length: 936493
+- Obtained tree with [5, 7, 7, 9] nodes.
+- Average reward for the student: 53.822 ï¿½ 123.311.
+Step #26.
+- Dataset length: 961286
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: 54.406 ï¿½ 127.518.
+Step #27.
+- Dataset length: 981260
+- Obtained tree with [5, 7, 7, 9] nodes.
+- Average reward for the student: -8.835 ï¿½ 137.594.
+Step #28.
+- Dataset length: 998671
+- Obtained tree with [5, 9, 7, 9] nodes.
+- Average reward for the student: 33.566 ï¿½ 117.589.
+Step #29.
+- Dataset length: 1020177
+- Obtained tree with [5, 9, 7, 9] nodes.
+- Average reward for the student: -3.599 ï¿½ 105.179.
+Step #30.
+- Dataset length: 1036551
+- Obtained tree with [5, 7, 7, 9] nodes.
+- Average reward for the student: 29.243 ï¿½ 125.000.
+Step #31.
+- Dataset length: 1059049
+- Obtained tree with [5, 9, 7, 7] nodes.
+- Average reward for the student: -2.082 ï¿½ 139.407.
+Step #32.
+- Dataset length: 1075768
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: -1.853 ï¿½ 97.435.
+Step #33.
+- Dataset length: 1090942
+- Obtained tree with [5, 13, 9, 7] nodes.
+- Average reward for the student: 24.973 ï¿½ 139.778.
+Step #34.
+- Dataset length: 1113147
+- Obtained tree with [5, 9, 7, 7] nodes.
+- Average reward for the student: -32.271 ï¿½ 139.081.
+Step #35.
+- Dataset length: 1129805
+- Obtained tree with [5, 13, 7, 7] nodes.
+- Average reward for the student: -10.717 ï¿½ 96.347.
+Step #36.
+- Dataset length: 1145885
+- Obtained tree with [5, 11, 9, 7] nodes.
+- Average reward for the student: -60.031 ï¿½ 256.896.
+Step #37.
+- Dataset length: 1170303
+- Obtained tree with [5, 9, 9, 7] nodes.
+- Average reward for the student: 127.955 ï¿½ 115.246.
+Step #38.
+- Dataset length: 1199601
+- Obtained tree with [5, 11, 9, 7] nodes.
+- Average reward for the student: -11.352 ï¿½ 195.702.
+Step #39.
+- Dataset length: 1218844
+- Obtained tree with [5, 11, 7, 7] nodes.
+- Average reward for the student: 12.804 ï¿½ 107.352.
+Step #40.
+- Dataset length: 1234414
+- Obtained tree with [5, 9, 9, 5] nodes.
+- Average reward for the student: 62.029 ï¿½ 118.819.
+Step #41.
+- Dataset length: 1256066
+- Obtained tree with [5, 11, 7, 9] nodes.
+- Average reward for the student: -2.176 ï¿½ 103.285.
+Step #42.
+- Dataset length: 1273687
+- Obtained tree with [5, 7, 9, 9] nodes.
+- Average reward for the student: 55.821 ï¿½ 120.789.
+Step #43.
+- Dataset length: 1300163
+- Obtained tree with [5, 11, 7, 7] nodes.
+- Average reward for the student: 74.305 ï¿½ 132.915.
+Step #44.
+- Dataset length: 1329439
+- Obtained tree with [5, 9, 9, 7] nodes.
+- Average reward for the student: -48.094 ï¿½ 247.246.
+Step #45.
+- Dataset length: 1347056
+- Obtained tree with [5, 9, 7, 7] nodes.
+- Average reward for the student: 45.944 ï¿½ 124.090.
+Step #46.
+- Dataset length: 1369329
+- Obtained tree with [5, 9, 9, 7] nodes.
+- Average reward for the student: -53.663 ï¿½ 255.073.
+Step #47.
+- Dataset length: 1396064
+- Obtained tree with [5, 9, 9, 9] nodes.
+- Average reward for the student: -7.688 ï¿½ 157.948.
+Step #48.
+- Dataset length: 1416895
+- Obtained tree with [5, 9, 9, 9] nodes.
+- Average reward for the student: 19.208 ï¿½ 198.837.
+Step #49.
+- Dataset length: 1436829
+- Obtained tree with [5, 9, 9, 9] nodes.
+- Average reward for the student: 22.143 ï¿½ 97.971.
+- Obtained tree with [5, 9, 9, 7] nodes.
+- Average reward for the best policy: 114.958 ï¿½ 124.313.
+Saved OVA to 'data/dagger_best_tree_LunarLander-v2'.
+Saved OVA to 'data/LunarLander-v2_tree_2022-03-05_04-39_dagger_0.01'.
+-------------eof------------- 
+
+
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.001.
+Step #0.
+- Dataset length: 355167
+- Obtained tree with [37, 45, 55, 43] nodes.
+- Average reward for the student: -56.584 ± 295.820.
+Step #1.
+- Dataset length: 391398
+- Obtained tree with [43, 49, 59, 59] nodes.
+- Average reward for the student: -8.435 ± 165.493.
+Step #2.
+- Dataset length: 415063
+- Obtained tree with [47, 51, 49, 83] nodes.
+- Average reward for the student: 148.111 ± 120.641.
+Step #3.
+- Dataset length: 445690
+- Obtained tree with [47, 59, 49, 69] nodes.
+- Average reward for the student: 129.362 ± 126.966.
+Step #4.
+- Dataset length: 471963
+- Obtained tree with [51, 63, 61, 75] nodes.
+- Average reward for the student: 186.837 ± 104.998.
+Step #5.
+- Dataset length: 504562
+- Obtained tree with [45, 67, 59, 65] nodes.
+- Average reward for the student: 163.917 ± 131.155.
+Step #6.
+- Dataset length: 537627
+- Obtained tree with [55, 59, 61, 67] nodes.
+- Average reward for the student: 193.440 ± 103.856.
+Step #7.
+- Dataset length: 569376
+- Obtained tree with [53, 63, 53, 65] nodes.
+- Average reward for the student: 180.547 ± 113.497.
+Step #8.
+- Dataset length: 601233
+- Obtained tree with [51, 71, 53, 73] nodes.
+- Average reward for the student: 186.718 ± 107.609.
+Step #9.
+- Dataset length: 632655
+- Obtained tree with [47, 69, 49, 73] nodes.
+- Average reward for the student: 149.294 ± 133.284.
+Step #10.
+- Dataset length: 661408
+- Obtained tree with [49, 71, 43, 83] nodes.
+- Average reward for the student: 201.690 ± 99.979.
+Step #11.
+- Dataset length: 692617
+- Obtained tree with [49, 65, 49, 71] nodes.
+- Average reward for the student: 180.718 ± 115.145.
+Step #12.
+- Dataset length: 719004
+- Obtained tree with [51, 67, 43, 77] nodes.
+- Average reward for the student: 210.102 ± 93.544.
+Step #13.
+- Dataset length: 747975
+- Obtained tree with [47, 63, 41, 61] nodes.
+- Average reward for the student: 168.720 ± 121.134.
+Step #14.
+- Dataset length: 777803
+- Obtained tree with [43, 63, 49, 79] nodes.
+- Average reward for the student: 236.481 ± 60.470.
+Step #15.
+- Dataset length: 811745
+- Obtained tree with [41, 59, 47, 69] nodes.
+- Average reward for the student: 184.410 ± 145.177.
+Step #16.
+- Dataset length: 841685
+- Obtained tree with [43, 73, 49, 71] nodes.
+- Average reward for the student: 239.617 ± 58.100.
+Step #17.
+- Dataset length: 874070
+- Obtained tree with [47, 71, 53, 65] nodes.
+- Average reward for the student: 243.676 ± 44.595.
+Step #18.
+- Dataset length: 905872
+- Obtained tree with [47, 59, 47, 75] nodes.
+- Average reward for the student: 215.616 ± 126.955.
+Step #19.
+- Dataset length: 935668
+- Obtained tree with [47, 81, 49, 73] nodes.
+- Average reward for the student: 205.212 ± 90.441.
+Step #20.
+- Dataset length: 964191
+- Obtained tree with [51, 61, 55, 59] nodes.
+- Average reward for the student: 207.710 ± 104.330.
+Step #21.
+- Dataset length: 998231
+- Obtained tree with [49, 63, 49, 77] nodes.
+- Average reward for the student: 213.692 ± 95.499.
+Step #22.
+- Dataset length: 1028048
+- Obtained tree with [55, 73, 49, 65] nodes.
+- Average reward for the student: 235.766 ± 66.906.
+Step #23.
+- Dataset length: 1057086
+- Obtained tree with [53, 69, 49, 65] nodes.
+- Average reward for the student: 240.945 ± 71.029.
+Step #24.
+- Dataset length: 1085934
+- Obtained tree with [49, 73, 43, 67] nodes.
+- Average reward for the student: 202.404 ± 114.344.
+Step #25.
+- Dataset length: 1115584
+- Obtained tree with [53, 73, 51, 71] nodes.
+- Average reward for the student: 201.986 ± 106.398.
+Step #26.
+- Dataset length: 1144902
+- Obtained tree with [53, 77, 41, 75] nodes.
+- Average reward for the student: 188.062 ± 123.978.
+Step #27.
+- Dataset length: 1175982
+- Obtained tree with [51, 75, 47, 71] nodes.
+- Average reward for the student: 192.228 ± 130.559.
+Step #28.
+- Dataset length: 1205058
+- Obtained tree with [51, 77, 45, 75] nodes.
+- Average reward for the student: 182.744 ± 129.016.
+Step #29.
+- Dataset length: 1232002
+- Obtained tree with [51, 83, 43, 75] nodes.
+- Average reward for the student: 182.139 ± 142.988.
+Step #30.
+- Dataset length: 1261859
+- Obtained tree with [43, 79, 45, 71] nodes.
+- Average reward for the student: 202.252 ± 118.072.
+Step #31.
+- Dataset length: 1293146
+- Obtained tree with [49, 71, 43, 65] nodes.
+- Average reward for the student: 181.404 ± 124.234.
+Step #32.
+- Dataset length: 1318276
+- Obtained tree with [49, 73, 43, 71] nodes.
+- Average reward for the student: 175.550 ± 120.100.
+Step #33.
+- Dataset length: 1343900
+- Obtained tree with [47, 65, 53, 73] nodes.
+- Average reward for the student: 220.891 ± 97.784.
+Step #34.
+- Dataset length: 1375793
+- Obtained tree with [45, 75, 47, 73] nodes.
+- Average reward for the student: 237.967 ± 64.552.
+Step #35.
+- Dataset length: 1407868
+- Obtained tree with [47, 83, 45, 77] nodes.
+- Average reward for the student: 193.465 ± 111.604.
+Step #36.
+- Dataset length: 1435396
+- Obtained tree with [47, 71, 47, 73] nodes.
+- Average reward for the student: 227.103 ± 75.349.
+Step #37.
+- Dataset length: 1471597
+- Obtained tree with [53, 65, 47, 75] nodes.
+- Average reward for the student: 227.496 ± 75.133.
+Step #38.
+- Dataset length: 1502301
+- Obtained tree with [51, 69, 43, 67] nodes.
+- Average reward for the student: 213.597 ± 90.356.
+Step #39.
+- Dataset length: 1532091
+- Obtained tree with [45, 67, 39, 75] nodes.
+- Average reward for the student: 240.826 ± 58.670.
+Step #40.
+- Dataset length: 1561792
+- Obtained tree with [51, 77, 47, 81] nodes.
+- Average reward for the student: 232.289 ± 85.147.
+Step #41.
+- Dataset length: 1592634
+- Obtained tree with [49, 65, 41, 75] nodes.
+- Average reward for the student: 192.272 ± 156.224.
+Step #42.
+- Dataset length: 1620846
+- Obtained tree with [45, 61, 49, 65] nodes.
+- Average reward for the student: 178.506 ± 125.033.
+Step #43.
+- Dataset length: 1649439
+- Obtained tree with [45, 69, 45, 73] nodes.
+- Average reward for the student: 209.373 ± 115.854.
+Step #44.
+- Dataset length: 1685668
+- Obtained tree with [43, 65, 43, 77] nodes.
+- Average reward for the student: 212.384 ± 86.791.
+Step #45.
+- Dataset length: 1716804
+- Obtained tree with [45, 71, 43, 67] nodes.
+- Average reward for the student: 198.561 ± 106.089.
+Step #46.
+- Dataset length: 1746073
+- Obtained tree with [39, 83, 43, 73] nodes.
+- Average reward for the student: 190.429 ± 118.143.
+Step #47.
+- Dataset length: 1776502
+- Obtained tree with [45, 65, 39, 67] nodes.
+- Average reward for the student: 191.991 ± 103.911.
+Step #48.
+- Dataset length: 1805233
+- Obtained tree with [45, 65, 43, 63] nodes.
+- Average reward for the student: 222.317 ± 80.085.
+Step #49.
+- Dataset length: 1832937
+- Obtained tree with [41, 65, 41, 73] nodes.
+- Average reward for the student: 223.913 ± 90.625.
+- Obtained tree with [47, 71, 53, 65] nodes.
+- Average reward for the best policy: 234.315 ± 67.311.
+Saved OVA to 'data/dagger_best_tree_LunarLander-v2'.
+Saved OVA to 'data/LunarLander-v2_tree_2022-03-28_13-03_dagger_0.001'.
+-------------eof------------- 
+Dataset length: 324224
+Running CartOva DAgger for LunarLander-v2 with pruning = 0.0005.
+Step #0.
+- Dataset length: 361253
+- Obtained tree with [65, 101, 101, 91] nodes.
+- Average reward for the student: 88.202 ± 158.160.
+Step #1.
+- Dataset length: 401523
+- Obtained tree with [71, 113, 123, 95] nodes.
+- Average reward for the student: 190.736 ± 94.553.
+Step #2.
+- Dataset length: 436261
+- Obtained tree with [67, 137, 119, 123] nodes.
+- Average reward for the student: 207.693 ± 83.107.
+Step #3.
+- Dataset length: 468397
+- Obtained tree with [65, 147, 119, 127] nodes.
+- Average reward for the student: 201.156 ± 96.362.
+Step #4.
+- Dataset length: 499739
+- Obtained tree with [65, 137, 121, 111] nodes.
+- Average reward for the student: 217.699 ± 76.693.
+Step #5.
+- Dataset length: 536050
+- Obtained tree with [67, 141, 109, 113] nodes.
+- Average reward for the student: 227.344 ± 73.253.
+Step #6.
+- Dataset length: 567897
+- Obtained tree with [71, 129, 109, 113] nodes.
+- Average reward for the student: 213.751 ± 95.973.
+Step #7.
+- Dataset length: 598230
+- Obtained tree with [71, 137, 117, 125] nodes.
+- Average reward for the student: 198.548 ± 111.354.
+Step #8.
+- Dataset length: 630507
+- Obtained tree with [73, 133, 105, 133] nodes.
+- Average reward for the student: 219.767 ± 92.125.
+Step #9.
+- Dataset length: 660185
+- Obtained tree with [77, 113, 109, 131] nodes.
+- Average reward for the student: 218.423 ± 90.792.
+Step #10.
+- Dataset length: 692460
+- Obtained tree with [75, 129, 91, 147] nodes.
+- Average reward for the student: 229.871 ± 74.058.
+Step #11.
+- Dataset length: 724805
+- Obtained tree with [81, 139, 107, 139] nodes.
+- Average reward for the student: 207.250 ± 99.516.
+Step #12.
+- Dataset length: 758240
+- Obtained tree with [75, 141, 93, 139] nodes.
+- Average reward for the student: 219.453 ± 94.432.
+Step #13.
+- Dataset length: 791245
+- Obtained tree with [81, 145, 109, 151] nodes.
+- Average reward for the student: 225.130 ± 81.185.
+Step #14.
+- Dataset length: 823317
+- Obtained tree with [77, 141, 105, 157] nodes.
+- Average reward for the student: 205.496 ± 111.028.
+Step #15.
+- Dataset length: 855113
+- Obtained tree with [85, 149, 103, 155] nodes.
+- Average reward for the student: 229.494 ± 79.877.
+Step #16.
+- Dataset length: 885576
+- Obtained tree with [81, 135, 117, 151] nodes.
+- Average reward for the student: 203.666 ± 102.480.
+Step #17.
+- Dataset length: 913950
+- Obtained tree with [81, 149, 111, 149] nodes.
+- Average reward for the student: 226.371 ± 90.750.
+Step #18.
+- Dataset length: 944751
+- Obtained tree with [81, 147, 113, 149] nodes.
+- Average reward for the student: 231.623 ± 84.443.
+Step #19.
+- Dataset length: 974876
+- Obtained tree with [85, 139, 107, 145] nodes.
+- Average reward for the student: 247.713 ± 41.889.
+Step #20.
+- Dataset length: 1009346
+- Obtained tree with [83, 139, 109, 147] nodes.
+- Average reward for the student: 211.509 ± 86.383.
+Step #21.
+- Dataset length: 1042212
+- Obtained tree with [73, 137, 105, 141] nodes.
+- Average reward for the student: 194.979 ± 118.375.
+Step #22.
+- Dataset length: 1073987
+- Obtained tree with [73, 141, 111, 145] nodes.
+- Average reward for the student: 214.730 ± 87.841.
+Step #23.
+- Dataset length: 1105620
+- Obtained tree with [73, 151, 111, 155] nodes.
+- Average reward for the student: 230.531 ± 78.893.
+Step #24.
+- Dataset length: 1139145
+- Obtained tree with [73, 135, 103, 157] nodes.
+- Average reward for the student: 207.133 ± 97.182.
+Step #25.
+- Dataset length: 1171223
+- Obtained tree with [75, 147, 101, 145] nodes.
+- Average reward for the student: 221.770 ± 91.304.
+Step #26.
+- Dataset length: 1199866
+- Obtained tree with [75, 141, 101, 137] nodes.
+- Average reward for the student: 225.372 ± 85.356.
+Step #27.
+- Dataset length: 1231248
+- Obtained tree with [75, 145, 103, 151] nodes.
+- Average reward for the student: 238.069 ± 51.928.
+Step #28.
+- Dataset length: 1266028
+- Obtained tree with [77, 145, 107, 155] nodes.
+- Average reward for the student: 246.742 ± 46.708.
+Step #29.
+- Dataset length: 1295506
+- Obtained tree with [85, 127, 115, 143] nodes.
+- Average reward for the student: 238.351 ± 66.441.
+Step #30.
+- Dataset length: 1325772
+- Obtained tree with [83, 127, 111, 155] nodes.
+- Average reward for the student: 219.983 ± 100.419.
+Step #31.
+- Dataset length: 1357733
+- Obtained tree with [89, 143, 111, 151] nodes.
+- Average reward for the student: 241.742 ± 53.858.
+Step #32.
+- Dataset length: 1389239
+- Obtained tree with [87, 137, 103, 157] nodes.
+- Average reward for the student: 208.625 ± 105.847.
+Step #33.
+- Dataset length: 1418080
+- Obtained tree with [89, 127, 101, 151] nodes.
+- Average reward for the student: 234.735 ± 68.888.
+Step #34.
+- Dataset length: 1447226
+- Obtained tree with [85, 143, 105, 151] nodes.
+- Average reward for the student: 225.422 ± 92.581.
+Step #35.
+- Dataset length: 1478675
+- Obtained tree with [81, 141, 113, 153] nodes.
+- Average reward for the student: 217.617 ± 82.585.
+Step #36.
+- Dataset length: 1510439
+- Obtained tree with [79, 133, 109, 153] nodes.
+- Average reward for the student: 252.047 ± 45.483.
+Step #37.
+- Dataset length: 1541900
+- Obtained tree with [83, 141, 111, 159] nodes.
+- Average reward for the student: 242.173 ± 63.040.
+Step #38.
+- Dataset length: 1573300
+- Obtained tree with [83, 151, 119, 155] nodes.
+- Average reward for the student: 248.164 ± 38.887.
+Step #39.
+- Dataset length: 1607227
+- Obtained tree with [87, 151, 109, 145] nodes.
+- Average reward for the student: 231.043 ± 78.040.
+Step #40.
+- Dataset length: 1640946
+- Obtained tree with [89, 141, 111, 133] nodes.
+- Average reward for the student: 221.289 ± 84.726.
+Step #41.
+- Dataset length: 1671307
+- Obtained tree with [79, 143, 115, 145] nodes.
+- Average reward for the student: 229.094 ± 79.945.
+Step #42.
+- Dataset length: 1701475
+- Obtained tree with [71, 135, 111, 157] nodes.
+- Average reward for the student: 230.619 ± 80.292.
+Step #43.
+- Dataset length: 1730839
+- Obtained tree with [71, 135, 109, 149] nodes.
+- Average reward for the student: 233.739 ± 72.994.

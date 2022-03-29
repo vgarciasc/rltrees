@@ -143,6 +143,7 @@ if __name__ == "__main__":
     for cycle in range(args['pruning_cycles']):
         original_size = None
         print(f"\n\n===== Pruning cycle: {cycle} =====")
+        
         with open(args['filepath'], "rb") as f:
             qtree = pickle.load(f)
             original_size = qtree.get_size()

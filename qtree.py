@@ -53,9 +53,6 @@ class QNode():
 	def reset_all(self):
 		self.left.reset_all() if self.left is not None else None
 		self.right.reset_all() if self.right is not None else None
-	
-	def __str__(self):
-		return f"x[{self.attribute}] <= {str(self.value)}"
 
 	def pretty_string(self, config):
 		output = ""
@@ -83,6 +80,14 @@ class QNode():
 		output = self.right.get_covered_samples(X_right, y_right, output)
 
 		return output
+	
+	def save(self, filename):
+		with open(filename, 'wb') as file:
+			pickle.dump(self, file)
+			print(f"> Saved tree of size {self.get_size()} to file '{filename}'!")
+	
+	def __str__(self):
+		return f"x[{self.attribute}] <= {str(self.value)}"
 
 class QLeaf():
 	def __init__(self,  parent=None, is_left=False, 
@@ -107,6 +112,9 @@ class QLeaf():
 			return self, np.random.randint(0, self.n_actions)
 		
 		return self, self.get_best_action()
+
+	def act(self, state):
+		return self.predict(state)[1]
 
 	def get_best_action(self):
 		return np.argmax(self.q_values)
@@ -203,7 +211,7 @@ def save_tree(tree, suffix="", reward=-1):
 		pickle.dump(tree, file)
 		print(f"> Saved tree of size {tree.get_size()} " + (f"and reward {reward} " if reward != -1 else "") + "to file 'data/" + filename + suffix + "'!")
 
-def save_tree_from_print(printed_structure, actions, suffix):
+def get_tree_from_print(printed_structure, actions):
 	qtree = QNode(printed_structure[0][4], None, None, None)
 	
 	tree_list = [qtree]
@@ -222,6 +230,10 @@ def save_tree_from_print(printed_structure, actions, suffix):
 		
 		tree_list.append(new_node)
 
+	return qtree
+
+def save_tree_from_print(printed_structure, actions, suffix):
+	qtree = get_tree_from_print(printed_structure, actions)
 	save_tree(qtree, suffix)
 
 if __name__ == "__main__":

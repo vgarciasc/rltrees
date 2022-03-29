@@ -24,8 +24,7 @@ Average reward: 161.6753027750893 ± 116.24869011829556
 Averages: (161.6753027750893,), avg: 161.6753027750893 ± 0.0
 Tree size: (35,), avg: 35.0 ± 0.0
 -------------eof------------- 
-Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 
-20-15_dagger_LunarLander-v2'.
+Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 20-15_dagger_LunarLander-v2'.
 
 
 ===== Pruning cycle: 0 =====
@@ -1013,7 +1012,6 @@ Saved tree to 'data/best_bc_LunarLander-v2'.
 Starting reward pruning for LunarLander-v2, loading file 'data/tree 2022-02-14 
 21-28_dagger_LunarLander-v2'.
 
-
 ===== Pruning cycle: 0 =====
 Before pruning, tree had 225 nodes.
 Before pruning, tree had 225 nodes.
@@ -1071,3 +1069,440 @@ Success in 597 / 1000 episodes (0.597000 %)
 Elapsed time: 155.33850574493408 seconds.
 Tree has 23 nodes and depth 6.
 Success in 67 / 1000 episodes (0.067000 %)
+Dataset length: 111782
+Average reward is -112.02 � 22.410256580414245.
+Resulting tree has 216 leaves and depth 15.
+Saved tree to 'data/best_bc_MountainCar-v0'.
+> Saved tree of size 431 to file 'data/MountainCar-v0_tree_2022-03-04_14-21_bc_0.0'!
+
+- Car Velocity <= -0.001
+-- Car Position <= -0.096
+--- Car Velocity <= 0.027
+---- Car Position <= 0.181
+----- Car Position <= 0.210
+------ NOP
+------ Car Velocity <= 0.029
+------- NOP
+------- Car Velocity <= 0.028
+-------- Car Position <= 0.202
+--------- NOP
+--------- RIGHT
+-------- RIGHT
+----- Car Velocity <= 0.040
+------ Car Velocity <= 0.041
+------- NOP
+------- Car Position <= 0.039
+-------- NOP
+-------- RIGHT
+------ Car Position <= 0.175
+------- Car Velocity <= 0.030
+-------- NOP
+-------- RIGHT
+------- Car Position <= 0.148
+-------- Car Velocity <= 0.031
+--------- NOP
+--------- RIGHT
+-------- RIGHT
+---- Car Position <= 0.392
+----- Car Velocity <= 0.013
+------ Car Velocity <= 0.013
+------- Car Position <= 0.423
+-------- Car Position <= 0.437
+--------- Car Velocity <= 0.013
+---------- Car Position <= 0.445
+----------- NOP
+----------- Car Velocity <= 0.014
+------------ Car Velocity <= 0.014
+------------- NOP
+------------- Car Position <= 0.442
+-------------- NOP
+-------------- RIGHT
+------------ RIGHT
+---------- Car Position <= 0.454
+----------- Car Position <= 0.497
+------------ RIGHT
+------------ NOP
+----------- RIGHT
+--------- Car Velocity <= 0.014
+---------- Car Velocity <= 0.015
+----------- NOP
+----------- Car Position <= 0.427
+------------ NOP
+------------ Car Velocity <= 0.015
+------------- Car Velocity <= 0.015
+-------------- RIGHT
+-------------- NOP
+------------- RIGHT
+---------- RIGHT
+-------- Car Velocity <= 0.015
+--------- Car Position <= 0.403
+---------- Car Velocity <= 0.015
+----------- NOP
+----------- Car Position <= 0.412
+------------ NOP
+------------ RIGHT
+---------- Car Velocity <= 0.016
+----------- Car Velocity <= 0.016
+------------ NOP
+------------ Car Position <= 0.395
+------------- Car Position <= 0.397
+-------------- NOP
+-------------- Car Velocity <= 0.016
+--------------- NOP
+--------------- RIGHT
+------------- RIGHT
+----------- RIGHT
+--------- Car Velocity <= 0.015
+---------- Car Position <= 0.419
+----------- NOP
+----------- RIGHT
+---------- RIGHT
+------- Car Position <= 0.487
+-------- Car Velocity <= 0.013
+--------- Car Position <= 0.495
+---------- RIGHT
+---------- NOP
+--------- Car Position <= 0.492
+---------- RIGHT
+---------- Car Velocity <= 0.013
+----------- Car Velocity <= 0.013
+------------ Car Velocity <= 0.013
+------------- NOP
+------------- RIGHT
+------------ NOP
+----------- RIGHT
+-------- Car Position <= 0.453
+--------- Car Position <= 0.484
+---------- Car Velocity <= 0.013
+----------- NOP
+----------- RIGHT
+---------- Car Position <= 0.481
+----------- Car Position <= 0.481
+------------ NOP
+------------ RIGHT
+----------- NOP
+--------- RIGHT
+------ Car Velocity <= 0.013
+------- Car Position <= 0.475
+-------- RIGHT
+-------- Car Position <= 0.452
+--------- NOP
+--------- RIGHT
+------- Car Velocity <= 0.013
+-------- Car Velocity <= 0.013
+--------- Car Position <= 0.464
+---------- RIGHT
+---------- Car Position <= 0.458
+----------- Car Velocity <= 0.013
+------------ NOP
+------------ RIGHT
+----------- RIGHT
+--------- NOP
+-------- RIGHT
+----- Car Velocity <= 0.017
+------ Car Position <= 0.317
+------- Car Position <= 0.358
+-------- Car Velocity <= 0.018
+--------- Car Position <= 0.363
+---------- Car Velocity <= 0.018
+----------- NOP
+----------- Car Position <= 0.374
+------------ NOP
+------------ RIGHT
+---------- Car Velocity <= 0.018
+----------- NOP
+----------- Car Velocity <= 0.018
+------------ Car Velocity <= 0.018
+------------- RIGHT
+------------- NOP
+------------ RIGHT
+--------- Car Position <= 0.380
+---------- Car Velocity <= 0.017
+----------- Car Position <= 0.381
+------------ NOP
+------------ Car Position <= 0.380
+------------- RIGHT
+------------- NOP
+----------- Car Position <= 0.385
+------------ NOP
+------------ RIGHT
+---------- Car Position <= 0.379
+----------- Car Velocity <= 0.017
+------------ NOP
+------------ RIGHT
+----------- RIGHT
+-------- Car Velocity <= 0.019
+--------- Car Velocity <= 0.021
+---------- Car Position <= 0.318
+----------- NOP
+----------- Car Velocity <= 0.021
+------------ NOP
+------------ RIGHT
+---------- Car Position <= 0.330
+----------- Car Velocity <= 0.020
+------------ Car Position <= 0.338
+------------- NOP
+------------- Car Velocity <= 0.020
+-------------- NOP
+-------------- Car Position <= 0.338
+--------------- Car Velocity <= 0.020
+---------------- NOP
+---------------- RIGHT
+--------------- RIGHT
+------------ Car Position <= 0.344
+------------- Car Velocity <= 0.019
+-------------- NOP
+-------------- Car Position <= 0.352
+--------------- NOP
+--------------- RIGHT
+------------- Car Velocity <= 0.020
+-------------- Car Position <= 0.341
+--------------- NOP
+--------------- RIGHT
+-------------- RIGHT
+----------- Car Velocity <= 0.021
+------------ Car Position <= 0.323
+------------- NOP
+------------- RIGHT
+------------ Car Position <= 0.327
+------------- Car Velocity <= 0.020
+-------------- NOP
+-------------- RIGHT
+------------- RIGHT
+--------- Car Position <= 0.358
+---------- Car Velocity <= 0.019
+----------- NOP
+----------- RIGHT
+---------- Car Velocity <= 0.019
+----------- Car Position <= 0.351
+------------ NOP
+------------ RIGHT
+----------- RIGHT
+------- Car Position <= 0.249
+-------- Car Velocity <= 0.022
+--------- Car Velocity <= 0.025
+---------- Car Velocity <= 0.025
+----------- NOP
+----------- Car Position <= 0.254
+------------ NOP
+------------ RIGHT
+---------- Car Position <= 0.275
+----------- Car Position <= 0.282
+------------ Car Velocity <= 0.022
+------------- Car Velocity <= 0.022
+-------------- NOP
+-------------- Car Velocity <= 0.022
+--------------- RIGHT
+--------------- NOP
+------------- Car Position <= 0.299
+-------------- NOP
+-------------- Car Position <= 0.296
+--------------- Car Position <= 0.299
+---------------- RIGHT
+---------------- NOP
+--------------- RIGHT
+------------ Car Velocity <= 0.023
+------------- NOP
+------------- Car Velocity <= 0.023
+-------------- Car Position <= 0.278
+--------------- NOP
+--------------- RIGHT
+-------------- RIGHT
+----------- RIGHT
+--------- Car Position <= 0.312
+---------- Car Velocity <= 0.021
+----------- NOP
+----------- RIGHT
+---------- Car Velocity <= 0.022
+----------- Car Position <= 0.302
+------------ Car Position <= 0.304
+------------- NOP
+------------- Car Velocity <= 0.022
+-------------- NOP
+-------------- RIGHT
+------------ RIGHT
+----------- RIGHT
+-------- Car Velocity <= 0.026
+--------- Car Position <= 0.217
+---------- NOP
+---------- RIGHT
+--------- Car Velocity <= 0.026
+---------- Car Position <= 0.217
+----------- NOP
+----------- RIGHT
+---------- RIGHT
+------ Car Position <= 0.390
+------- Car Velocity <= 0.017
+-------- NOP
+-------- RIGHT
+------- RIGHT
+--- Car Velocity <= 0.002
+---- Car Position <= -0.852
+----- Car Velocity <= 0.005
+------ Car Position <= -0.240
+------- Car Velocity <= 0.009
+-------- Car Position <= -0.131
+--------- Car Velocity <= 0.048
+---------- Car Velocity <= 0.055
+----------- RIGHT
+----------- NOP
+---------- RIGHT
+--------- Car Velocity <= 0.009
+---------- Car Velocity <= 0.010
+----------- Car Position <= -0.136
+------------ Car Position <= -0.134
+------------- Car Velocity <= 0.047
+-------------- Car Velocity <= 0.055
+--------------- RIGHT
+--------------- NOP
+-------------- RIGHT
+------------- Car Velocity <= 0.055
+-------------- RIGHT
+-------------- NOP
+------------ RIGHT
+----------- Car Position <= -0.189
+------------ LEFT
+------------ RIGHT
+---------- Car Position <= -0.199
+----------- LEFT
+----------- RIGHT
+-------- Car Position <= -0.217
+--------- LEFT
+--------- Car Velocity <= 0.007
+---------- RIGHT
+---------- LEFT
+------- Car Position <= -0.775
+-------- Car Position <= -0.240
+--------- Car Velocity <= 0.007
+---------- RIGHT
+---------- LEFT
+--------- RIGHT
+-------- Car Velocity <= 0.045
+--------- Car Position <= -0.801
+---------- Car Position <= -0.776
+----------- Car Velocity <= 0.047
+------------ NOP
+------------ RIGHT
+----------- NOP
+---------- LEFT
+--------- Car Velocity <= 0.043
+---------- Car Position <= -0.811
+----------- Car Velocity <= 0.045
+------------ Car Position <= -0.803
+------------- RIGHT
+------------- LEFT
+------------ RIGHT
+----------- Car Velocity <= 0.044
+------------ LEFT
+------------ Car Position <= -0.832
+------------- Car Velocity <= 0.044
+-------------- Car Position <= -0.821
+--------------- RIGHT
+--------------- LEFT
+-------------- RIGHT
+------------- Car Velocity <= 0.044
+-------------- Car Position <= -0.838
+--------------- Car Velocity <= 0.044
+---------------- LEFT
+---------------- RIGHT
+--------------- LEFT
+-------------- Car Position <= -0.847
+--------------- RIGHT
+--------------- LEFT
+---------- RIGHT
+------ Car Position <= -0.278
+------- Car Position <= -0.257
+-------- LEFT
+-------- Car Velocity <= 0.004
+--------- RIGHT
+--------- LEFT
+------- RIGHT
+----- Car Velocity <= 0.041
+------ Car Position <= -0.874
+------- Car Velocity <= 0.043
+-------- Car Position <= -0.852
+--------- Car Position <= -0.852
+---------- LEFT
+---------- RIGHT
+--------- LEFT
+-------- Car Velocity <= 0.042
+--------- Car Position <= -0.862
+---------- RIGHT
+---------- LEFT
+--------- RIGHT
+------- LEFT
+------ RIGHT
+---- Car Position <= -0.495
+----- Car Position <= -0.495
+------ LEFT
+------ Car Velocity <= 0.001
+------- RIGHT
+------- LEFT
+----- Car Position <= -0.497
+------ Car Velocity <= 0.000
+------- RIGHT
+------- LEFT
+------ RIGHT
+-- Car Velocity <= -0.007
+--- Car Position <= -0.851
+---- Car Position <= 0.253
+----- Car Position <= 0.258
+------ RIGHT
+------ Car Velocity <= -0.004
+------- RIGHT
+------- Car Velocity <= -0.005
+-------- Car Velocity <= -0.004
+--------- LEFT
+--------- RIGHT
+-------- LEFT
+----- Car Position <= -0.829
+------ Car Position <= 0.252
+------- Car Velocity <= -0.004
+-------- RIGHT
+-------- LEFT
+------- LEFT
+------ Car Velocity <= -0.005
+------- RIGHT
+------- LEFT
+---- Car Position <= -0.861
+----- Car Velocity <= -0.005
+------ RIGHT
+------ LEFT
+----- Car Velocity <= -0.007
+------ RIGHT
+------ Car Position <= -0.905
+------- RIGHT
+------- LEFT
+--- Car Position <= -1.120
+---- Car Position <= 0.266
+----- Car Velocity <= -0.008
+------ RIGHT
+------ LEFT
+----- Car Velocity <= -0.007
+------ Car Position <= -0.874
+------- Car Position <= 0.255
+-------- RIGHT
+-------- LEFT
+------- Car Position <= -0.912
+-------- RIGHT
+-------- LEFT
+------ Car Position <= -1.118
+------- LEFT
+------- Car Velocity <= -0.012
+-------- RIGHT
+-------- LEFT
+---- Car Velocity <= -0.013
+----- Car Position <= -1.120
+------ Car Velocity <= -0.012
+------- RIGHT
+------- LEFT
+------ RIGHT
+----- Car Velocity <= -0.013
+------ Car Position <= -1.168
+------- Car Velocity <= -0.013
+-------- Car Position <= -1.136
+--------- LEFT
+--------- RIGHT
+-------- LEFT
+------- RIGHT
+------ LEFT

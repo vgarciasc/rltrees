@@ -4,7 +4,8 @@ import imitation_learning.env_configs
 import numpy as np
 
 from distilled_tree import DistilledTree
-from qtree import QNode, QLeaf, save_tree_from_print
+from imitation_learning.ova import CartOvaAgent
+from qtree import QNode, QLeaf, load_tree, save_tree_from_print
 
 def load_viztree(filename):
     with open(filename, "r") as f:
@@ -94,23 +95,27 @@ def get_qtree_structure_viz(config, qtree):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Decision Tree Visualization')
     parser.add_argument('-t','--task',help="Which task?", required=True)
+    parser.add_argument('-c','--class',help="What is the tree's class?", required=True)
     parser.add_argument('-f','--filepath',help="Which tree to view?", required=True)
     parser.add_argument('-o','--output',help="Where to output?", required=False, default="")
     args = vars(parser.parse_args())
 
     config = imitation_learning.env_configs.get_config(args['task'])
 
-    # dt = DistilledTree(config)
-    # dt.load_model(args['filepath'])
-
-    with open(args['filepath'], "rb") as f:
-        qtree = pickle.load(f)
-    
-    print("===> Usual visualization:")
-    qtree.print_tree()
+    if args['class'] == "DistilledTree":
+        dt = DistilledTree(config)
+        dt.load_model(args['filepath'])
+        viztree = dt.get_as_viztree()
+    elif args['class'] == "CartOva":
+        dt = CartOvaAgent(config)
+        dt.load_model(args['filepath'])
+        dt.prune_redundant_leaves()
+        viztree = dt.get_as_viztree()
+    elif args['class'] == "QTree":
+        dt = load_tree(args['filepath'])
+        viztree = get_qtree_structure_viz(config, dt)
     
     print("\n===> Web Tool Visualization:")
-    viztree = get_qtree_structure_viz(config, qtree)
     print(viztree)
 
     if args['output']:

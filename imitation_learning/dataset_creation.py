@@ -1,6 +1,7 @@
 import argparse
 import imitation_learning.env_configs
 import pdb
+from imitation_learning.ova import CartOvaAgent
 
 from imitation_learning.utils import save_dataset
 from il import get_dataset_from_model
@@ -32,6 +33,9 @@ def get_model(model_class, filename, config, expert=None):
         model.load_model(filename)
     elif model_class == "KerasDNN":
         model = KerasDNN(config, 0.0)
+        model.load_model(filename)
+    elif model_class == "CartOva":
+        model = CartOvaAgent(config)
         model.load_model(filename)
     return model
 

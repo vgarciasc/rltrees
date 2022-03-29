@@ -1,0 +1,63 @@
+IF "Angle <= 0.16567295044660568"
+   "Y Velocity > -0.06783449649810791"
+   "Angle > -0.1824704334139824"
+   "Y Position > -0.04579212889075279"
+   "Leg 1 is Touching > 0.5"
+THEN nop
+
+IF "Angle > 0.3088468909263611"
+   "X Velocity <= -8.477497613057494e-05"
+   "Angle > 0.005707674892619252"
+THEN right engine
+
+IF "Y Velocity > -0.29288411140441895"
+   "Y Position > 0.05066765286028385"
+   "Angle <= 0.3088468909263611"
+   "X Velocity <= -8.477497613057494e-05"
+   "Angle > 0.005707674892619252"
+THEN right engine
+
+IF "Angular Velocity <= -0.15076237171888351"
+   "X Velocity <= 0.0667320042848587"
+   "Angle <= 0.17817211896181107"
+   "X Position > -0.02328014373779297"
+   "Angle > -0.05002187751233578"
+THEN left engine
+
+IF "Y Position <= 0.15437615662813187"
+   "Y Velocity > -0.438732385635376"
+   "Y Velocity <= -0.09336903691291809"
+THEN main engine
+
+IF "Y Velocity <= -0.438732385635376"
+   "Y Velocity <= -0.09336903691291809"
+THEN main engine
+
+IF "X Velocity > 0.0667320042848587"
+   "Angle <= 0.17817211896181107"
+   "X Position > -0.02328014373779297"
+   "Angle > -0.05002187751233578"
+THEN left engine
+
+IF "Angle > 0.16567295044660568"
+   "Y Velocity > -0.06783449649810791"
+   "Angle > -0.1824704334139824"
+   "Y Position > -0.04579212889075279"
+   "Leg 1 is Touching > 0.5"
+THEN nop
+
+IF "Angle <= -0.2584848701953888"
+   "X Position <= -0.10812082141637802"
+   "Angle <= -0.05002187751233578"
+THEN left engine
+
+IF "X Position > -0.10812082141637802"
+   "Angle <= -0.05002187751233578"
+THEN left engine
+
+IF "Angular Velocity > 0.20049471408128738"
+   "X Velocity > -8.477497613057494e-05"
+   "Angle > 0.005707674892619252"
+THEN right engine
+
+ELSE nop
