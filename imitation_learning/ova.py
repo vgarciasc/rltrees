@@ -5,7 +5,7 @@ import numpy as np
 from distilled_tree import DistilledTree
 from rich import print
 
-import imitation_learning.env_configs
+import env_configs
 
 class CartOvaAgent:
     def __init__(self, config):

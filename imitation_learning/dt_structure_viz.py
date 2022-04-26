@@ -4,7 +4,7 @@ import imitation_learning.env_configs
 import numpy as np
 
 from distilled_tree import DistilledTree
-from imitation_learning.ova import CartOvaAgent
+from ova import CartOvaAgent
 from qtree import QNode, QLeaf, load_tree, save_tree_from_print
 
 def load_viztree(filename):

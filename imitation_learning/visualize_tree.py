@@ -3,16 +3,16 @@ import gym
 import pdb
 import time
 import numpy as np
-from imitation_learning.dataset_creation import get_model
+from dataset_creation import get_model
 
 from rulelists import Rulelist
 from qtree import load_tree, QLeaf, QNode
 from distilled_tree import DistilledTree
 from il import visualize_model
-from imitation_learning.il import get_average_reward
+from il import get_average_reward
 from qtree import save_tree_from_print
 from rich import print
-from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
+from dt_structure_viz import viztree2qtree, load_viztree
 
 import imitation_learning.env_configs
 

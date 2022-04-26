@@ -10,13 +10,13 @@ from rich import print
 
 import ann
 import imitation_learning.env_configs
-import imitation_learning.parser
+import imitation_learning.my_parser
 from il import *
 from qtree import save_tree_from_print
-from imitation_learning.utils import load_dataset, printv, save_dataset, str_avg
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.keras_dnn import KerasDNN
-from imitation_learning.behavioral_cloning import get_model_to_train
+from utils import load_dataset, printv, save_dataset, str_avg
+from distilled_tree import DistilledTree
+from keras_dnn import KerasDNN
+from behavioral_cloning import get_model_to_train
 
 def run_dagger(config, X, y, model_name, pruning_alpha, expert, 
     iterations, episodes, episodes_to_evaluate=10, verbose=False):
@@ -104,10 +104,10 @@ if __name__ == "__main__":
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_plot', help='Should plot performance?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
-    args = vars(parser.parse_args())
+    args = vars(my_parser.parse_args())
     
     config = imitation_learning.env_configs.get_config(args['task'])
-    expert, X, y = imitation_learning.parser.handle_args(args, config)
+    expert, X, y = imitation_learning.my_parser.handle_args(args, config)
     
     printv(f"Running {args['class']} DAgger for {config['name']} with pruning = {args['pruning']}.")
     # Running DAgger

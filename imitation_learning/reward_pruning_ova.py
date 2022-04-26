@@ -1,5 +1,5 @@
-from imitation_learning.ova import CartOvaAgent
-from imitation_learning.utils import printv
+from ova import CartOvaAgent
+from utils import printv
 import imitation_learning.env_configs
 import numpy as np
 import gym

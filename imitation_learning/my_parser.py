@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from bj_tabular_q import BlackjackQLearner
 import ann
 from il import *
-from imitation_learning.utils import load_dataset, printv, save_dataset
-from imitation_learning.keras_dnn import KerasDNN
+from utils import load_dataset, printv, save_dataset
+from keras_dnn import KerasDNN
 
 def handle_args(args, config):
     filename = args['expert_filepath']

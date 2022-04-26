@@ -1,20 +1,20 @@
 import argparse
 import imitation_learning.env_configs
 import pdb
-from imitation_learning.ova import CartOvaAgent
+from ova import CartOvaAgent
 
-from imitation_learning.utils import save_dataset
+from utils import save_dataset
 from il import get_dataset_from_model
 
 from functools import reduce
 from collections import Counter
 from rich import print
-from imitation_learning.il import get_average_reward, get_average_reward_with_std, label_dataset_with_model
+from il import get_average_reward, get_average_reward_with_std, label_dataset_with_model
 from qtree import QNode, QLeaf, load_tree
 from statsmodels.stats.proportion import proportion_confint
-from imitation_learning.utils import printv, str_avg
-from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
-from imitation_learning.utils import load_dataset
+from utils import printv, str_avg
+from dt_structure_viz import viztree2qtree, load_viztree
+from utils import load_dataset
 from rulelists import Rulelist
 from ann import MLPAgent
 from keras_dnn import KerasDNN

@@ -8,13 +8,13 @@ import numpy as np
 from functools import reduce
 from collections import Counter
 from rich import print
-from imitation_learning.il import get_average_reward, get_average_reward_with_std
-from imitation_learning.ova import CartOvaAgent
+from il import get_average_reward, get_average_reward_with_std
+from ova import CartOvaAgent
 from qtree import QNode, QLeaf, load_tree
 from statsmodels.stats.proportion import proportion_confint
-from imitation_learning.utils import printv, str_avg
-from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
-from imitation_learning.utils import load_dataset
+from utils import printv, str_avg
+from dt_structure_viz import viztree2qtree, load_viztree
+from utils import load_dataset
 
 from scipy.special import betaincinv
 

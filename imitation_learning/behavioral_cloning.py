@@ -10,15 +10,14 @@ from sklearn import tree
 
 import ann
 import argparse
-import imitation_learning.env_configs
-from imitation_learning.ova import CartOvaAgent
-import imitation_learning.parser
+import env_configs
+from ova import CartOvaAgent
+import my_parser
 from il import *
-from qtree import save_tree_from_print
-from imitation_learning.utils import printv, load_dataset, save_dataset
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.keras_dnn import KerasDNN
-from imitation_learning.tnt_wrapper import TnTWrapper
+from utils import printv, load_dataset, save_dataset
+from distilled_tree import DistilledTree
+from keras_dnn import KerasDNN
+from tnt_wrapper import TnTWrapper
 
 def get_model_to_train(config, name):
     if name == "DistilledTree":
@@ -50,8 +49,8 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
-    config = imitation_learning.env_configs.get_config(args['task'])
-    expert, X, y = imitation_learning.parser.handle_args(args, config)
+    config = env_configs.get_config(args['task'])
+    expert, X, y = my_parser.handle_args(args, config)
     
     # Train decision tree
     dt = run_behavior_cloning(config, X, y, args['class'], args['pruning'])
@@ -70,6 +69,7 @@ if __name__ == "__main__":
         print(f"Resulting tree has {dt.model.get_n_leaves()} leaves and depth {dt.model.get_depth()}.")
 
         # dt.save_model(f"data/best_bc_{config['name']}")
+        from qtree import save_tree_from_print
         qtree = dt.get_as_qtree()
         date = datetime.now().strftime("tree_%Y-%m-%d_%H-%M")
         qtree.save(f"data/{config['name']}_{date}_bc_{args['pruning']}")
@@ -78,6 +78,10 @@ if __name__ == "__main__":
         print(dt.get_as_viztree())
         print("")
         print(f"Tree sizes are: {[tree.get_size() for tree in dt.trees]}")
+    elif args['class'] == "TnT":
+        print(dt.get_as_viztree())
+        print("")
+        print(f"Tree size: {dt.get_size()}")
     
     # Visualizing model
     if args['should_visualize']:

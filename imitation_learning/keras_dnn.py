@@ -4,10 +4,10 @@ from rl.agents import DQNAgent
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 
-from imitation_learning.env_configs import get_config
-from imitation_learning.il import get_average_reward
+from env_configs import get_config
+from il import get_average_reward
 
 import keras
 import gym

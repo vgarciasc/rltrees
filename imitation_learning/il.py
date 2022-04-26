@@ -11,10 +11,10 @@ from collections import deque
 from tensorflow import keras
 from keras.models import Sequential
 from keras.layers import Dense
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 
-import imitation_learning.env_configs
-from imitation_learning.utils import printv
+import env_configs
+from utils import printv
 
 def get_average_reward(config, model, episodes=10, verbose=False):
     env = gym.make(config["name"])

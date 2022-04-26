@@ -12,10 +12,10 @@ import ann
 import imitation_learning.env_configs
 from il import *
 from qtree import save_tree_from_print
-from imitation_learning.utils import printv, load_dataset, save_dataset
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.keras_dnn import KerasDNN
-from imitation_learning.behavioral_cloning import run_behavior_cloning
+from utils import printv, load_dataset, save_dataset
+from distilled_tree import DistilledTree
+from keras_dnn import KerasDNN
+from behavioral_cloning import run_behavior_cloning
 
 def run_grid_behavior_cloning(config, X, y, start, end, steps, 
     episodes_to_grade=100, should_save_trees=False, verbose=False):

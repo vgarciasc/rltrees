@@ -1,6 +1,6 @@
 import numpy as np
 
-# from imitation_learning.snake import decode_state, construct_features
+# from snake import decode_state, construct_features
 
 config_CP = {
     "name": "CartPole-v1",

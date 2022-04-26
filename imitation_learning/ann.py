@@ -15,11 +15,11 @@ from tensorflow import keras
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.regularizers import l1
-from keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam
 
-import imitation_learning.env_configs 
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.utils import printv
+import env_configs 
+from distilled_tree import DistilledTree
+from utils import printv
 from il import *
 
 GAMMA = 0.99
@@ -146,7 +146,6 @@ def collect_data(config, args, verbose=False):
         deviation = np.std(rewards)
         printv(f"Model at episode #{episode} has average reward {avg_reward} ± {deviation}", verbose)
         history.append((episode, avg_reward, deviation))
-
         if avg_reward > best_reward:
             printv(f"> Saving new best model...", verbose)
             best_reward = avg_reward
@@ -171,7 +170,7 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
     
     # Initialization
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = env_configs.get_config(args['task'])
 
     # Running training for NN
     _, reward, history = collect_data(config, args, args['verbose'])

@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import tree
 from sklearn.tree._tree import TREE_LEAF
-from qtree import get_tree_from_print
 
 class DistilledTree:
     def __init__(self, config):
@@ -65,6 +64,7 @@ class DistilledTree:
                 stack.append((children_right[node_id], node_id, False))
 
         output.sort(key = lambda x : x[0])
+        from qtree import get_tree_from_print
         return get_tree_from_print(output, self.config['actions'])
 
     def get_as_viztree(self, show_prob=False):

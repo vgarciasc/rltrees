@@ -2,9 +2,9 @@ import pdb
 import numpy as np
 import argparse
 import imitation_learning.env_configs
-from imitation_learning.utils import load_dataset, str_avg
-from imitation_learning.dataset_creation import get_model
-from imitation_learning.il import get_average_reward, get_average_reward_with_std
+from utils import load_dataset, str_avg
+from dataset_creation import get_model
+from il import get_average_reward, get_average_reward_with_std
 
 from rulelists import UCF
 from rich import print

@@ -1,0 +1,41 @@
+- #0 Worst Radius <= 16.790
+-- #1 Worst Texture <= 19.910
+--- #2 Worst Smoothness <= 0.088
+---- #3 Worst Concavity <= 0.198
+----- Malignant
+----- #4 SE Compactness <= 0.017
+------ Benign
+------ Malignant
+---- Benign
+--- #5 SE Compactness <= 0.021
+---- Malignant
+---- Benign
+-- #6 Worst Concave Points <= 0.135
+--- #7 Worst Texture <= 25.670
+---- #8 Worst Fractal Dimension <= 0.099
+----- Malignant
+----- #9 Mean Texture <= 19.435
+------ Malignant
+------ Benign
+---- #10 Worst Concave Points <= 0.139
+----- #11 Worst Smoothness <= 0.179
+------ Malignant
+------ Benign
+----- #12 SE Concavity <= 0.034
+------ Benign
+------ Malignant
+--- #13 SE Area <= 38.350
+---- #14 Worst Concave Points <= 0.117
+----- Malignant
+----- #15 Worst Symmetry <= 0.207
+------ Benign
+------ Malignant
+---- #16 SE Smoothness <= 0.003
+----- #17 Worst Texture <= 33.270
+------ #18 Worst Texture <= 33.560
+------- Benign
+------- Malignant
+------ Benign
+----- #19 Mean Texture <= 19.900
+------ Malignant
+------ Benign

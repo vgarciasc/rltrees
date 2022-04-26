@@ -10,7 +10,7 @@ class TnTWrapper:
         self.config = config
     
     def fit(self, X, y, pruning=0):
-        clf = TnT(N1=2, N2=3)
+        clf = TnT()
         clf.fit(X, y)
         self.model = clf
 
@@ -30,7 +30,38 @@ class TnTWrapper:
             self.model = pickle.load(f)
         
     def get_size(self):
-        return self.model.check_complexity
+        return self.model.check_complexity()
+
+    def get_as_viztree(self):
+        node_printed = []
+        node_list = [(self.model.graph, 1)]
+        output = []
+
+        while len(node_list) > 0:
+            n, depth = node_list.pop()
+            
+            if n.label is None:
+                if n in node_printed:
+                    output.append(("-" * depth) + f" GOTO #{node_printed.index(n)}")
+                    # print(output[-1])
+                    continue
+                else:
+                    output.append(("-" * depth) + f" #{len(node_printed)} {self.config['attributes'][n.feature_index]} <= {'{:.3f}'.format(n.threshold)}")
+                    node_printed.append(n)
+        
+                if n.left in node_list:
+                    node_list.remove(n.left)
+                node_list.append((n.left, depth + 1))
+                
+                if n.right in node_list:
+                    node_list.remove(n.right)
+                node_list.append((n.right, depth + 1))
+            else:
+                output.append(("-" * depth) + f" {self.config['actions'][n.label]}")
+            
+            # print(output[-1])
+        
+        return "\n".join(output)
 
     # def get_as_qtree(self):
     #     children_left = self.model.tree_.children_left

@@ -1,4 +1,4 @@
-from imitation_learning.utils import printv
+from utils import printv
 import imitation_learning.env_configs
 import numpy as np
 import gym

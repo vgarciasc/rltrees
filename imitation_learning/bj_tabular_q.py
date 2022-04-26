@@ -1,7 +1,7 @@
 from operator import ne
-from imitation_learning.env_configs import *
-from imitation_learning.utils import printv
-from imitation_learning.il import get_average_reward
+from env_configs import *
+from utils import printv
+from il import get_average_reward
 from rich import print
 
 import argparse
