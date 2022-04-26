@@ -1,4 +1,5 @@
 import gym
+# import gym_snake
 import random
 import pdb
 import time
@@ -13,9 +14,11 @@ from collections import deque
 from tensorflow import keras
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.regularizers import l1
 from keras.optimizers import Adam
 
 import imitation_learning.env_configs 
+from imitation_learning.distilled_tree import DistilledTree
 from imitation_learning.utils import printv
 from il import *
 
@@ -33,13 +36,14 @@ class MLPAgent:
     def __init__(self, config, exploration_rate=EXPLORATION_MAX):
         self.n_attributes = config["n_attributes"]
         self.n_actions = config["n_actions"]
+        self.config = config
 
         self.exploration_rate = exploration_rate
         self.memory = deque(maxlen=MEMORY_SIZE)
 
         self.model = Sequential()
-        self.model.add(Dense(64, input_shape=(self.n_attributes,), activation="relu"))
-        self.model.add(Dense(64, activation="relu"))
+        self.model.add(Dense(32, input_shape=(self.n_attributes,), activation="relu", kernel_regularizer=l1(0.01)))
+        self.model.add(Dense(32, activation="relu", kernel_regularizer=l1(0.01)))
         self.model.add(Dense(self.n_actions, activation="linear"))
         self.model.compile(loss="mse", optimizer=Adam(lr=ALPHA))
     
@@ -91,6 +95,11 @@ class MLPAgent:
 
         X = np.array(X)
         y = np.array(y)
+
+        # start_time = time.time()
+        # dt = DistilledTree(self.config)
+        # dt.fit()
+        # print(f"Training the DT with {dt.get_size()} nodes took {time.time() - start_time} seconds.")
         
         self.batch_fit(X, y)
         
@@ -114,14 +123,16 @@ def collect_data(config, args, verbose=False):
     history = []
 
     for episode in range(args['episodes']):
-        state = env.reset()
+        raw_state = env.reset()
+        state = config['conversion_fn'](env, None, raw_state)
         reward = 0
         done = False
         
         while not done:
             action = model.act(state)
 
-            next_state, reward, done, _ = env.step(action)
+            raw_next_state, reward, done, _ = env.step(action)
+            next_state = config['conversion_fn'](env, raw_state, raw_next_state)
             if config['should_force_episode_termination_score']:
                 reward = reward if not done else config['episode_termination_score']
 
@@ -129,6 +140,7 @@ def collect_data(config, args, verbose=False):
             model.experience_replay()
 
             state = next_state
+            raw_state = raw_next_state
 
         avg_reward, rewards = get_average_reward(config, model, episodes=20)
         deviation = np.std(rewards)
@@ -150,7 +162,7 @@ def collect_data(config, args, verbose=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Train ANN')
-    parser.add_argument('-t','--task',help="Which task to run?", required=True)
+    parser.add_argument('-t','--task', help="Which task to run?", required=True)
     parser.add_argument('-o','--filepath', help='Filepath to save model', required=True)
     parser.add_argument('-e','--episodes', help='Number of episodes to run', required=True, type=int)
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
@@ -169,7 +181,7 @@ if __name__ == "__main__":
     expert.load_model(args['filepath'])
     
     # Grading NN
-    get_average_reward(config, expert, episodes=100, verbose=True)
+    get_average_reward(config, expert, episodes=10, verbose=True)
 
     # Plotting
     if args['should_plot']:

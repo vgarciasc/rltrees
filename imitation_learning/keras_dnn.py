@@ -39,7 +39,7 @@ class KerasDNN:
         return self.dqn.compute_q_values(s)
     
     def batch_predict(self, X):
-        # X = np.reshape(X, (len(X), 1, self.n_attributes))
+        X = np.reshape(X, (len(X), 1, self.n_attributes))
         return self.dqn.compute_batch_q_values(X)
     
     def act(self, state):

@@ -18,12 +18,15 @@ from qtree import save_tree_from_print
 from imitation_learning.utils import printv, load_dataset, save_dataset
 from imitation_learning.distilled_tree import DistilledTree
 from imitation_learning.keras_dnn import KerasDNN
+from imitation_learning.tnt_wrapper import TnTWrapper
 
 def get_model_to_train(config, name):
     if name == "DistilledTree":
         return DistilledTree(config)
     elif name == "CartOva":
         return CartOvaAgent(config)
+    elif name == "TnT":
+        return TnTWrapper(config)
     return None
 
 def run_behavior_cloning(config, X, y, model_name, pruning_alpha):

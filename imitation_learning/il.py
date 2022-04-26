@@ -21,18 +21,18 @@ def get_average_reward(config, model, episodes=10, verbose=False):
     total_rewards = []
 
     for episode in range(episodes):
-        state = env.reset()
+        raw_state = env.reset()
+        state = config['conversion_fn'](env, None, raw_state)
         total_reward = 0
         done = False
         
         while not done:
-            if config['should_convert_state_to_array']:
-                state = np.array(state)
-            
             action = model.act(state)
-            next_state, reward, done, _ = env.step(action)
+            raw_next_state, reward, done, _ = env.step(action)
+            next_state = config['conversion_fn'](env, raw_state, raw_next_state)
 
             state = next_state
+            raw_state = raw_next_state
             total_reward += reward
 
         printv(f"Episode #{episode} finished with total reward {total_reward}", verbose)
@@ -54,7 +54,8 @@ def visualize_model(config, model, episodes, print_state=False):
     total_rewards = []
 
     for episode in range(episodes):
-        state = env.reset()
+        raw_state = env.reset()
+        state = config['conversion_fn'](env, None, raw_state)
         total_reward = 0
         done = False
         
@@ -64,7 +65,8 @@ def visualize_model(config, model, episodes, print_state=False):
             env.render()
 
             action = model.act(state)
-            next_state, reward, done, _ = env.step(action)
+            raw_next_state, reward, done, _ = env.step(action)
+            next_state = config['conversion_fn'](env, raw_state, raw_next_state)
 
             if print_state and state_idx % 5 == 0:
                 for i, attribute in enumerate(config['attributes']):
@@ -72,7 +74,11 @@ def visualize_model(config, model, episodes, print_state=False):
                 print(f"[red]Action[/red]: [yellow]{config['actions'][action]}[/yellow]")
                 print("---")
 
+            if config['render_delay_ms'] != 0:
+                time.sleep(config['render_delay_ms'] / 1000)
+
             state = next_state
+            raw_state = raw_next_state
             total_reward += reward
 
         print(f"Episode #{episode} finished with total reward {total_reward}")
