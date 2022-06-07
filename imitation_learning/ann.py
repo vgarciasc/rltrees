@@ -42,8 +42,8 @@ class MLPAgent:
         self.memory = deque(maxlen=MEMORY_SIZE)
 
         self.model = Sequential()
-        self.model.add(Dense(32, input_shape=(self.n_attributes,), activation="relu", kernel_regularizer=l1(0.01)))
-        self.model.add(Dense(32, activation="relu", kernel_regularizer=l1(0.01)))
+        self.model.add(Dense(16, input_shape=(self.n_attributes,), activation="relu", kernel_regularizer=l1(0.01)))
+        self.model.add(Dense(16, activation="relu", kernel_regularizer=l1(0.01)))
         self.model.add(Dense(self.n_actions, activation="linear"))
         self.model.compile(loss="mse", optimizer=Adam(lr=ALPHA))
     

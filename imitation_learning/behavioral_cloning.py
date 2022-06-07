@@ -54,14 +54,23 @@ if __name__ == "__main__":
     expert, X, y = imitation_learning.parser.handle_args(args, config)
     
     # Train decision tree
+    print("")
+    print("==> Now training...")
+    start_time = time.time()
     dt = run_behavior_cloning(config, X, y, args['class'], args['pruning'])
+    end_time = time.time()
+    print(f"Time elapsed: {end_time - start_time} seconds.")
     # dt.save_fig()
 
+    print(f"Tree has size: {dt.get_size()}")
+
     # Printing results
+    print("")
+    print("==> Measuring average reward...")
     avg, rewards = get_average_reward(
         config, dt,
         episodes=args['grading_episodes'],
-        verbose=args['verbose'] if args['grading_episodes'] < 100 else False)
+        verbose=args['verbose'] if args['grading_episodes'] <= 100 else False)
     deviation = np.std(rewards)
     print(f"Average reward is {avg} ± {deviation}.")
 
@@ -78,6 +87,9 @@ if __name__ == "__main__":
         print(dt.get_as_viztree())
         print("")
         print(f"Tree sizes are: {[tree.get_size() for tree in dt.trees]}")
+    elif args['class'] == "TnT":
+        date = datetime.now().strftime("tree_%Y-%m-%d_%H-%M")
+        dt.save_model(f"data/{date}_tnt_{config['task']}")
     
     # Visualizing model
     if args['should_visualize']:

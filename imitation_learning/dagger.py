@@ -1,3 +1,4 @@
+import json
 import gym
 import pickle
 import pdb
@@ -58,7 +59,7 @@ def run_dagger(config, X, y, model_name, pruning_alpha, expert,
         printv(f"- Obtained tree with {dt.get_size()} nodes.", verbose)
         printv(f"- Average reward for the student: {str_avg(avg, std)}.", verbose)
 
-        history.append((i, avg, std, model_size))
+        history.append((i, avg, std, model_size, dt))
 
         if avg > best_reward:
             best_reward = avg
@@ -103,6 +104,8 @@ if __name__ == "__main__":
     parser.add_argument('--should_grade_expert', help='Should collect expert\'s metrics?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--should_plot', help='Should plot performance?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--should_save_models', help='Should save trees?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--save_models_pathname', help='Where to save trees?', required=False, default="imitation_learning/models/tmp.txt", type=str)
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
@@ -120,7 +123,13 @@ if __name__ == "__main__":
         episodes=args['episodes'],
         episodes_to_evaluate=args['episodes_to_evaluate'],
         verbose=args['verbose'])
-    iterations, avg_rewards, deviations, model_sizes = history
+    iterations, avg_rewards, deviations, model_sizes, models = history
+
+    if args['should_save_models']:
+        model_strs = [model.get_as_viztree() for model in models]
+        
+        with open(args['save_models_pathname'], "w") as f:
+            json.dump(model_strs, f)
 
     # Plotting results
     if args['should_plot']:
