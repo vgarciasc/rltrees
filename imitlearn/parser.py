@@ -2,11 +2,11 @@ import pdb
 import numpy as np
 import matplotlib.pyplot as plt
 
-from bj_tabular_q import BlackjackQLearner
-import ann
-from il import *
-from imitation_learning.utils import load_dataset, printv, save_dataset
-from imitation_learning.keras_dnn import KerasDNN
+from imitlearn.ann import MLPAgent
+from imitlearn.bj_tabular_q import BlackjackQLearner
+from imitlearn.il import *
+from imitlearn.utils import load_dataset, printv, save_dataset
+from imitlearn.keras_dnn import KerasDNN
 
 def handle_args(args, config):
     filename = args['expert_filepath']
@@ -15,7 +15,7 @@ def handle_args(args, config):
         expert = KerasDNN(config, exploration_rate=args['expert_exploration_rate'])
         expert.load(filename)
     elif args['expert_class'] == "MLP":
-        expert = ann.MLPAgent(config, exploration_rate=args['expert_exploration_rate'])
+        expert = MLPAgent(config, exploration_rate=args['expert_exploration_rate'])
         expert.load_model(filename)
     elif args['expert_class'] == "QTable" and args['task'] == "blackjack":
         expert = BlackjackQLearner(config, exploration_rate=args['expert_exploration_rate'])

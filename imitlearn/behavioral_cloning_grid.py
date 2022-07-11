@@ -9,13 +9,13 @@ from rich import print
 from sklearn import tree
 
 import ann
-import imitation_learning.env_configs
-from il import *
+import imitlearn.env_configs
+from imitlearn.il import *
 from qtree import save_tree_from_print
-from imitation_learning.utils import printv, load_dataset, save_dataset
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.keras_dnn import KerasDNN
-from imitation_learning.behavioral_cloning import run_behavior_cloning
+from imitlearn.utils import printv, load_dataset, save_dataset
+from imitlearn.distilled_tree import DistilledTree
+from imitlearn.keras_dnn import KerasDNN
+from imitlearn.behavioral_cloning import run_behavior_cloning
 
 def run_grid_behavior_cloning(config, X, y, start, end, steps, 
     episodes_to_grade=100, should_save_trees=False, verbose=False):
@@ -87,8 +87,8 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
-    config = imitation_learning.env_configs.get_config(args['task'])
-    expert, X, y = imitation_learning.parser.handle_args(args, config)
+    config = imitlearn.env_configs.get_config(args['task'])
+    expert, X, y = imitlearn.parser.handle_args(args, config)
 
     # Grid-running behavior cloning
     history = run_grid_behavior_cloning(

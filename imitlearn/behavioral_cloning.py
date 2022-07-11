@@ -8,25 +8,25 @@ from datetime import datetime
 from rich import print
 from sklearn import tree
 
-import ann
 import argparse
-import imitation_learning.env_configs
-from imitation_learning.ova import CartOvaAgent
-import imitation_learning.parser
-from il import *
 from qtree import save_tree_from_print
-from imitation_learning.utils import printv, load_dataset, save_dataset
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.keras_dnn import KerasDNN
-from imitation_learning.tnt_wrapper import TnTWrapper
+import imitlearn.ann
+import imitlearn.env_configs
+import imitlearn.parser
+from imitlearn.ova import CartOvaAgent
+from imitlearn.il import *
+from imitlearn.utils import printv, load_dataset, save_dataset
+from imitlearn.distilled_tree import DistilledTree
+from imitlearn.keras_dnn import KerasDNN
+# from imitlearn.tnt_wrapper import TnTWrapper
 
 def get_model_to_train(config, name):
     if name == "DistilledTree":
         return DistilledTree(config)
     elif name == "CartOva":
         return CartOvaAgent(config)
-    elif name == "TnT":
-        return TnTWrapper(config)
+    # elif name == "TnT":
+    #     return TnTWrapper(config)
     return None
 
 def run_behavior_cloning(config, X, y, model_name, pruning_alpha):
@@ -50,8 +50,8 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
-    config = imitation_learning.env_configs.get_config(args['task'])
-    expert, X, y = imitation_learning.parser.handle_args(args, config)
+    config = imitlearn.env_configs.get_config(args['task'])
+    expert, X, y = imitlearn.parser.handle_args(args, config)
     
     # Train decision tree
     print("")

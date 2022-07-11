@@ -3,7 +3,7 @@ import pickle
 from threading import activeCount
 import matplotlib.pyplot as plt
 import numpy as np
-from TnTDecisionGraph.TreeInTree.TnT import TnT
+# from TnTDecisionGraph.TreeInTree.TnT import TnT
 
 class TnTWrapper:
     def __init__(self, config):

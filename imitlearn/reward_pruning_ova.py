@@ -1,5 +1,6 @@
-from imitation_learning.utils import printv
-import imitation_learning.env_configs
+from imitlearn.ova import CartOvaAgent
+from imitlearn.utils import printv
+import imitlearn.env_configs
 import numpy as np
 import gym
 import pickle
@@ -10,27 +11,44 @@ import matplotlib.pyplot as plt
 from rich import print
 from qtree import QLeaf, QNode, save_tree
 
-def get_average_reward_qtree(qtree, config, episodes=10, verbose=False):
-    gym_env = gym.make(config['name'])
+def get_average_reward(config, model, episodes=10, verbose=False):
+    env = gym.make(config["name"])
+    total_rewards = []
 
-    rewards = np.zeros(episodes)
-    for i in range(episodes):
-        state = gym_env.reset()
-        reward = 0
+    for episode in range(episodes):
+        state = env.reset()
+        total_reward = 0
         done = False
         
         while not done:
-            _, action = qtree.predict(state)
-            next_state, reward, done, _ = gym_env.step(action)
-            rewards[i] += reward
-            state = next_state
-    
-    mean = np.mean(rewards)
-    stdev = np.std(rewards)
+            if config['should_convert_state_to_array']:
+                state = np.array(state)
+            
+            probs = []
+            for tree in model.trees:
+                values = tree.predict(state)[0].q_values
+                values /= np.sum(values)
+                probs.append(values[1])
+            action = np.argmax(probs)
 
-    printv(f"Average reward: {mean} ± {stdev}", verbose)
+            next_state, reward, done, _ = env.step(action)
+
+            state = next_state
+            total_reward += reward
+
+        printv(f"Episode #{episode} finished with total reward {total_reward}", verbose)
+        total_rewards.append(total_reward)
     
-    return np.mean(rewards), np.std(rewards)
+    env.close()
+    
+    average_reward = np.mean(total_rewards)
+    printv(f"Average reward for this model is {'{:.3f}'.format(average_reward)} ± {'{:.3f}'.format(np.std(total_rewards))}.", verbose)
+
+    return average_reward, total_rewards
+
+def get_average_reward_with_std(config, model, episodes=10, verbose=False):
+    avg_reward, rewards = get_average_reward(config, model, episodes, verbose)
+    return avg_reward, np.std(rewards)
 
 def is_inner_node(node):
     return node.__class__.__name__ == "QNode"
@@ -38,7 +56,8 @@ def is_inner_node(node):
 def is_leaf(node):
     return node.__class__.__name__ == "QLeaf"
 
-def prune_by_reward(qtree, node, config, 
+def prune_by_reward(ova, qtree, tree_id,
+    node, config, 
     episodes_per_prune=100,
     comp_threshold = 0.95,
     verbose=False):
@@ -50,11 +69,11 @@ def prune_by_reward(qtree, node, config,
         return qtree, []
 
     if is_inner_node(node.left):
-        qtree, new_history = prune_by_reward(qtree, node.left, *params)
+        qtree, new_history = prune_by_reward(ova, qtree, tree_id, node.left, *params)
         history += new_history
 
     if is_inner_node(node.right):
-        qtree, new_history = prune_by_reward(qtree, node.right, *params)
+        qtree, new_history = prune_by_reward(ova, qtree, tree_id, node.right, *params)
         history += new_history
     
     parent_of_leaves = is_leaf(node.left) and is_leaf(node.right)
@@ -62,7 +81,7 @@ def prune_by_reward(qtree, node, config,
     
     printv(f"\n-- Evaluating node {node.pretty_string(config)}...", verbose)
     if parent_of_leaves or parent_of_subtree:
-        avg_reward, deviation = get_average_reward_qtree(qtree, config, episodes=episodes_per_prune)
+        avg_reward, deviation = get_average_reward_with_std(config, ova, episodes=episodes_per_prune)
         printv(f"\tThe average reward of the tree is {avg_reward} ± {deviation}.", verbose)
         changing_left_node = (node.parent and node == node.parent.left)
         
@@ -97,7 +116,8 @@ def prune_by_reward(qtree, node, config,
             child_node = node.left if node.left.__class__.__name__ == "QNode" else node.right
             printv(f"\tRouted from node '{config['attributes'][node.attribute][0]} <= {node.value}' to its subtree '{config['attributes'][child_node.attribute][0]} <= {child_node.value}'!", verbose)
 
-        new_avg_reward, new_deviation = get_average_reward_qtree(qtree, config, episodes=episodes_per_prune)
+        ova.trees[tree_id] = qtree
+        new_avg_reward, new_deviation = get_average_reward_with_std(config, ova, episodes=episodes_per_prune)
         printv(f"\tThe average reward of the tree is {new_avg_reward} ± {new_deviation}.", verbose)
         printv(f"\tGot average reward {new_avg_reward} after merge.", verbose)
 
@@ -114,6 +134,8 @@ def prune_by_reward(qtree, node, config,
             
             if parent_of_subtree:
                 (node.left if node.left.__class__.__name__ == "QNode" else node.right).parent = node
+            
+            ova.trees[tree_id] = qtree
         else:
             printv(f"\tAppending {(qtree.get_size(), new_avg_reward)}", verbose)
             history.append((qtree.get_size(), new_avg_reward, new_deviation))
@@ -130,68 +152,74 @@ if __name__ == "__main__":
     parser.add_argument('--episodes_per_prune', help='Number of episodes used to evaluate pruning', required=False, default=100, type=int)
     parser.add_argument('--pruning_cycles', help='How many pruning cycles should be done?', required=False, default=1, type=int)
     parser.add_argument('--grading_episodes', help='How many episodes to use during grading of final model?', required=False, default=10000, type=int)
-    parser.add_argument('--should_plot', help='Should plot pruning results?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
-    parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    parser.add_argument('--task_solution_threshold', help='Minimum reward to solve task', required=False, default=-1, type=int)
+    # parser.add_argument('--should_plot', help='Should plot pruning results?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
+    # parser.add_argument('--should_visualize', help='Should visualize final tree?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
 
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
     output = []
 
     print(f"Starting reward pruning for {config['name']}, loading file '{args['filepath']}'.")
+        
+    ova_model = CartOvaAgent(config)
+    ova_model.load_model(args['filepath'])
+    ova_model.trees = [tree.get_as_qtree() for tree in ova_model.trees]
+
+    alt_configs = []
+    for action in config['actions']:
+        new_config = config.copy()
+        new_config['n_actions'] = 2
+        new_config['actions'] = ["- - -", action]
+        alt_configs.append(new_config)
 
     for cycle in range(args['pruning_cycles']):
-        original_size = None
-        print(f"\n\n===== Pruning cycle: {cycle} =====")
-        
-        with open(args['filepath'], "rb") as f:
-            qtree = pickle.load(f)
-            original_size = qtree.get_size()
-            printv(f"Before pruning, tree had {original_size} nodes.")
-        
-        if args['verbose']:
-            qtree.print_tree()
+        print(f"\n\n===== Pruning cycle: {cycle + 1} =====")
+        printv(f"Before pruning, OVA model had {ova_model.get_size()} nodes.")
 
-        count = 0
-        history = []
-        plot_history = []
+        count, history, plot_history = 0, [], []
         while count == 0 or len(history) > 0:
-            qtree, history = prune_by_reward(
-                qtree, qtree, config,
-                verbose=args['verbose'],
-                episodes_per_prune=args['episodes_per_prune'])
-            plot_history += history
+            tree_id = count % len(ova_model.trees)
+            qtree = ova_model.trees[tree_id]
 
+            print("[green]Tree before:[/green]:")
+            qtree.print_tree()
+            qtree, history = prune_by_reward(
+                ova_model, qtree, tree_id,
+                qtree, alt_configs[tree_id],
+                verbose=args['verbose'],
+                comp_threshold=args['comp_threshold'],
+                episodes_per_prune=args['episodes_per_prune'])
+            print("\n\n[green]Tree after:[/green]:")
+            qtree.print_tree()
+            
+            ova_model.trees[tree_id] = qtree
+            plot_history += history
             count += 1
+
             if count > args['max_pruning_iters']:
                 break
+
+        printv(f"After pruning, model has {ova_model.get_size()} nodes.")
         
-        if args['should_plot']:
-            tree_sizes, avg_rewards, std_rewards = zip(*plot_history)
-
-            avg_rewards = np.array(avg_rewards)
-            std_rewards = np.array(std_rewards)
-
-            plt.title(f"File: {args['filepath']} \n\n Performance during Reward Pruning for {config['name']}")
-            plt.fill_between(tree_sizes, avg_rewards - std_rewards, avg_rewards + std_rewards, color="blue", alpha=0.2)
-            plt.plot(tree_sizes, avg_rewards, color='blue')
-            plt.xlabel("Tree size")
-            plt.gca().invert_xaxis()
-            plt.ylabel("Average reward")
-            plt.show()
-
-        if args['verbose']:
-            qtree.print_tree()
-        
-        printv(f"Before pruning, tree had {original_size} nodes.")
-        printv(f"After pruning, tree has {qtree.get_size()} nodes.")
-        avg, stdev = get_average_reward_qtree(
-            qtree, config,
+        printv(f"Evaluating performance of pruned model...")
+        avg, stdev = get_average_reward_with_std(
+            config, ova_model,
             episodes=args['grading_episodes'],
             verbose=True)
-        output.append((avg, stdev, qtree.get_size()))
-        save_tree(qtree, f"_{config['name']}_pruned_{cycle}")
+        output.append((avg, stdev, ova_model.get_size()))
     
     averages, deviations, tree_sizes = zip(*output)
     printv(f"Averages: {averages}, avg: {np.mean(averages)} ± {np.std(averages)}")
     printv(f"Tree size: {tree_sizes}, avg: {np.mean(tree_sizes)} ± {np.std(tree_sizes)}")
+
+    printv(f"Final tree size: {ova_model.get_size()}.")
+    _, total_rewards = get_average_reward(config, ova_model,
+        episodes=args['grading_episodes'],
+        verbose=args['verbose'])
+    
+    successes = len([reward for reward in total_rewards if reward > args['task_solution_threshold']])
+    printv(f"Success rate is: {'{:2f}'.format(successes * 100)}.")
+
+    pdb.set_trace()

@@ -1,7 +1,7 @@
 import scipy.stats as stats
 import numpy as np
 import pdb
-from scipy.stats.mstats_basic import kurtosis, skew
+from scipy.stats import kurtosis, skew
 from datetime import datetime
 import pickle
 

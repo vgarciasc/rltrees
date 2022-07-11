@@ -1,10 +1,10 @@
 import argparse
 import pickle
-import imitation_learning.env_configs
+import imitlearn.env_configs
 import numpy as np
 
-from distilled_tree import DistilledTree
-from imitation_learning.ova import CartOvaAgent
+from imitlearn.distilled_tree import DistilledTree
+from imitlearn.ova import CartOvaAgent
 from qtree import QNode, QLeaf, load_tree, save_tree_from_print
 
 def load_viztree(filename):
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     parser.add_argument('-o','--output',help="Where to output?", required=False, default="")
     args = vars(parser.parse_args())
 
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
 
     if args['class'] == "DistilledTree":
         dt = DistilledTree(config)

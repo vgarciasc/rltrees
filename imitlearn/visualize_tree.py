@@ -3,18 +3,18 @@ import gym
 import pdb
 import time
 import numpy as np
-from imitation_learning.dataset_creation import get_model
+from imitlearn.dataset_creation import get_model
 
-from rulelists import Rulelist
+from imitlearn.rulelists import Rulelist
 from qtree import load_tree, QLeaf, QNode
-from distilled_tree import DistilledTree
-from il import visualize_model
-from imitation_learning.il import get_average_reward
+from imitlearn.distilled_tree import DistilledTree
+from imitlearn.il import visualize_model
+from imitlearn.il import get_average_reward
 from qtree import save_tree_from_print
 from rich import print
-from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
+from imitlearn.dt_structure_viz import viztree2qtree, load_viztree
 
-import imitation_learning.env_configs
+import imitlearn.env_configs
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Behavior Cloning')
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
     
     expert = None
     if args['expert']:

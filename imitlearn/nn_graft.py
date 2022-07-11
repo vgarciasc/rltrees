@@ -1,12 +1,12 @@
 import pdb
 import numpy as np
 import argparse
-import imitation_learning.env_configs
-from imitation_learning.utils import load_dataset, str_avg
-from imitation_learning.dataset_creation import get_model
-from imitation_learning.il import get_average_reward, get_average_reward_with_std
+import imitlearn.env_configs
+from imitlearn.utils import load_dataset, str_avg
+from imitlearn.dataset_creation import get_model
+from imitlearn.il import get_average_reward, get_average_reward_with_std
 
-from rulelists import UCF
+from imitlearn.rulelists import UCF
 from rich import print
 from qtree import QNode, QLeaf, load_tree
 
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     parser.add_argument('--grading_episodes', help='How many episodes should we use to measure model\'s accuracy?', required=False, default=100, type=int)
     args = vars(parser.parse_args())
 
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
     tree = get_model(args['class'], args['filepath'], config)
     expert = get_model(args['expert_class'], args['expert'], config)
 

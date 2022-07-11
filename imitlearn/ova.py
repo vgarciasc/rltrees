@@ -2,10 +2,10 @@ import argparse
 import pickle
 import numpy as np
 
-from distilled_tree import DistilledTree
+from imitlearn.distilled_tree import DistilledTree
 from rich import print
 
-import imitation_learning.env_configs
+import imitlearn.env_configs
 
 class CartOvaAgent:
     def __init__(self, config):
@@ -76,5 +76,5 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = env_configs.get_config(args['task'])
     

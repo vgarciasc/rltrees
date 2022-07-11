@@ -1,5 +1,5 @@
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.utils import printv, load_dataset
+from imitlearn.distilled_tree import DistilledTree
+from imitlearn.utils import printv, load_dataset
 from matplotlib.colors import ListedColormap
 from rich import print
 

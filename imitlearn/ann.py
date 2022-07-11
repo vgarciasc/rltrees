@@ -1,3 +1,4 @@
+from tabnanny import verbose
 import gym
 # import gym_snake
 import random
@@ -17,10 +18,10 @@ from keras.layers import Dense
 from keras.regularizers import l1
 from keras.optimizers import Adam
 
-import imitation_learning.env_configs 
-from imitation_learning.distilled_tree import DistilledTree
-from imitation_learning.utils import printv
-from il import *
+import imitlearn.env_configs 
+from imitlearn.distilled_tree import DistilledTree
+from imitlearn.utils import printv
+from imitlearn.il import *
 
 GAMMA = 0.99
 ALPHA = 0.001
@@ -49,7 +50,7 @@ class MLPAgent:
     
     def predict(self, state):
         s = np.reshape(state, (1, self.n_attributes))
-        return self.model.predict(s)[0]
+        return self.model.predict(s, verbose=0)[0]
     
     def batch_predict(self, X):
         X = np.reshape(X, (len(X), self.n_attributes))
@@ -171,7 +172,7 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
     
     # Initialization
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
 
     # Running training for NN
     _, reward, history = collect_data(config, args, args['verbose'])

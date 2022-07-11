@@ -6,8 +6,8 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation, Flatten
 from keras.optimizers import Adam
 
-from imitation_learning.env_configs import get_config
-from imitation_learning.il import get_average_reward
+from imitlearn.env_configs import get_config
+from imitlearn.il import get_average_reward
 
 import keras
 import gym

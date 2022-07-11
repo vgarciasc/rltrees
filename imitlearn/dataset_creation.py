@@ -1,23 +1,23 @@
 import argparse
-import imitation_learning.env_configs
+import imitlearn.env_configs
 import pdb
-from imitation_learning.ova import CartOvaAgent
+from imitlearn.ova import CartOvaAgent
 
-from imitation_learning.utils import save_dataset
-from il import get_dataset_from_model
+from imitlearn.utils import save_dataset
+from imitlearn.il import get_dataset_from_model
 
 from functools import reduce
 from collections import Counter
 from rich import print
-from imitation_learning.il import get_average_reward, get_average_reward_with_std, label_dataset_with_model
+from imitlearn.il import get_average_reward, get_average_reward_with_std, label_dataset_with_model
 from qtree import QNode, QLeaf, load_tree
 from statsmodels.stats.proportion import proportion_confint
-from imitation_learning.utils import printv, str_avg
-from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
-from imitation_learning.utils import load_dataset
-from rulelists import Rulelist
-from ann import MLPAgent
-from keras_dnn import KerasDNN
+from imitlearn.utils import printv, str_avg
+from imitlearn.dt_structure_viz import viztree2qtree, load_viztree
+from imitlearn.utils import load_dataset
+from imitlearn.rulelists import Rulelist
+from imitlearn.ann import MLPAgent
+from imitlearn.keras_dnn import KerasDNN
 
 def get_model(model_class, filename, config, expert=None):
     if model_class == "QTree":
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
 
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
     print(f"[yellow]Creating dataset for {config['name']} with {args['dataset_size']} episodes.")
     print("")
 

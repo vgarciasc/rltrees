@@ -13,8 +13,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
 
-import imitation_learning.env_configs
-from imitation_learning.utils import printv
+import imitlearn.env_configs
+from imitlearn.utils import printv
 
 def get_average_reward(config, model, episodes=10, verbose=False):
     env = gym.make(config["name"])

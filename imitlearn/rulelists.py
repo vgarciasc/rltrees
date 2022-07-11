@@ -1,6 +1,6 @@
 import argparse
 from os import X_OK
-import imitation_learning.env_configs
+import imitlearn.env_configs
 import pdb
 import time
 import numpy as np
@@ -8,13 +8,13 @@ import numpy as np
 from functools import reduce
 from collections import Counter
 from rich import print
-from imitation_learning.il import get_average_reward, get_average_reward_with_std
-from imitation_learning.ova import CartOvaAgent
+from imitlearn.il import get_average_reward, get_average_reward_with_std
+from imitlearn.ova import CartOvaAgent
 from qtree import QNode, QLeaf, load_tree
 from statsmodels.stats.proportion import proportion_confint
-from imitation_learning.utils import printv, str_avg
-from imitation_learning.dt_structure_viz import viztree2qtree, load_viztree
-from imitation_learning.utils import load_dataset
+from imitlearn.utils import printv, str_avg
+from imitlearn.dt_structure_viz import viztree2qtree, load_viztree
+from imitlearn.utils import load_dataset
 
 from scipy.special import betaincinv
 
@@ -687,7 +687,7 @@ if __name__ == "__main__":
     parser.add_argument('--verbose', help='Is verbose?', required=False, default=False, type=lambda x: (str(x).lower() == 'true'))
     args = vars(parser.parse_args())
     
-    config = imitation_learning.env_configs.get_config(args['task'])
+    config = imitlearn.env_configs.get_config(args['task'])
     rulelist = Rulelist(config)
 
     if args['class'] == "QTree":
