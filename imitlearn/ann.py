@@ -125,15 +125,24 @@ def collect_data(config, args, verbose=False):
 
     for episode in range(args['episodes']):
         raw_state = env.reset()
-        state = config['conversion_fn'](env, None, raw_state)
         reward = 0
         done = False
+
+        if config['skip_first_frame']:
+            action = np.random.randint(0, config['n_actions'])
+            raw_next_state, _, _, _ = env.step(action)
+            state = config['conversion_fn'](env, raw_state, raw_next_state)
+        else:
+            state = config['conversion_fn'](env, None, raw_state)
         
         while not done:
             action = model.act(state)
 
             raw_next_state, reward, done, _ = env.step(action)
-            next_state = config['conversion_fn'](env, raw_state, raw_next_state)
+            try:
+                next_state = config['conversion_fn'](env, raw_state, raw_next_state)
+            except:
+                pdb.set_trace()
             if config['should_force_episode_termination_score']:
                 reward = reward if not done else config['episode_termination_score']
 

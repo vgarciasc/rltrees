@@ -22,9 +22,16 @@ def get_average_reward(config, model, episodes=10, verbose=False):
 
     for episode in range(episodes):
         raw_state = env.reset()
-        state = config['conversion_fn'](env, None, raw_state)
+        reward = 0
         total_reward = 0
         done = False
+
+        if config['skip_first_frame']:
+            action = np.random.randint(0, config['n_actions'])
+            raw_next_state, _, _, _ = env.step(action)
+            state = config['conversion_fn'](env, raw_state, raw_next_state)
+        else:
+            state = config['conversion_fn'](env, None, raw_state)
         
         while not done:
             action = model.act(state)

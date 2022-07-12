@@ -1,10 +1,14 @@
+import pdb
 import numpy as np
 
-# from imitation_learning.snake import decode_state, construct_features
+# snake configuration
+import sneks
+from snake.snake import extract_features
 
 config_CP = {
     "name": "CartPole-v1",
     "can_render": True,
+    "skip_first_frame": False,
     "episode_max_score": 195,
     "should_force_episode_termination_score": True,
     "should_convert_state_to_array": False,
@@ -23,6 +27,7 @@ config_CP = {
 config_LL = {
     "name": "LunarLander-v2",
     "can_render": True,
+    "skip_first_frame": False,
     "n_actions": 4,
     "should_force_episode_termination_score": False,
     "should_convert_state_to_array": False,
@@ -44,6 +49,7 @@ config_LL = {
 config_MC = {
     "name": "MountainCar-v0",
     "can_render": True,
+    "skip_first_frame": False,
     "episode_max_score": 195,
     "should_force_episode_termination_score": False,
     "should_convert_state_to_array": False,
@@ -60,6 +66,7 @@ config_MC = {
 config_BJ = {
     "name": "Blackjack-v0",
     "can_render": False,
+    "skip_first_frame": False,
     "episode_max_score": 1,
     "should_force_episode_termination_score": False,
     "should_convert_state_to_array": True,
@@ -75,22 +82,25 @@ config_BJ = {
 }
 
 config_SN = {
-    "name": "Snake-8x8-v0",
+    "name": "babysnek-raw-16-v1",
     "can_render": True,
     "render_delay_ms": 100,
     "episode_max_score": 16,
     "should_force_episode_termination_score": False,
+    "skip_first_frame": True,
     "should_convert_state_to_array": True,
-    "conversion_fn": lambda env, s1, s2 : construct_features(env, decode_state(s1), decode_state(s2)),
+    "conversion_fn": lambda env, s1, s2 : extract_features(s1, s2),
     "episode_termination_score": None,
-    "n_actions": 3,
+    "n_actions": 4,
     "actions": ["forward", "left", "right"],
     # "n_attributes": 36,
-    "n_attributes": 7,
+    "n_attributes": 5,
     "attributes": [
-        ("Player's Sum", "discrete", 0, 22),
-        ("Dealer's Card", "discrete", 1, 11),
-        ("Usable Ace", "binary", -1, -1)],
+        ("Distance Left", "continuous", 0, 1),
+        ("Distance Right", "continuous", 0, 1),
+        ("Distance Up", "continuous", 0, 1),
+        ("Distance Down", "continuous", 0, 1),
+        ("Angle to Apple", "continuous", -1, 1)]
 }
 
 def get_config(task_name):

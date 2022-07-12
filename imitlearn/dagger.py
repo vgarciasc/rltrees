@@ -137,7 +137,7 @@ if __name__ == "__main__":
             config=config,
             avg_rewards=avg_rewards,
             deviations=deviations,
-            model_sizes=model_sizes,
+            nodes=model_sizes,
             pruning_alpha=args['pruning'],
             episodes=args['episodes'],
             show=args['should_plot'])
